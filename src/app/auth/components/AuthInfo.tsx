@@ -1,6 +1,5 @@
 'use client'
 import { usePathname } from 'next/navigation'
-import Balancer from 'react-wrap-balancer'
 
 type AuthInfoProps = React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLElement>,
@@ -20,13 +19,9 @@ export default function AuthInfo({ className }: AuthInfoProps) {
 
   return (
     <section className={className}>
-      <Balancer ratio={0} className="text-2xl font-bold">
-        {info.title}
-      </Balancer>
+      <p className="text-2xl">{info.title}</p>
 
-      <Balancer ratio={0.75} className="font-medium">
-        {info.subtitle}
-      </Balancer>
+      <p className="text-md max-w-[16rem] text-background">{info.subtitle}</p>
     </section>
   )
 }

@@ -6,7 +6,7 @@ export const ReleasedLogos = () => {
       viewBox="0 0 272 452"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="max-w-[60%]"
+      className="max-w-[60%] max-h-[50%]"
     >
       <g filter="url(#filter0_d_261_623)">
         <rect

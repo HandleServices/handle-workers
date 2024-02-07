@@ -10,9 +10,8 @@ const config: Config = {
   theme: {
     colors: {
       ...colors,
-      blue: {
-        ...colors.blue,
-        500: '#1A73E8',
+      handle: {
+        blue: '#1A73E8',
       },
       background: '#E1E1E6',
     },
