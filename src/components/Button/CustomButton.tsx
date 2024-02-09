@@ -1,8 +1,8 @@
-import React, { forwardRef, useState } from 'react'
-import { VariantProps, cva } from 'class-variance-authority'
+import React, { forwardRef } from 'react'
+import { cva } from 'class-variance-authority'
 import Image from 'next/image'
-import GoogleSVG from './assets/google-color-svgrepo-com.svg'
 import { twMerge } from 'tailwind-merge'
+import Google from './assets/google'
 
 const variants = cva(
   [
@@ -44,6 +44,7 @@ interface loadingProps {
 }
 
 function Loading({ type }: loadingProps): JSX.Element {
+  console.log(icons)
   if (type === 'secondary') {
     return (
       <div
@@ -82,16 +83,9 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             <div
               className={`grid grid-cols-12 w-full h-full align-center items-center content-center`}
             >
-              <Image
-                src={GoogleSVG}
-                height={15}
-                width={15}
-                style={{
-                  alignSelf: 'center',
-                  justifySelf: 'center',
-                }}
+              <Google
                 className={'col-span-2'}
-                alt=""
+                style={{ alignSelf: 'center', justifySelf: 'center' }}
               />
               <p className={`col-span-10 text-center`}>{children}</p>
             </div>
