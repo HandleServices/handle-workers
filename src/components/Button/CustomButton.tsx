@@ -1,72 +1,102 @@
-import React, { forwardRef } from 'react'
-import clsx from 'clsx'
+import React, { forwardRef, useState } from 'react'
+import { VariantProps, cva } from 'class-variance-authority'
 import Image from 'next/image'
 import GoogleSVG from './assets/google-color-svgrepo-com.svg'
+import { twMerge } from 'tailwind-merge'
 
-const colors = {
-  primary: '#1A74EA',
-  secondary: '#F7F8F4',
-  neutral: '#7c828d',
-  icon: '#F7F8F4',
-}
-
-const sizes = {
-  small: '100px',
-  medium: '150px',
-  large: '200px',
-}
-
-const Loading = () => (
-  <div className={` flex flex-row align-center justify-center content-center `}>
-    <div className="w-4 h-4 rounded-full border-2 border-b-transparent animate-spin border-[inherit]"></div>
-  </div>
+const variants = cva(
+  [
+    'rounded-md',
+    'shadow-md',
+    'hover:shadow-lg',
+    'transition-shadow',
+    'duration-200',
+    'tracking-[0.2em]',
+    'font-bold',
+    'items-center',
+    'justify-center',
+    'text-center',
+    'relative',
+    'h-[40px]',
+  ],
+  {
+    variants: {
+      variant: {
+        primary: ['bg-[#1A74EA]', 'text-white'],
+        secondary: ['bg-[#F7F8F4]', 'text-[#1A74EA]'],
+        neutral: ['bg-[#7c828d]', 'text-white'],
+      },
+      size: {
+        small: ['w-[160px]', 'text-xs'],
+        medium: ['w-[210px]', 'text-xs'],
+        large: ['w-[260px]', 'text-[0.9em]'],
+      },
+    },
+    defaultVariants: {
+      variant: 'primary',
+      size: 'large',
+    },
+  },
 )
+
+interface loadingProps {
+  type: string
+}
+
+function Loading({ type }: loadingProps): JSX.Element {
+  if (type === 'secondary') {
+    return (
+      <div
+        className={` flex flex-row align-center justify-center content-center `}
+      >
+        <div className="w-4 h-4 rounded-full border-2 border-b-transparent animate-spin border-[#1A74EA]"></div>
+      </div>
+    )
+  }
+  return (
+    <div
+      className={` flex flex-row align-center justify-center content-center `}
+    >
+      <div className="w-4 h-4 rounded-full border-2 border-b-transparent animate-spin"></div>
+    </div>
+  )
+}
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   loading?: boolean
-  size?: keyof typeof sizes | number | string
-  height?: string | number
-  buttonType?: keyof typeof colors
+  size?: 'small' | 'medium' | 'large'
+  variant?: 'primary' | 'secondary' | 'neutral'
+  icon?: string
 }
 
-// eslint-disable-next-line react/display-name, no-empty-pattern
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  (
-    { className, children, loading, size = 'large', buttonType, ...rest },
-    ref,
-  ) => {
-    rest.height = rest.height || '1.75rem'
-    const sizeValue = sizes[size as keyof typeof sizes]
-    const heightValue =
-      typeof rest.height === 'number' ? `${rest.height}rem` : rest.height
-    const color = colors[buttonType as keyof typeof colors]
-
+  ({ icon, className, children, loading, size, variant, ...rest }, ref) => {
     return (
       <button
         ref={ref}
-        className={clsx(
-          'rounded-md',
-          'shadow-md',
-          'hover:shadow-lg',
-          'transition-shadow',
-          'duration-200',
-          'tracking-widest',
-          'font-bold',
-          'items-center',
-          'justify-center',
-          'text-center',
-          'relative',
-          className,
-        )}
-        style={{
-          backgroundColor: `${color}`,
-          height: `${heightValue}`,
-          width: `${sizeValue}`,
-        }}
+        className={twMerge(variants({ variant, size, className }))}
         {...rest}
       >
-        {loading && <Loading />}
+        {(loading && <Loading type={variant || ''} />) ||
+          (icon && (
+            <div
+              className={`grid grid-cols-12 w-full h-full align-center items-center content-center`}
+            >
+              <Image
+                src={GoogleSVG}
+                height={15}
+                width={15}
+                style={{
+                  alignSelf: 'center',
+                  justifySelf: 'center',
+                }}
+                className={'col-span-2'}
+                alt=""
+              />
+              <p className={`col-span-10 text-center`}>{children}</p>
+            </div>
+          )) ||
+          children}
       </button>
     )
   },
