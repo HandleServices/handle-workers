@@ -1,6 +1,5 @@
 import React, { forwardRef } from 'react'
 import { cva } from 'class-variance-authority'
-import Image from 'next/image'
 import { twMerge } from 'tailwind-merge'
 import Google from './assets/google'
 
@@ -44,7 +43,6 @@ interface loadingProps {
 }
 
 function Loading({ type }: loadingProps): JSX.Element {
-  console.log(icons)
   if (type === 'secondary') {
     return (
       <div
