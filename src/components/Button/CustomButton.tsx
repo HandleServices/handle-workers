@@ -16,7 +16,7 @@ const variants = cva(
     'justify-center',
     'text-center',
     'relative',
-    'h-[40px]',
+    'h-10',
   ],
   {
     variants: {
@@ -26,9 +26,9 @@ const variants = cva(
         neutral: ['bg-[#7c828d]', 'text-white'],
       },
       size: {
-        small: ['w-[160px]', 'text-xs'],
-        medium: ['w-[210px]', 'text-xs'],
-        large: ['w-[260px]', 'text-[0.9em]'],
+        small: ['w-40', 'text-xs'],
+        medium: ['w-52', 'text-xs'],
+        large: ['w-64', 'text-[0.9em]'],
       },
     },
     defaultVariants: {
