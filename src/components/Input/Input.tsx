@@ -1,14 +1,14 @@
 'use client'
 
-import { InputHTMLAttributes } from 'react'
+import { InputHTMLAttributes, memo } from 'react'
 import './input.styles.css'
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name?: string
   inheritColor?: string
 }
 
-export default function Input({
+function Input({
   name,
   className,
   inheritColor,
@@ -35,3 +35,5 @@ export default function Input({
     </div>
   )
 }
+
+export default memo(Input) as unknown as typeof Input
