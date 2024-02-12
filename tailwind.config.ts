@@ -17,6 +17,7 @@ const config: Config = {
         gray: '#7c828d',
       },
       background: '#E1E1E6',
+      primaryGray: '#323238',
     },
   },
   plugins: [],
