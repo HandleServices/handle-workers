@@ -35,13 +35,3 @@ export default function Input({
     </div>
   )
 }
-
-// text-xl text-primaryGray absolute left-4 top-1/2 transform -translate-y-1/2 px-1 duration-200 tracking-wider
-
-// text-primaryGray absolute top-0 scale-75 left-4 peer-placeholder-shown:text-xl peer-placeholder-shown:transform peer-placeholder-shown:-translate-y-1/2 px-1 duration-200 tracking-wider transition-all peer-focus:text-handle-blue peer-focus:scale-75 peer-focus:top-0
-
-// text-xl text-primaryGray text-opacity-80 absolute left-4 top-1/2 transform -translate-y-1/2 px-1 duration-200 tracking-wider peer-focus:text-handle-blue pointer-events-none peer-focus:scale-75 peer-focus:top-0 transition-al
-
-// peer-placeholder-shown:scale-125 peer-placeholder-shown:transform peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:scale-90 peer-focus:top-0 peer-focus:px-1 pointer-events-none peer-first:top-3
-
-// ${'bg-'.concat(inheritColor ?? 'background')}
