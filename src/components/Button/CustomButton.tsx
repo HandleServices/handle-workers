@@ -1,7 +1,7 @@
-import React, { forwardRef } from 'react'
+'use client'
+import React, { forwardRef, useState } from 'react'
 import { cva } from 'class-variance-authority'
 import { twMerge } from 'tailwind-merge'
-import Google from './assets/google'
 
 const variants = cva(
   [
@@ -9,13 +9,9 @@ const variants = cva(
     'shadow-md',
     'hover:shadow-lg',
     'transition-shadow',
-    'duration-200',
+    'duration-400',
     'tracking-[0.2em]',
     'font-bold',
-    'items-center',
-    'justify-center',
-    'text-center',
-    'relative',
     'h-10',
   ],
   {
@@ -62,34 +58,60 @@ function Loading({ type }: loadingProps): JSX.Element {
 }
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  loading?: boolean
   size?: 'small' | 'medium' | 'large'
   variant?: 'primary' | 'secondary' | 'neutral'
-  icon?: string
+  icon?: JSX.Element
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ icon, className, children, loading, size, variant, ...rest }, ref) => {
+  ({ icon, className, children, size, variant, ...rest }, ref) => {
+    const [loading, setLoading] = useState(false)
     return (
-      <button
-        ref={ref}
-        className={twMerge(variants({ variant, size, className }))}
-        {...rest}
+      <div
+        className={twMerge(variants({ variant, size, className }), [
+          'grid',
+          'align-middle',
+          'justify-center',
+          'content-center',
+        ])}
       >
-        {(loading && <Loading type={variant || ''} />) ||
-          (icon && (
-            <div
-              className={`grid grid-cols-12 w-full h-full align-center items-center content-center`}
-            >
-              <Google
-                className={'col-span-2'}
-                style={{ alignSelf: 'center', justifySelf: 'center' }}
-              />
-              <p className={`col-span-10 text-center`}>{children}</p>
-            </div>
-          )) ||
-          children}
-      </button>
+        <button
+          ref={ref}
+          className={twMerge(variants({ variant, size }))}
+          {...rest}
+          onClick={(e) => {
+            if (loading) return
+            setLoading(true)
+            if (typeof rest.onClick === 'function') {
+              fetch(new Request(e.currentTarget?.baseURI || '')).then(() => {
+                setLoading(false)
+                if (rest.onClick) {
+                  rest.onClick(e)
+                }
+              })
+            } else {
+              console.log('No function')
+              setLoading(false)
+            }
+          }}
+          disabled={loading}
+        >
+          {(loading && <Loading type={variant || ''} />) ||
+            (icon && (
+              <div
+                className={`grid grid-cols-12 w-full h-full align-center items-center content-center`}
+              >
+                <div
+                  className={`flex flex-row align-center items-center justify-center col-span-2`}
+                >
+                  {icon}
+                </div>
+                <p className={`col-span-10 text-center p-0 m-0`}>{children}</p>
+              </div>
+            )) ||
+            children}
+        </button>
+      </div>
     )
   },
 )
@@ -97,66 +119,3 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 Button.displayName = 'Button'
 
 export { Button }
-
-// interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-//   title: string
-//   buttonType: 'primary' | 'secondary' | 'neutral' | 'icon'
-//   buttonSize?: string
-//   height?: string | number
-//   icon?: string
-//   children?: React.ReactNode
-// }
-
-// export default function CustomButton({
-//   title,
-//   buttonType,
-//   buttonSize = 'large',
-//   height = 2,
-//   type = 'submit',
-//   ...rest
-// }: ButtonProps) {
-//   buttonSize = sizes[buttonSize as keyof typeof sizes]
-//   const hasIcon = buttonType === 'icon'
-
-//   return (
-//     <button
-//       type={type}
-//       {...rest}
-//       style={{
-//         backgroundColor: `${colors[buttonType as keyof typeof colors]}`,
-//         color: `${buttonType === 'secondary' || buttonType === 'icon' ? colors.primary : 'white'}`,
-//         height: `${height}rem`,
-//       }}
-//       className={clsx(
-//         'rounded-md',
-//         'shadow-md',
-//         'hover:shadow-lg',
-//         'transition-shadow',
-//         'duration-200',
-//         'tracking-widest',
-//         'font-bold',
-//         'grid',
-//         'grid-cols-5',
-//         'items-center',
-//         'justify-around',
-//         'text-center',
-//         `${buttonSize}`,
-//         'relative',
-//       )}
-//     >
-//       {hasIcon && (
-//         <div className={`flex flex-row align-center items-center `}>
-//           <Image
-//             src={GoogleSVG}
-//             height={15}
-//             width={15}
-//             style={{ marginRight: `${5}px` }}
-//             className={`col-span-1 absolute left-4`}
-//             alt=""
-//           />
-//         </div>
-//       )}
-//       <p className={`col-span-${hasIcon ? 4 : 5} relative`}>{title}</p>
-//     </button>
-//   )
-// }
