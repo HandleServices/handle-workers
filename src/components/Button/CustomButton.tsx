@@ -17,9 +17,9 @@ const variants = cva(
   {
     variants: {
       variant: {
-        primary: ['bg-[#1A74EA]', 'text-white'],
-        secondary: ['bg-[#F7F8F4]', 'text-[#1A74EA]'],
-        neutral: ['bg-[#7c828d]', 'text-white'],
+        primary: ['bg-handle-blue', 'text-white'],
+        secondary: ['bg-handle-white', 'text-handle-blue'],
+        neutral: ['bg-handle-gray', 'text-white'],
       },
       size: {
         small: ['w-40', 'text-xs'],
@@ -39,20 +39,11 @@ interface loadingProps {
 }
 
 function Loading({ type }: loadingProps): JSX.Element {
-  if (type === 'secondary') {
-    return (
-      <div
-        className={` flex flex-row align-center justify-center content-center `}
-      >
-        <div className="w-4 h-4 rounded-full border-2 border-b-transparent animate-spin border-[#1A74EA]"></div>
-      </div>
-    )
-  }
   return (
-    <div
-      className={` flex flex-row align-center justify-center content-center `}
-    >
-      <div className="w-4 h-4 rounded-full border-2 border-b-transparent animate-spin"></div>
+    <div className="flex flex-row align-center justify-center content-center">
+      <div
+        className={`w-4 h-4 rounded-full border-2 border-b-transparent animate-spin ${type === 'secondary' ? 'border-handle-blue' : ''} `}
+      />
     </div>
   )
 }
@@ -98,15 +89,11 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         >
           {(loading && <Loading type={variant || ''} />) ||
             (icon && (
-              <div
-                className={`grid grid-cols-12 w-full h-full align-center items-center content-center`}
-              >
-                <div
-                  className={`flex flex-row align-center items-center justify-center col-span-2`}
-                >
+              <div className="grid grid-cols-12 w-full h-full align-center items-center content-center">
+                <div className="flex flex-row align-center items-center justify-center col-span-2">
                   {icon}
                 </div>
-                <p className={`col-span-10 text-center p-0 m-0`}>{children}</p>
+                <p className="col-span-10 text-center p-0 m-0">{children}</p>
               </div>
             )) ||
             children}
@@ -118,4 +105,5 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
 Button.displayName = 'Button'
 
+export type { ButtonProps }
 export { Button }
