@@ -49,13 +49,14 @@ function Loading({ type }: loadingProps): JSX.Element {
 }
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  size?: 'small' | 'medium' | 'large'
-  variant?: 'primary' | 'secondary' | 'neutral'
+  size: 'small' | 'medium' | 'large'
+  variant: 'primary' | 'secondary' | 'neutral'
+  action: () => Promise<void>
   icon?: JSX.Element
 }
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ icon, className, children, size, variant, ...rest }, ref) => {
+  ({ icon, className, children, size, variant, action, ...rest }, ref) => {
     const [loading, setLoading] = useState(false)
     return (
       <div
@@ -70,24 +71,15 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           ref={ref}
           className={twMerge(variants({ variant, size }))}
           {...rest}
-          onClick={(e) => {
-            if (loading) return
+          onClick={async () => {
+            if (loading || !action) return
             setLoading(true)
-            if (typeof rest.onClick === 'function') {
-              fetch(new Request(e.currentTarget?.baseURI || '')).then(() => {
-                setLoading(false)
-                if (rest.onClick) {
-                  rest.onClick(e)
-                }
-              })
-            } else {
-              console.log('No function')
-              setLoading(false)
-            }
+            await action()
+            setLoading(false)
           }}
           disabled={loading}
         >
-          {(loading && <Loading type={variant || ''} />) ||
+          {(loading && <Loading type={variant} />) ||
             (icon && (
               <div className="grid grid-cols-12 w-full h-full align-center items-center content-center">
                 <div className="flex flex-row align-center items-center justify-center col-span-2">
