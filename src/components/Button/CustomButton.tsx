@@ -51,7 +51,7 @@ function Loading({ type }: loadingProps): JSX.Element {
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   size: 'small' | 'medium' | 'large'
   variant: 'primary' | 'secondary' | 'neutral'
-  action: () => Promise<void>
+  action: (() => Promise<void>) | (() => void)
   icon?: JSX.Element
 }
 
@@ -71,7 +71,8 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           ref={ref}
           className={twMerge(variants({ variant, size }))}
           {...rest}
-          onClick={async () => {
+          onClick={async (e) => {
+            e.preventDefault()
             if (loading || !action) return
             setLoading(true)
             await action()
