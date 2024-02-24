@@ -4,23 +4,21 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
+} from '@/components/ui/Select'
 
 export default function Home() {
   return (
-    <main className="h-full w-full flex items-center justify-center">
-      <div className="h-52 w-52 bg-orange-200 flex items-center justify-center">
-        <Select>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Theme" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="light">Light</SelectItem>
-            <SelectItem value="dark">Dark</SelectItem>
-            <SelectItem value="system">System</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
-    </main>
+    <div className="flex items-center justify-center h-screen">
+      <Select>
+        <SelectTrigger className="w-[280px] h-12">
+          <SelectValue placeholder="Selecione sua profissão" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="Cabeleleiro">Cabeleleiro</SelectItem>
+          <SelectItem value="Eletricista">Eletricista</SelectItem>
+          <SelectItem value="Montador">Montador</SelectItem>
+        </SelectContent>
+      </Select>
+    </div>
   )
 }

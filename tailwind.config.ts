@@ -21,6 +21,9 @@ const config: Config = {
         blue: '#1A73E8',
         white: '#F7F8F4',
         gray: '#7c828d',
+        'blue-500': '#1A73E8',
+        babyBlue: '#D2E2FA',
+        'gray-700': '#323238',
         red: {
           500: '#FF5252',
           600: '#FF3636',
