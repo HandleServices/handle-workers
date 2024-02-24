@@ -1,4 +1,4 @@
-import Input from './Input'
+import { Input } from './Input'
 
 export type { InputProps } from './Input'
 
