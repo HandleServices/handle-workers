@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Manrope } from 'next/font/google'
 
 import '../styles/globals.css'
+import { twMerge } from 'tailwind-merge'
 
 const manrope = Manrope({
   subsets: ['latin'],
@@ -20,8 +21,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body className={`${manrope.className} min-h-screen w-screen`}>
-        {children}
+      <body>
+        <div className={twMerge(manrope.className, 'min-h-screen w-screen')}>
+          {children}
+        </div>
       </body>
     </html>
   )

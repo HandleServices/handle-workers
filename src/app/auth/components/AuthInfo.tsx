@@ -21,7 +21,9 @@ export default function AuthInfo({ className }: AuthInfoProps) {
     <section className={className}>
       <p className="text-2xl">{info.title}</p>
 
-      <p className="text-base max-w-[16rem] text-background">{info.subtitle}</p>
+      <p className="text-base max-w-[16rem] text-handle-background">
+        {info.subtitle}
+      </p>
     </section>
   )
 }
