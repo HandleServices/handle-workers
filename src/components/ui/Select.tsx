@@ -17,14 +17,14 @@ const SelectTrigger = React.forwardRef<
     <SelectPrimitive.Trigger
       ref={ref}
       className={cn(
-        `flex h-10 w-full items-center tracking-widest justify-between rounded-md bg-background outline-none border-[1px] focus:border-none color-handle-gray-700 border-handle-gray-700 focus-visible:ring-2 focus-visible:ring-blue-400 px-3 py-2 text-base placeholder:text-muted-gray-600 disabled:cursor-not-allowed disabled:opacity-50 focus:text-handle-blue-500 transition delay-50 data-[state=open]:[&_svg]:rotate-180`,
+        `flex h-10 w-full items-center tracking-widest justify-between rounded-md bg-background outline-none border-[1px] focus:border-none color-handle-gray-700 border-handle-gray-700 focus-visible:ring-2 focus-visible:ring-blue-400 px-3 py-2 text-base placeholder:text-muted-gray-600 disabled:cursor-not-allowed disabled:opacity-50 focus:text-handle-blue-500 [&>svg]:data-[state=open]:rotate-180`,
         className,
       )}
       {...props}
     >
       {children}
       <SelectPrimitive.Icon asChild>
-        <ChevronDown className="h-4 w-4" style={{ rotate: '180deg' }} />
+        <ChevronDown className="h-4 w-4 transition delay-100" />
       </SelectPrimitive.Icon>
     </SelectPrimitive.Trigger>
   )
@@ -75,7 +75,7 @@ const SelectContent = React.forwardRef<
       <SelectPrimitive.Content
         ref={ref}
         className={cn(
-          'relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-none border bg-popover text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-1 data-[side=top]:slide-in-from-bottom-2',
+          'relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-none border bg-popover text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-1 data-[side=top]:slide-in-from-bottom-2 ',
           position === 'popper' &&
             'data-[side=bottom]:translate-y-0 data-[side=left]:-translate-x-0 data-[side=right]:translate-x-0 data-[side=top]:-translate-y-0',
           className,
@@ -88,7 +88,7 @@ const SelectContent = React.forwardRef<
           className={cn(
             'p-0',
             position === 'popper' &&
-              'h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]',
+              'h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)] transition delay-100',
           )}
         >
           {children}
@@ -125,7 +125,9 @@ const SelectItem = React.forwardRef<
       )}
       {...props}
     >
-      <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
+      <SelectPrimitive.ItemText className="transition delay-100">
+        {children}
+      </SelectPrimitive.ItemText>
     </SelectPrimitive.Item>
   )
 })
