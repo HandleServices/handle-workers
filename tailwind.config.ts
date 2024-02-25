@@ -22,7 +22,7 @@ const config: Config = {
         white: '#F7F8F4',
         gray: '#7c828d',
         'blue-500': '#1A73E8',
-        babyBlue: '#D2E2FA',
+        'blue-500-20': '#1A73E825',
         'gray-700': '#323238',
         red: {
           500: '#FF5252',
