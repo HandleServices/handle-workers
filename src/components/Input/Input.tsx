@@ -11,11 +11,27 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name?: string | undefined
   error?: boolean
   sz?: 'small' | 'medium' | 'large'
+  customBgColor?: string | undefined
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ name, className, placeholder, error, sz = 'medium', ...props }, ref) => {
+  (
+    {
+      name,
+      customBgColor = 'bg-inherit',
+      className,
+      placeholder,
+      error,
+      width,
+      height,
+      sz = 'medium',
+      ...props
+    },
+    ref,
+  ) => {
     console.log(error)
+
+    const labelBg = customBgColor
 
     const variants = cva(
       clsx({
@@ -45,6 +61,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           id={name}
           name={name}
           type="text"
+          style={{ width, height }}
           className={twMerge(variants({ sz }))}
           {...props}
           placeholder=" "
@@ -52,12 +69,13 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         <label
           htmlFor={props.id}
           className={twMerge(
-            'absolute top-0 -translate-y-1/2 left-2 px-1 py-0 text-xs bg-inherit transition-all duration-300 ease-in-out pointer-events-none',
+            'absolute top-0 -translate-y-1/2 left-2 px-1 py-0 text-xs transition-all duration-300 ease-in-out pointer-events-none',
             clsx({
               'text-handle-red-500': error,
               'text-custom-gray-300 peer-focus-visible:text-handle-blue':
                 !error,
             }),
+            labelBg,
           )}
         >
           {placeholder}
