@@ -14,7 +14,7 @@ export default function AuthLayout({
         <ReleasedLogos />
       </section>
 
-      <section className="flex-grow bg-background">{children}</section>
+      <section className="flex-grow bg-handle-background">{children}</section>
     </section>
   )
 }
