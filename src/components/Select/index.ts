@@ -1,5 +1,5 @@
 import {
-  Select, 
+  Select,
   SelectGroup,
   SelectValue,
   SelectTrigger,
@@ -8,10 +8,11 @@ import {
   SelectItem,
   SelectSeparator,
   SelectScrollUpButton,
-  SelectScrollDownButton } from "./Select";
+  SelectScrollDownButton,
+} from './Select'
 
 export default {
-  Select, 
+  Select,
   SelectGroup,
   SelectValue,
   SelectTrigger,
@@ -20,5 +21,5 @@ export default {
   SelectItem,
   SelectSeparator,
   SelectScrollUpButton,
-  SelectScrollDownButton
+  SelectScrollDownButton,
 }
