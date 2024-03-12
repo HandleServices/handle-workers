@@ -18,12 +18,18 @@ const config: Config = {
       ...colors,
       handle: {
         background: '#E1E1E6',
-        blue: '#1A73E8',
         white: '#F7F8F4',
-        gray: '#7c828d',
-        'blue-500': '#1A73E8',
-        'blue-500-20': '#1A73E825',
-        'gray-700': '#323238',
+        blue: {
+          DEFAULT: '#1A73E8',
+          '500': {
+            15: '#1A73E815',
+            20: '#1A73E820',
+          },
+        },
+        gray: {
+          DEFAULT: '#7c828d',
+          '700': '#323238',
+        },
         red: {
           500: '#FF5252',
           600: '#FF3636',
