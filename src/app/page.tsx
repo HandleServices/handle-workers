@@ -4,7 +4,9 @@ import { Input } from '@/components/InputImage/input'
 export default function Home() {
   return (
     <div>
-      <Input id="picture" type="file" />
+      <div className="w-[200px] h-[200px] ">
+        <Input id="picture" type="file" />
+      </div>
     </div>
   )
 }
