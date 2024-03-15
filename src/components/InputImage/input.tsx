@@ -12,15 +12,15 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const [image, setImage] = React.useState('')
     return (
       <div>
+        <p className="tracking-widest text-sm mb-[4px] ml-[13px] font-thin">
+          adicione uma foto sua*
+        </p>
         <label
           htmlFor="picture"
-          className="flex flex-col items-center cursor-pointer"
+          className="flex flex-col items-center cursor-pointer max-h-[200px]"
         >
-          <p className="tracking-widest text-sm mb-[4px]">
-            adicione uma foto sua*
-          </p>
           <div
-            className="box-border rounded-lg border-2 border-handle-gray-700 externBox h-[180px] w-[180px]"
+            className="box-border rounded-lg ring-1 ring-handle-gray-700 border-1 border-handle-gray-700 externBox h-[180px] w-[178px]"
             style={
               image
                 ? {
@@ -28,14 +28,12 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     backgroundRepeat: 'no-repeat',
-                    width: '180px',
-                    height: '180px',
                     marginLeft: '0.25rem',
                     overflow: 'hidden',
                   }
                 : {
-                  paddingTop: '3rem',
-                }
+                    paddingTop: '3rem',
+                  }
             }
           >
             {(!image && (
@@ -60,7 +58,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
               </svg>
             )) || <></>}
             <input
-              src="/images/default.png"
               type={type}
               onInput={(e) => {
                 setImage(URL.createObjectURL(e.target.files[0]))
@@ -72,10 +69,10 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
               {...props}
             />
           </div>
-          <div className="h-[58px] w-[58px] text-white text-[58px] font-sans font-thin  pointer-events-none bg-handle-blue transform translate-x-[5.5rem] translate-y-[-45px] shadow-2xl rounded-full flex justify-center items-center">
-            +
-          </div>
         </label>
+        <div className="h-[58px] w-[58px] text-white text-[58px] font-sans font-thin  pointer-events-none bg-[#1A8FFFff] transform translate-x-[9.5rem] translate-y-[-45px] shadow-2xl rounded-full flex justify-center items-center">
+          +
+        </div>
       </div>
     )
   },
