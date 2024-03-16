@@ -8,7 +8,7 @@ export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {}
 
 const InputImage = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, ...props }, ref) => {
+  ({ className, ...props }, ref) => {
     const [image, setImage] = React.useState('')
     return (
       <div className="max-w-[200px] flex flex-col items-center justify-center ">
@@ -17,7 +17,7 @@ const InputImage = React.forwardRef<HTMLInputElement, InputProps>(
         </p>
         <label
           htmlFor="picture"
-          className="flex flex-col items-center cursor-pointer max-h-[200px]"
+          className="flex flex-col items-center cursor-pointer max-h-[200px] pointer-events-auto"
         >
           <div
             className="box-border rounded-lg ring-1 ring-handle-gray-700 border-1 border-handle-gray-700 externBox h-[180px] w-[178px]"
@@ -58,9 +58,12 @@ const InputImage = React.forwardRef<HTMLInputElement, InputProps>(
               </svg>
             )) || <></>}
             <input
-              type={type}
+              type="file"
               onInput={(e) => {
-                setImage(URL.createObjectURL(e.target.files[0]))
+                const inputElement = e.target as HTMLInputElement
+                if (inputElement.files && inputElement.files[0]) {
+                  setImage(URL.createObjectURL(inputElement.files[0]))
+                }
               }}
               id={'picture'}
               accept="image/*"
