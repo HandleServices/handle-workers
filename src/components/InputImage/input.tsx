@@ -7,12 +7,12 @@ import './style.css'
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {}
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>(
+const InputImage = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, ...props }, ref) => {
     const [image, setImage] = React.useState('')
     return (
-      <div>
-        <p className="tracking-widest text-sm mb-[4px] ml-[13px] font-thin">
+      <div className="max-w-[200px] flex flex-col items-center justify-center ">
+        <p className="tracking-widest text-sm font-thin min-w-[180px]">
           adicione uma foto sua*
         </p>
         <label
@@ -70,13 +70,13 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             />
           </div>
         </label>
-        <div className="h-[58px] w-[58px] text-white text-[58px] font-sans font-thin  pointer-events-none bg-[#1A8FFFff] transform translate-x-[9.5rem] translate-y-[-45px] shadow-2xl rounded-full flex justify-center items-center">
+        <div className="h-[58px] w-[58px] text-white text-[58px] font-sans font-thin  pointer-events-none bg-[#1A8FFFff] transform translate-x-[5rem] translate-y-[-45px] shadow-2xl rounded-full flex justify-center items-center">
           +
         </div>
       </div>
     )
   },
 )
-Input.displayName = 'Input'
+InputImage.displayName = 'InputImage'
 
-export { Input }
+export { InputImage }
