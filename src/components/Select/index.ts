@@ -11,8 +11,7 @@ import {
   SelectScrollDownButton,
 } from './Select'
 
-// eslint-disable-next-line import/no-anonymous-default-export
-export default {
+const SelectComponents = {
   Select,
   SelectGroup,
   SelectValue,
@@ -24,3 +23,5 @@ export default {
   SelectScrollUpButton,
   SelectScrollDownButton,
 }
+
+export default SelectComponents
