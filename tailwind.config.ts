@@ -17,7 +17,10 @@ const config: Config = {
     colors: {
       ...colors,
       handle: {
-        background: '#E1E1E6',
+        background: {
+          DEFAULT: '#E1E1E6',
+          blue: '#D1E3FA',
+        },
         white: '#F7F8F4',
         blue: {
           DEFAULT: '#1A73E8',
