@@ -11,7 +11,7 @@ import {
   SelectScrollDownButton,
 } from './Select'
 
-export default {
+const SelectComponents = {
   Select,
   SelectGroup,
   SelectValue,
@@ -23,3 +23,5 @@ export default {
   SelectScrollUpButton,
   SelectScrollDownButton,
 }
+
+export default SelectComponents
