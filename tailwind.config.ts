@@ -108,6 +108,12 @@ const config: Config = {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
       },
+      backgroundImage: {
+        iconsOverlay: `
+          url('../app/auth/(complete)/complete_register/assets/icons_overlay.svg'),
+          linear-gradient(theme(colors.handle.blue-500), theme(colors.handle.blue-500))
+        `,
+      },
     },
   },
   plugins: [require('tailwindcss-animate')],
