@@ -1,11 +1,11 @@
 'use client'
 
-import { InputHTMLAttributes, forwardRef } from 'react'
-import { cva } from 'class-variance-authority'
-import { twMerge } from 'tailwind-merge'
-import { clsx } from 'clsx'
-
 import './input.styles.css'
+
+import { cva } from 'class-variance-authority'
+import { clsx } from 'clsx'
+import { forwardRef, InputHTMLAttributes } from 'react'
+import { twMerge } from 'tailwind-merge'
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name?: string | undefined
@@ -29,15 +29,13 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     },
     ref,
   ) => {
-    console.log(error)
-
     const labelBg = customBgColor
 
     const variants = cva(
       clsx({
-        'w-full rounded-md bg-transparent box-border outline-none transition-all duration-300 ease-in-out focus-visible:text-handle-blue border-[0.094rem] border-custom-gray-300 focus-visible:border-handle-blue peer':
+        'w-full rounded-md bg-transparent box-border outline-none transition-all duration-300 ease-in-out focus-visible:text-handle-blue border-[0.094rem] border-custom-gray-300 focus-visible:border-handle-blue [&:not(:placeholder-shown)]:border-handle-blue [&:not(:placeholder-shown)]:text-handle-blue peer':
           true,
-        'text-handle-red-500 border-handle-red-500 focus-visible:text-handle-red-500 focus-visible:border-handle-red-500':
+        'text-handle-red-500 border-handle-red-500 focus-visible:text-handle-red-500 focus-visible:border-handle-red-500 [&:not(:placeholder-shown)]:border-handle-red-500 [&:not(:placeholder-shown)]:text-handle-red-500':
           error,
       }),
       {
@@ -72,7 +70,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             'absolute top-0 -translate-y-1/2 left-2 px-1 py-0 text-xs transition-all duration-300 ease-in-out pointer-events-none',
             clsx({
               'text-handle-red-500': error,
-              'text-custom-gray-300 peer-focus-visible:text-handle-blue':
+              'text-custom-gray-300 peer-focus-visible:text-handle-blue peer-[&:not(:placeholder-shown)]:text-handle-blue':
                 !error,
             }),
             labelBg,

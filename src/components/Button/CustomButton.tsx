@@ -1,6 +1,6 @@
 'use client'
-import React, { forwardRef, useState } from 'react'
 import { cva } from 'class-variance-authority'
+import React, { forwardRef, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 const variants = cva(
@@ -18,13 +18,14 @@ const variants = cva(
     variants: {
       variant: {
         primary: ['bg-handle-blue', 'text-white'],
-        secondary: ['bg-handle-white', 'text-handle-blue'],
+        secondary: ['bg-custom-gray-700', 'text-handle-blue'],
         neutral: ['bg-handle-gray', 'text-white'],
       },
       size: {
         small: ['w-40', 'text-xs'],
         medium: ['w-52', 'text-xs'],
         large: ['w-64', 'text-[0.9em]'],
+        extra: ['w-80 h-[3rem]', 'text-[0.9375em]'],
       },
     },
     defaultVariants: {
@@ -49,7 +50,7 @@ function Loading({ type }: loadingProps): JSX.Element {
 }
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  size: 'small' | 'medium' | 'large'
+  size: 'small' | 'medium' | 'large' | 'extra'
   variant: 'primary' | 'secondary' | 'neutral'
   action: (() => Promise<void>) | (() => void)
   icon?: JSX.Element

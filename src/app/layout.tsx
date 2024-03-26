@@ -1,7 +1,7 @@
+import '../styles/globals.css'
+
 import type { Metadata } from 'next'
 import { Manrope } from 'next/font/google'
-
-import '../styles/globals.css'
 import { twMerge } from 'tailwind-merge'
 
 const manrope = Manrope({
