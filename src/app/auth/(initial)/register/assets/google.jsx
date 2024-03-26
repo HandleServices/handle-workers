@@ -1,9 +1,10 @@
 import * as React from 'react'
+
 const SvgComponent = (props) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width={15}
-    height={15}
+    width={25}
+    height={25}
     viewBox="-0.5 0 48 48"
     {...props}
   >
