@@ -7,11 +7,13 @@ import './style.css'
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {}
 
+const PlusIcon = () => (<svg xmlns="http://www.w3.org/2000/svg" width={32} height={32} fill="#FFF" viewBox="0 0 24 24"><path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/></svg>)
+
 const InputImage = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, width = 178, height = 132, ...props }, ref) => {
     const [image, setImage] = React.useState('')
     return (
-      <div className={`flex flex-col items-center justify-center ${className}`}>
+      <div className={`flex flex-col items-center justify-center relative ${className}`}>
         <p className="tracking-widest text-sm font-thin">
           adicione uma foto sua*
         </p>
@@ -73,10 +75,8 @@ const InputImage = React.forwardRef<HTMLInputElement, InputProps>(
             />
           </div>
         </label>
-        <div className="h-[58px] w-[58px] text-white text-[58px] font-sans font-thin pointer-events-none bg-[#1A8FFFff] transform translate-x-[5rem] translate-y-[80px] shadow-2xl rounded-full absolute text-center flex justify-center items-center">
-          <div className='absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2'>
-            +
-          </div>
+        <div className="h-[58px] w-[58px] p-0 m-0 text-white text-[58px] font-sans font-thin pointer-events-none bg-[#1A8FFFff] shadow-2xl rounded-full absolute bottom-0 right-0 transform translate-x-1/4 translate-y-1/4 flex items-center justify-center">
+          <PlusIcon />
         </div>
       </div>
     )
