@@ -8,11 +8,11 @@ export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {}
 
 const InputImage = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, ...props }, ref) => {
+  ({ className, width = 178, height = 132, ...props }, ref) => {
     const [image, setImage] = React.useState('')
     return (
-      <div className="max-w-[200px] flex flex-col items-center justify-center ">
-        <p className="tracking-widest text-sm font-thin min-w-[180px]">
+      <div className={`flex flex-col items-center justify-center ${className}`}>
+        <p className="tracking-widest text-sm font-thin">
           adicione uma foto sua*
         </p>
         <label
@@ -39,9 +39,9 @@ const InputImage = React.forwardRef<HTMLInputElement, InputProps>(
             {(!image && (
               <svg
                 className=""
-                width="178"
-                height="130"
-                viewBox="0 0 178 131"
+                width={width}
+                height={height}
+                viewBox={`0 0 ${width} ${height}`}
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
@@ -73,8 +73,10 @@ const InputImage = React.forwardRef<HTMLInputElement, InputProps>(
             />
           </div>
         </label>
-        <div className="h-[58px] w-[58px] text-white text-[58px] font-sans font-thin  pointer-events-none bg-[#1A8FFFff] transform translate-x-[5rem] translate-y-[-45px] shadow-2xl rounded-full flex justify-center items-center">
-          +
+        <div className="h-[58px] w-[58px] text-white text-[58px] font-sans font-thin pointer-events-none bg-[#1A8FFFff] transform translate-x-[5rem] translate-y-[80px] shadow-2xl rounded-full absolute text-center flex justify-center items-center">
+          <div className='absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2'>
+            +
+          </div>
         </div>
       </div>
     )
