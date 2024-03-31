@@ -1,4 +1,4 @@
-import { IconProps, toSize } from './icon'
+import { IconProps, toSize } from './types'
 
 export type CloseEyeProps = IconProps
 

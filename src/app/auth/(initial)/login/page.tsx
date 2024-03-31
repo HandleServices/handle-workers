@@ -9,7 +9,7 @@ import SvgComponent from '../assets/google'
 
 export default function Login() {
   return (
-    <form className="w-full min-h-screen px-20 py-10 flex items-center justify-center">
+    <form className="w-full max-w-screen min-h-screen px-5 lg:px-20 py-0 lg:py-10 flex items-center justify-center">
       <div className="w-2/3 gap-10 flex flex-col items-center justify-center bg-handle-background">
         <div className="w-full flex flex-col gap-6 bg-handle-background">
           <Input

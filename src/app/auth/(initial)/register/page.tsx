@@ -6,10 +6,10 @@ import { useState } from 'react'
 import { Button } from '@/components/Button'
 import { CustomCheckbox } from '@/components/Checkbox'
 import Input from '@/components/Input'
+import { cpfCnpjMask } from '@/utils/mask-cpf-cnpj'
+import { phoneMask } from '@/utils/mask-phone'
 
 import SvgComponent from '../assets/google'
-import { cpfCnpjMask } from './functions/cpfCnpjMask'
-import { phoneMask } from './functions/phoneMask'
 
 export default function Register() {
   const [isChecked, setIsChecked] = useState(false)

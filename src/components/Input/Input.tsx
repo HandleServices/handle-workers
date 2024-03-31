@@ -7,8 +7,8 @@ import { clsx } from 'clsx'
 import { forwardRef, InputHTMLAttributes, useMemo, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 
-import CloseEyeIcon from '@/app/auth/(initial)/login/assets/close-eye-icon'
-import OpenEyeIcon from '@/app/auth/(initial)/login/assets/open-eye-icon'
+import CloseEyeIcon from '@/app/auth/(initial)/assets/close-eye-icon'
+import OpenEyeIcon from '@/app/auth/(initial)/assets/open-eye-icon'
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name?: string | undefined
