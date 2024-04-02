@@ -99,7 +99,7 @@ const InputImage = React.forwardRef<HTMLInputElement, InputProps>(
           </div>
         </label>
         <div
-          className={`h-[58px] w-[58px] p-0 m-0 text-white text-[58px] font-sans font-thin pointer-events-none bg-[#1A8FFFff] shadow-2xl rounded-full absolute bottom-1/2 right-1/2 flex items-center justify-center`}
+          className={`h-[58px] w-[58px] p-0 m-0 text-white text-[58px] font-sans font-thin pointer-events-none bg-handle-blue-400 shadow-2xl rounded-full absolute bottom-1/2 right-1/2 flex items-center justify-center`}
           style={{
             transform: `translate(${width - width * 0.5 + 20}px, ${height - height * 0.5 + 20}px)`,
           }}
