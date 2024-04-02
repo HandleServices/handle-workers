@@ -54,7 +54,7 @@ const InputImage = React.forwardRef<HTMLInputElement, InputProps>(
                 className=""
                 width={width}
                 height={height}
-                viewBox={`0 ${-height + 130} ${width} ${height}`}
+                viewBox={`${width - width * (width / 180)} ${-height + 130 } ${width} ${height}`}
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
