@@ -1,22 +1,34 @@
 'use client'
 import React from 'react'
+
 import { cn } from '@/lib/utils'
-import { transform } from 'next/dist/build/swc'
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
-    className?: string
-    width?: number
-    height?: number
-  }
+  className?: string
+  width?: number
+  height?: number
+}
 
-const PlusIcon = () => (<svg xmlns="http://www.w3.org/2000/svg" width={32} height={32} fill="#FFF" viewBox="0 0 24 24"><path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/></svg>)
+const PlusIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={32}
+    height={32}
+    fill="#FFF"
+    viewBox="0 0 24 24"
+  >
+    <path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z" />
+  </svg>
+)
 
 const InputImage = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, width = 197, height = 178, ...props }, ref) => {
     const [image, setImage] = React.useState('')
     return (
-      <div className={`flex flex-col items-center justify-center relative ${className}`}>
+      <div
+        className={`flex flex-col items-center justify-center relative ${className}`}
+      >
         <p className="tracking-widest text-sm font-thin">
           adicione uma foto sua*
         </p>
@@ -46,15 +58,15 @@ const InputImage = React.forwardRef<HTMLInputElement, InputProps>(
                     width: `${width}px`,
                     height: `${height}px`,
                   }
-                  : {}
+                : {}
             }
           >
-            {(!image && (
+            {!image && (
               <svg
                 className=""
                 width={width}
                 height={height}
-                viewBox={`${width - width * (width / 180)} ${-height + 130 } ${width} ${height}`}
+                viewBox={`${width - width * (width / 180)} ${-height + 130} ${width} ${height}`}
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
@@ -69,7 +81,7 @@ const InputImage = React.forwardRef<HTMLInputElement, InputProps>(
                   strokeWidth="1.5"
                 />
               </svg>
-            ))}
+            )}
             <input
               type="file"
               onInput={(e) => {
@@ -86,10 +98,11 @@ const InputImage = React.forwardRef<HTMLInputElement, InputProps>(
             />
           </div>
         </label>
-        <div className={`h-[58px] w-[58px] p-0 m-0 text-white text-[58px] font-sans font-thin pointer-events-none bg-[#1A8FFFff] shadow-2xl rounded-full absolute bottom-1/2 right-1/2 flex items-center justify-center`}
-             style={{
-               transform : `translate(${width - width * 0.5 + 20}px, ${height - height * 0.5 + 20}px)`
-             }}
+        <div
+          className={`h-[58px] w-[58px] p-0 m-0 text-white text-[58px] font-sans font-thin pointer-events-none bg-[#1A8FFFff] shadow-2xl rounded-full absolute bottom-1/2 right-1/2 flex items-center justify-center`}
+          style={{
+            transform: `translate(${width - width * 0.5 + 20}px, ${height - height * 0.5 + 20}px)`,
+          }}
         >
           <PlusIcon />
         </div>
