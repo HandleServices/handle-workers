@@ -1,16 +1,18 @@
 'use client'
 import React from 'react'
-
 import { cn } from '@/lib/utils'
-import './style.css'
 
 export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {}
+  extends React.InputHTMLAttributes<HTMLInputElement> {
+    className?: string
+    width?: number
+    height?: number
+  }
 
 const PlusIcon = () => (<svg xmlns="http://www.w3.org/2000/svg" width={32} height={32} fill="#FFF" viewBox="0 0 24 24"><path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/></svg>)
 
 const InputImage = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, width = 178, height = 132, ...props }, ref) => {
+  ({ className, width = 197, height = 178, ...props }, ref) => {
     const [image, setImage] = React.useState('')
     return (
       <div className={`flex flex-col items-center justify-center relative ${className}`}>
@@ -19,10 +21,18 @@ const InputImage = React.forwardRef<HTMLInputElement, InputProps>(
         </p>
         <label
           htmlFor="picture"
-          className="flex flex-col items-center cursor-pointer max-h-[200px] pointer-events-auto"
+          className="cursor-pointer pointer-events-auto"
+          style={
+            image
+              ? {
+                  width: `${width}px`,
+                  height: `${height}px`,
+                }
+              : {}
+          }
         >
           <div
-            className="box-border rounded-lg ring-1 ring-handle-gray-700 border-1 border-handle-gray-700 externBox h-[180px] w-[178px]"
+            className={`box-border rounded-lg ring-1 ring-handle-gray-700 border-1 border-handle-gray-700`}
             style={
               image
                 ? {
@@ -32,10 +42,10 @@ const InputImage = React.forwardRef<HTMLInputElement, InputProps>(
                     backgroundRepeat: 'no-repeat',
                     marginLeft: '0.25rem',
                     overflow: 'hidden',
+                    width: `${width}px`,
+                    height: `${height}px`,
                   }
-                : {
-                    paddingTop: '3rem',
-                  }
+                  : {}
             }
           >
             {(!image && (
@@ -43,7 +53,7 @@ const InputImage = React.forwardRef<HTMLInputElement, InputProps>(
                 className=""
                 width={width}
                 height={height}
-                viewBox={`0 0 ${width} ${height}`}
+                viewBox={`0 ${-height + 130} ${width} ${height}`}
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
@@ -58,7 +68,7 @@ const InputImage = React.forwardRef<HTMLInputElement, InputProps>(
                   strokeWidth="1.5"
                 />
               </svg>
-            )) || <></>}
+            ))}
             <input
               type="file"
               onInput={(e) => {
@@ -69,7 +79,7 @@ const InputImage = React.forwardRef<HTMLInputElement, InputProps>(
               }}
               id={'picture'}
               accept="image/*"
-              className={cn('hidden h-[180px] w-[180px]', className)}
+              className={cn(`hidden h-[${height}px] w-[${width}px]`, className)}
               ref={ref}
               {...props}
             />
