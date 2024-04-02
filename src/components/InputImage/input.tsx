@@ -1,6 +1,7 @@
 'use client'
 import React from 'react'
 import { cn } from '@/lib/utils'
+import { transform } from 'next/dist/build/swc'
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
@@ -85,7 +86,11 @@ const InputImage = React.forwardRef<HTMLInputElement, InputProps>(
             />
           </div>
         </label>
-        <div className="h-[58px] w-[58px] p-0 m-0 text-white text-[58px] font-sans font-thin pointer-events-none bg-[#1A8FFFff] shadow-2xl rounded-full absolute bottom-0 right-0 transform translate-x-1/4 translate-y-1/4 flex items-center justify-center">
+        <div className={`h-[58px] w-[58px] p-0 m-0 text-white text-[58px] font-sans font-thin pointer-events-none bg-[#1A8FFFff] shadow-2xl rounded-full absolute bottom-1/2 right-1/2 flex items-center justify-center`}
+             style={{
+               transform : `translate(${width - width * 0.5 + 20}px, ${height - height * 0.5 + 20}px)`
+             }}
+        >
           <PlusIcon />
         </div>
       </div>
