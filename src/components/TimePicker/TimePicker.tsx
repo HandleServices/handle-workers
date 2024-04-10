@@ -1,21 +1,23 @@
 'use client'
-import { parse } from 'path'
+import './TimePicker.css'
+
 import { useState } from 'react'
 
 import { Input } from '../Input/Input'
+import colors from './../../../tailwind.config'
+
+const handleColors = colors.theme?.colors?.handle
+
+function inputStyle(value: string) {
+  return {
+    color: value !== '00:00' ? handleColors.blue.DEFAULT : handleColors.gray[700],
+    borderColor: value !== '00:00' ? handleColors.blue.DEFAULT : handleColors.gray[700],
+  }
+}
 
 interface TimePickerProps {
   width?: number
   height?: number
-}
-
-function hourMinuteMask(value: string): string {
-  const numbers = value.replace(/^([01]?[0-9]|2[0-3]):[0-5][0-9]$/g, '')
-  if (numbers.length <= 2) {
-    if (parseInt(numbers) > 23) return '23'
-    return numbers
-  }
-  return `${numbers.slice(0, 2)}  ${parseInt(numbers.slice(2, 4)) > 59 ? '59' : numbers.slice(2, 4)}`
 }
 
 const TimePicker = ({
@@ -23,73 +25,62 @@ const TimePicker = ({
   height = 60,
   ...props
 }: TimePickerProps) => {
-  const [inHour, setInOur] = useState('')
-  const [outHour, setOutOur] = useState('')
-  const [onFocus, setOnFocus] = useState([false, false])
+  const [inHour, setInOur] = useState('00:00')
+  const [outHour, setOutOur] = useState('00:00')
 
-  function handleHourMinuteMask(
-    event: { target: { value: string } },
-    setTime: (value: string) => void,
-  ) {
-    setTime(hourMinuteMask(event.target.value))
-    console.log(inHour)
+  const handleInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    setTime: React.Dispatch<React.SetStateAction<string>>,
+  ): void => {
+    console.log(handleColors.blue.DEFAULT)
+    const { value } = event.target
+    setTime(value)
   }
 
   return (
     <div className="flex flex-row gap-[95px] tracking-widest">
       <div>
-        <label className="">Início</label>
-        <div
-          className="absolute"
-          style={{
-            transform: `translate(${width / 2 - (height / 20) * 2 - 3 * (height / 60)}px, ${height / 2 - height / 2 - height / 10}px)`,
-            fontSize: `${height / 20}rem`,
-            visibility: !onFocus[0] ? 'visible' : 'hidden',
-            color: !onFocus[0] ? 'black' : 'transparent',
-          }}
+        <label
+          className={`${inHour !== '00:00' ? 'text-handle-blue' : 'text-handle-gray-700'}`}
         >
-          :
-        </div>
+          Início
+        </label>
         <Input
+          type="time"
           style={{
             width,
             height,
             textAlign: 'center',
-            letterSpacing: '0.1rem',
+            letterSpacing: '.5rem',
             fontSize: `${height / 30}rem`,
+            ...inputStyle(inHour),
           }}
-          onChange={(event) => handleHourMinuteMask(event, setInOur)}
-          placeholder=""
+          onChange={(event) => handleInputChange(event, setInOur)}
           width={width}
           height={height}
           value={inHour}
-          onFocus={() => setOnFocus([true, false])}
-          onBlur={() => setOnFocus([false, false])}
         />
       </div>
       <div>
-        <label className="">Fim</label>
-        <div
-          className="absolute"
-          style={{
-            transform: `translate(${width / 2 - (height / 20) * 2}px, ${height / 2 - height / 2 - height / 10}px)`,
-            fontSize: `${height / 20}rem`,
-          }}
+        <label
+          className={`${outHour !== '00:00' ? 'text-handle-blue' : 'text-handle-gray-700'}`}
         >
-          :
-        </div>
+          Fim
+        </label>
         <Input
+          type="time"
           style={{
             width,
             height,
             textAlign: 'center',
+            letterSpacing: '.5rem',
+            fontSize: `${height / 30}rem`,
+            ...inputStyle(outHour),
           }}
-          onChange={(event) => handleHourMinuteMask(event, setOutOur)}
-          placeholder=""
+          onChange={(event) => handleInputChange(event, setOutOur)}
           width={width}
           height={height}
           value={outHour}
-          onFocus={() => setOnFocus([false, true])}
         />
       </div>
     </div>
