@@ -13,18 +13,23 @@ export interface InputProps
 const PlusIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width={32}
-    height={32}
-    fill="#FFF"
+    width={40}
+    height={40}
+    fill="none"
+    stroke="#FFF"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
     viewBox="0 0 24 24"
   >
-    <path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z" />
+    <path d="M12 5v14m-7-7h14" />
   </svg>
 )
 
 const InputImage = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, width = 197, height = 178, ...props }, ref) => {
+  ({ className, width = 180, height = 180, ...props }, ref) => {
     const [image, setImage] = React.useState('')
+    const smaller = height >= width ? width : height
     return (
       <div
         className={`flex flex-col items-center justify-center relative ${className}`}
@@ -45,7 +50,7 @@ const InputImage = React.forwardRef<HTMLInputElement, InputProps>(
           }
         >
           <div
-            className={`box-border rounded-lg ring-1 ring-handle-gray-700 border-1 border-handle-gray-700`}
+            className={`box-border rounded-lg border-[1.5px] border-handle-gray-700`}
             style={
               image
                 ? {
@@ -53,7 +58,6 @@ const InputImage = React.forwardRef<HTMLInputElement, InputProps>(
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     backgroundRepeat: 'no-repeat',
-                    marginLeft: '0.25rem',
                     overflow: 'hidden',
                     width: `${width}px`,
                     height: `${height}px`,
@@ -63,10 +67,10 @@ const InputImage = React.forwardRef<HTMLInputElement, InputProps>(
           >
             {!image && (
               <svg
-                className=""
+                className="mb-[]"
                 width={width}
                 height={height}
-                viewBox={`${width - width * (width / 180)} ${-height + 130} ${width} ${height}`}
+                viewBox={`0 -60 180 180`}
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
               >
@@ -99,9 +103,11 @@ const InputImage = React.forwardRef<HTMLInputElement, InputProps>(
           </div>
         </label>
         <div
-          className={`h-[58px] w-[58px] p-0 m-0 text-white text-[58px] font-sans font-thin pointer-events-none bg-handle-blue shadow-2xl rounded-full absolute bottom-1/2 right-1/2 flex items-center justify-center`}
+          className={`p-0 m-0 text-white text-[58px] font-sans font-thin pointer-events-none bg-handle-blue shadow-lg drop-shadow-lg rounded-full absolute bottom-1/2 right-1/2 flex items-center justify-center`}
           style={{
-            transform: `translate(${width - width * 0.5 + 20}px, ${height - height * 0.5 + 20}px)`,
+            width: `${smaller * 0.32}px`,
+            height: `${smaller * 0.32}px`,
+            transform: `translate(${width * 0.6}px, ${height * 0.6}px)`,
           }}
         >
           <PlusIcon />
