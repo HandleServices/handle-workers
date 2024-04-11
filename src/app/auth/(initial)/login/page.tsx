@@ -16,6 +16,7 @@ export default function Login() {
             className="w-full"
             placeholder="E-mail"
             customBgColor="bg-handle-background"
+            height="3rem"
           />
 
           <Input
@@ -23,6 +24,7 @@ export default function Login() {
             placeholder="Senha"
             type="password"
             customBgColor="bg-handle-background"
+            height="3rem"
           />
         </div>
 

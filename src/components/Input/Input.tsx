@@ -39,9 +39,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 
     const variants = cva(
       clsx({
-        'w-full rounded-md bg-transparent box-border outline-none transition-all duration-300 ease-in-out focus-visible:text-handle-blue border-[0.094rem] border-custom-gray-300 focus-visible:border-handle-blue [&:not(:placeholder-shown)]:border-handle-blue [&:not(:placeholder-shown)]:text-handle-blue peer':
+        'w-full rounded-md bg-transparent box-border outline-none transition-all duration-300 ease-in-out focus-visible:text-handle-blue border-[0.094rem] border-custom-gray-300 focus-visible:border-handle-blue peer':
           true,
-        'text-handle-red-500 border-handle-red-500 focus-visible:text-handle-red-500 focus-visible:border-handle-red-500 [&:not(:placeholder-shown)]:border-handle-red-500 [&:not(:placeholder-shown)]:text-handle-red-500':
+        'text-handle-red-500 border-handle-red-500 focus-visible:text-handle-red-500 focus-visible:border-handle-red-500':
           error,
       }),
       {
@@ -62,8 +62,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       () =>
         clsx({
           'text-handle-red-500': error,
-          'text-custom-gray-300 peer-focus-visible:text-handle-blue peer-[&:not(:placeholder-shown)]:text-handle-blue':
-            !error,
+          'text-custom-gray-300 peer-focus-visible:text-handle-blue': !error,
         }),
       [error],
     )
