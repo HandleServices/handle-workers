@@ -14,3 +14,7 @@ export const phoneMask = (v: string) => {
 
   return v
 }
+
+export const checkPhoneMask = (v: string) => {
+  return /^\(\d{2}\) \d \d{4}-\d{4}$|^\(\d{2}\) \d{4}-\d{4}$/.test(v)
+}
