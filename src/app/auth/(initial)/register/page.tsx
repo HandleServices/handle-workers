@@ -6,23 +6,23 @@ import { useState } from 'react'
 import { Button } from '@/components/Button'
 import { CustomCheckbox } from '@/components/Checkbox'
 import Input from '@/components/Input'
+import { cpfCnpjMask } from '@/utils/mask-cpf-cnpj'
+import { phoneMask } from '@/utils/mask-phone'
 
-import SvgComponent from './assets/google'
-import { cpfCnpjMask } from './functions/cpfCnpjMask'
-import { phoneMask } from './functions/phoneMask'
+import SvgComponent from '../assets/google'
 
 export default function Register() {
   const [isChecked, setIsChecked] = useState(false)
   const [cpfValue, setCpfValue] = useState('')
   const [phoneValue, setPhoneValue] = useState('')
 
-  function handleCpfMask(event: { target: { value: any } }) {
+  function handleCpfMask(event: { target: { value: string } }) {
     const { value } = event.target
 
     setCpfValue(cpfCnpjMask(value))
   }
 
-  function handlePhoneMask(event: { target: { value: any } }) {
+  function handlePhoneMask(event: { target: { value: string } }) {
     const { value } = event.target
 
     setPhoneValue(phoneMask(value))
@@ -126,7 +126,7 @@ export default function Register() {
             variant="secondary"
           >
             <span className="text-custom-gray-300 text-lg">
-              Entrar com Google
+              Cadastrar-se com Google
             </span>
           </Button>
         </div>

@@ -25,7 +25,7 @@ const variants = cva(
         small: ['w-40', 'text-xs'],
         medium: ['w-52', 'text-xs'],
         large: ['w-64', 'text-[0.9em]'],
-        extra: ['w-80 h-[3rem]', 'text-[0.9375em]'],
+        extra: ['w-96 h-[3rem]', 'text-[0.9375em]'],
       },
     },
     defaultVariants: {
