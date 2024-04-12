@@ -58,9 +58,21 @@ export default function Register() {
     registerFormatted,
     handleSubmit,
     formState: { errors },
-  } = useFormattedForm<RegisterType>({
-    resolver: zodResolver(registerSchema),
-  })
+  } = useFormattedForm<RegisterType, 'phoneNumber' | 'identificationNumber'>(
+    {
+      resolver: zodResolver(registerSchema),
+    },
+    [
+      {
+        key: 'phoneNumber',
+        format: phoneMask,
+      },
+      {
+        key: 'identificationNumber',
+        format: cpfCnpjMask,
+      },
+    ],
+  )
 
   const onSubmit: SubmitHandler<RegisterType> = (data) => console.log(data)
 
@@ -112,7 +124,7 @@ export default function Register() {
 
             <div className="w-full flex flex-col gap-2">
               <Input
-                {...registerFormatted('identificationNumber', { as: '' })}
+                {...registerFormatted('identificationNumber')}
                 error={!!errors.identificationNumber}
                 className="w-full"
                 placeholder="CPF/CNPJ"
