@@ -1,48 +1,41 @@
+'use client'
+
 import {
-  FieldValues,
+  Path,
+  PathValue,
   useForm,
   UseFormProps,
   UseFormRegisterReturn,
 } from 'react-hook-form'
 
-import { cpfCnpjMask } from '@/app/auth/(initial)/register/functions/cpfCnpjMask'
-import { phoneMask } from '@/app/auth/(initial)/register/functions/phoneMask'
+type Formatting<T, U> = {
+  key: T
+  format: (key: string) => U
+}
 
-export function useFormattedForm<TFieldValues extends FieldValues>(
-  defaultValues?: UseFormProps<TFieldValues, unknown>,
+export function useFormattedForm<
+  TField extends object,
+  TFormatField extends Path<TField>,
+>(
+  defaultValues: UseFormProps<TField, unknown>,
+  formats: Array<
+    Formatting<TFormatField, PathValue<TField, TFormatField>>
+  > = [],
 ) {
-  const methods = useForm<UseFormProps<TFieldValues, unknown>>({
-    defaultValues,
-  })
+  const methods = useForm<TField>(defaultValues)
 
-  const formatPhoneNumber = (value: string) => {
-    const formattedValue = phoneMask(value)
-
-    return formattedValue
-  }
-
-  const formatCpfCnpj = (value: string) => {
-    const formattedValue = cpfCnpjMask(value)
-
-    return formattedValue
-  }
-
-  const registerFormatted = (
-    name: keyof UseFormProps<TFieldValues, unknown>,
-    options: {
-      as: 'phone-number' | 'cpf-cnpj'
-    },
-  ): UseFormRegisterReturn => {
-    const format = {
-      'phone-number': formatPhoneNumber,
-      'cpf-cnpj': formatCpfCnpj,
-    }
-
+  const registerFormatted = (name: TFormatField): UseFormRegisterReturn => {
     const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       const { value } = e.target
-      methods.setValue(name, format[options.as](value))
+
+      const key = formats.find((format) => format.key === name)
+
+      if (key) {
+        methods.setValue(name, key.format(value))
+      }
     }
-    return methods.register(name, { ...options, onChange })
+
+    return methods.register(name, { onChange })
   }
 
   return { ...methods, registerFormatted }
