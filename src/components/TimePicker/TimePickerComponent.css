@@ -1,10 +1,17 @@
-input[type="time"]::-webkit-inner-spin-button { 
+input[type="time"]{
+  cursor: pointer;
+  height: auto;
+  width: auto;
+}
+
+/* Removing normal input type time buttons. */
+input[type="time"]::-webkit-inner-spin-button {  
     -webkit-appearance: none;
     cursor:pointer;
     text-align:center;
 } 
-
 input[type="time"]::-webkit-calendar-picker-indicator { background: none; display:none; }
+
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -12,17 +19,11 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-input[type="time"]{
-    cursor: pointer;
-    height: auto;
-    width:auto
-}
-
 input[type=time]::-webkit-datetime-edit-hour-field:focus,
 input[type=time]::-webkit-datetime-edit-minute-field:focus,
 input[type=time]::-webkit-datetime-edit-second-field:focus,
 input[type=time]::-webkit-datetime-edit-ampm-field:focus {
-  color: theme(colors.handle.blue.DEFAULT);
+  color: 'theme(colors.handle.blue.DEFAULT)';
   background: transparent;
 }
 

@@ -2,6 +2,8 @@ import type { Config } from 'tailwindcss'
 import colors from 'tailwindcss/colors'
 import defaultTheme from 'tailwindcss/defaultTheme'
 
+export type DefaultColors = typeof colors
+
 const config: Config = {
   mode: 'jit',
   darkMode: ['class'],
@@ -12,10 +14,8 @@ const config: Config = {
     './src/**/*.{ts,tsx}',
   ],
   prefix: '',
-  theme: {
-    ...defaultTheme,
+  handle: {
     colors: {
-      ...colors,
       handle: {
         background: {
           DEFAULT: '#E1E1E6',
@@ -122,5 +122,7 @@ const config: Config = {
   },
   plugins: [require('tailwindcss-animate')],
 } satisfies Config
+
+export type Colors = typeof colors
 
 export default config
