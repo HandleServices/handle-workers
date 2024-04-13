@@ -9,43 +9,42 @@ import { z } from 'zod'
 import { Button } from '@/components/Button'
 import { CustomCheckbox } from '@/components/Checkbox'
 import Input from '@/components/Input'
+import { LabelError } from '@/components/LabelError'
+import { generalErrorSchemaKey } from '@/components/LabelError/LabelError'
 import { useFormattedForm } from '@/hooks/useFormattedForm'
+import { checkCpfCnpj, cpfCnpjMask } from '@/utils/mask-cpf-cnpj'
+import { checkPhoneMask, phoneMask } from '@/utils/mask-phone'
 
-import SvgComponent from './assets/google'
-import { checkCpfCnpj, cpfCnpjMask } from './functions/cpfCnpjMask'
-import { checkPhoneMask, phoneMask } from './functions/phoneMask'
+import SvgComponent from '../assets/google'
 
 const registerSchema = z
   .object({
-    name: z.string().min(2, { message: 'Nome deve ter ao menos 2 caracteres' }),
-    email: z.string().email({ message: 'Endereço de e-mail inválido' }),
+    name: z
+      .string()
+      .min(2, { message: 'Nome deve ter ao menos 2 caracteres.' }),
+    email: z.string().email({ message: 'Endereço de e-mail inválido.' }),
     phoneNumber: z
       .string()
       .transform((arg) => phoneMask(arg))
       .refine((arg) => checkPhoneMask(arg), {
-        message: 'Nùmero de telefone inválido',
+        message: 'Nùmero de telefone inválido.',
       }),
     identificationNumber: z
       .string()
       .transform((arg) => cpfCnpjMask(arg))
       .refine((arg) => checkCpfCnpj(arg), {
-        message: 'CPF/CNPJ inválido',
+        message: 'CPF/CNPJ inválido.',
       }),
-    password: z.string(),
-    repeatPassword: z.string(),
+    password: z
+      .string()
+      .min(8, { message: 'Deve ter no mínimo 8 caracteres.' }),
+    repeatPassword: z
+      .string()
+      .min(8, { message: 'Deve ter no mínimo 8 caracteres.' }),
   })
-  .required()
-  .superRefine((arg, ctx) => {
-    if (arg.password !== arg.repeatPassword) {
-      ctx.addIssue({
-        message: 'As senhas devem ser iguais',
-        code: z.ZodIssueCode.custom,
-        path: [''],
-        params: {
-          '': true,
-        },
-      })
-    }
+  .refine((arg) => arg.password === arg.repeatPassword, {
+    message: 'As senhas devem ser iguais.',
+    path: [generalErrorSchemaKey],
   })
 
 type RegisterType = z.infer<typeof registerSchema>
@@ -74,7 +73,11 @@ export default function Register() {
     ],
   )
 
-  const onSubmit: SubmitHandler<RegisterType> = (data) => console.log(data)
+  const onSubmit: SubmitHandler<RegisterType> = (data) => {
+    console.log('FINISHED')
+    console.log(data)
+    alert(JSON.stringify(data))
+  }
 
   return (
     <form
@@ -83,19 +86,20 @@ export default function Register() {
     >
       <div className="w-2/3 gap-10 flex flex-col items-center justify-center bg-handle-background">
         <div className="w-full flex flex-col gap-6 bg-handle-background">
-          <div className="w-full flex flex-col gap-2">
+          <div className="w-full flex flex-col gap-1">
             <Input
               {...register('name')}
               error={!!errors.name}
               className="w-full"
               placeholder="Nome"
               customBgColor="bg-handle-background"
+              sz="large"
             />
 
-            <p className="text-red-500 text-xs">{errors.name?.message}</p>
+            <LabelError errors={errors} name="name" />
           </div>
 
-          <div className="w-full flex flex-col gap-2">
+          <div className="w-full flex flex-col gap-1">
             <Input
               {...register('email')}
               error={!!errors.email}
@@ -104,11 +108,11 @@ export default function Register() {
               customBgColor="bg-handle-background"
             />
 
-            <p className="text-red-500 text-xs">{errors.email?.message}</p>
+            <LabelError errors={errors} name="email" />
           </div>
 
           <div className="flex flex-row gap-6">
-            <div className="w-full flex flex-col gap-2">
+            <div className="w-full flex flex-col gap-1">
               <Input
                 {...registerFormatted('phoneNumber')}
                 error={!!errors.phoneNumber}
@@ -117,12 +121,10 @@ export default function Register() {
                 customBgColor="bg-handle-background"
               />
 
-              <p className="text-red-500 text-xs">
-                {errors.phoneNumber?.message}
-              </p>
+              <LabelError errors={errors} name="phoneNumber" />
             </div>
 
-            <div className="w-full flex flex-col gap-2">
+            <div className="w-full flex flex-col gap-1">
               <Input
                 {...registerFormatted('identificationNumber')}
                 error={!!errors.identificationNumber}
@@ -131,14 +133,12 @@ export default function Register() {
                 customBgColor="bg-handle-background"
               />
 
-              <p className="text-red-500 text-xs">
-                {errors.identificationNumber?.message}
-              </p>
+              <LabelError errors={errors} name="identificationNumber" />
             </div>
           </div>
 
           <div className="flex flex-row gap-6">
-            <div className="w-full flex flex-col gap-2">
+            <div className="w-full flex flex-col gap-1">
               <Input
                 {...register('password')}
                 error={!!errors.password}
@@ -148,10 +148,10 @@ export default function Register() {
                 customBgColor="bg-handle-background"
               />
 
-              <p className="text-red-500 text-xs">{errors.password?.message}</p>
+              <LabelError errors={errors} name="password" />
             </div>
 
-            <div className="w-full flex flex-col gap-2">
+            <div className="w-full flex flex-col gap-1">
               <Input
                 {...register('repeatPassword')}
                 error={!!errors.repeatPassword}
@@ -161,14 +161,14 @@ export default function Register() {
                 customBgColor="bg-handle-background"
               />
 
-              <p className="text-red-500 text-xs">
-                {errors.repeatPassword?.message}
-              </p>
+              <LabelError errors={errors} name="repeatPassword" />
             </div>
           </div>
+
+          <LabelError errors={errors} name={generalErrorSchemaKey} />
         </div>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-1">
           <CustomCheckbox
             checked={isChecked}
             onCheckedChange={(checked) =>
@@ -190,7 +190,7 @@ export default function Register() {
             className="bg-handle-gray h-[1px] w-full"
             decorative
             orientation="horizontal"
-          />
+          ></Separator.Root>
 
           <span className="text-handle-gray">ou</span>
 
@@ -198,21 +198,19 @@ export default function Register() {
             className="bg-handle-gray h-[1px] w-full"
             decorative
             orientation="horizontal"
-          />
+          ></Separator.Root>
         </div>
 
-        <div>
-          <Button
-            type="button"
-            size="extra"
-            icon={<SvgComponent />}
-            variant="secondary"
-          >
-            <span className="text-custom-gray-300 text-lg">
-              Cadastrar-se com Google
-            </span>
-          </Button>
-        </div>
+        <Button
+          type="button"
+          size="extra"
+          icon={<SvgComponent />}
+          variant="secondary"
+        >
+          <span className="text-custom-gray-300 text-lg">
+            Cadastrar-se com Google
+          </span>
+        </Button>
       </div>
     </form>
   )
