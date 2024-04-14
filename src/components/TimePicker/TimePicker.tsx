@@ -1,6 +1,5 @@
 'use client'
 import { useState } from 'react'
-import colors from 'tailwindcss/colors'
 import resolveConfig from 'tailwindcss/resolveConfig'
 
 import config from './../../../tailwind.config'
@@ -8,6 +7,17 @@ import TimePickerComponent from './TimePickerComponent'
 import TimePickerLabel from './TimePickerLabel'
 
 const handleColors = resolveConfig(config).handle
+
+function inputStyle(inHour: string, outHour: string) {
+  const color =
+    inHour !== '00:00' || outHour !== '00:00' // cause you can't job from 00:00 to 00:00.
+      ? handleColors.blue.DEFAULT
+      : handleColors.gray[700]
+  return {
+    color: color,
+    borderColor: color,
+  }
+}
 
 export interface TimePickerProps {
   width?: number
@@ -28,40 +38,6 @@ const TimePicker = ({
 }: TimePickerProps) => {
   const [inHour, setInHour] = useState('00:00')
   const [outHour, setOutHour] = useState('00:00')
-
-  function inputStyle(inHour: string, outHour: string) {
-    const inHours = inHour.split(':')[0]
-    const inMinutes = inHour.split(':')[1]
-    const outHours = outHour.split(':')[0]
-    const outMinutes = outHour.split(':')[1]
-
-    if (inHours > outHours && outHours !== '00') {
-      return {
-        color: colors.red[500],
-        borderColor: colors.red[500],
-      }
-    } else if (
-      inHours === outHours &&
-      inMinutes >= outMinutes &&
-      outHours !== '00'
-    ) {
-      return {
-        color: colors.red[500],
-        borderColor: colors.red[500],
-      }
-    } else {
-      return {
-        color:
-          inHour !== '00:00' && outHour !== '00:00'
-            ? style.color || handleColors.blue.DEFAULT
-            : handleColors.gray[700],
-        borderColor:
-          inHour !== '00:00' && outHour !== '00:00'
-            ? handleColors.blue.DEFAULT
-            : handleColors.gray[700],
-      }
-    }
-  }
 
   const defaultProps = (
     hour: string,
