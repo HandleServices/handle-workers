@@ -9,13 +9,13 @@ import TimePickerLabel from './TimePickerLabel'
 const handleColors = resolveConfig(config).handle
 
 function inputStyle(inHour: string, outHour: string) {
-  const color =
+  const [color, borderColor] =
     inHour !== '00:00' || outHour !== '00:00' // cause you can't job from 00:00 to 00:00.
       ? handleColors.blue.DEFAULT
       : handleColors.gray[700]
   return {
-    color: color,
-    borderColor: color,
+    color,
+    borderColor,
   }
 }
 
