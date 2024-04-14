@@ -1,8 +1,44 @@
 import type { Config } from 'tailwindcss'
 import colors from 'tailwindcss/colors'
-import defaultTheme from 'tailwindcss/defaultTheme'
 
 export type DefaultColors = typeof colors
+
+function handleTheme() {
+  return {
+    handle: {
+      background: {
+        DEFAULT: '#E1E1E6',
+        blue: '#D1E3FA',
+      },
+      white: '#F7F8F4',
+      blue: {
+        DEFAULT: '#1A73E8',
+        '500': {
+          15: '#1A73E815',
+          20: '#1A73E820',
+        },
+      },
+      gray: {
+        DEFAULT: '#7c828d',
+        '700': '#323238',
+      },
+      red: {
+        500: '#FF5252',
+        600: '#FF3636',
+      },
+    },
+    'custom-gray': {
+      '800': '#FFFFFF',
+      '700': '#E1E1E6',
+      '600': '#C4C4CC',
+      '500': '#8D8D99',
+      '400': '#7C7C8A',
+      '300': '#323238',
+      '200': '#202024',
+      '100': '#121214',
+    },
+  }
+}
 
 const config: Config = {
   mode: 'jit',
@@ -14,41 +50,10 @@ const config: Config = {
     './src/**/*.{ts,tsx}',
   ],
   prefix: '',
-  handle: {
+  ...handleTheme(), // to import handle color as tailwind config.
+  theme: {
     colors: {
-      handle: {
-        background: {
-          DEFAULT: '#E1E1E6',
-          blue: '#D1E3FA',
-        },
-        white: '#F7F8F4',
-        blue: {
-          DEFAULT: '#1A73E8',
-          '400': '#1A8FFFff',
-          '500': {
-            15: '#1A73E815',
-            20: '#1A73E820',
-          },
-        },
-        gray: {
-          DEFAULT: '#7c828d',
-          '700': '#323238',
-        },
-        red: {
-          500: '#FF5252',
-          600: '#FF3636',
-        },
-      },
-      'custom-gray': {
-        '800': '#FFFFFF',
-        '700': '#E1E1E6',
-        '600': '#C4C4CC',
-        '500': '#8D8D99',
-        '400': '#7C7C8A',
-        '300': '#323238',
-        '200': '#202024',
-        '100': '#121214',
-      },
+      ...handleTheme(), // To not broken old components.
     },
     container: {
       center: true,
