@@ -52,9 +52,6 @@ const config: Config = {
   prefix: '',
   ...handleTheme(), // to import handle color as tailwind config.
   theme: {
-    colors: {
-      ...handleTheme(), // To not broken old components.
-    },
     container: {
       center: true,
       padding: '2rem',
@@ -64,6 +61,7 @@ const config: Config = {
     },
     extend: {
       colors: {
+        ...handleTheme(),
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
