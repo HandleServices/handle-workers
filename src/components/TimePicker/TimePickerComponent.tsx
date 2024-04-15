@@ -27,7 +27,7 @@ const TimePickerComponent: React.FC<TimePickerComponentProps> = ({
         textAlign: 'center',
         letterSpacing: '.5rem',
         lineHeight: `${height}px`,
-        fontSize: `${width / 4}px`,
+        fontSize: `${width / 5}px`,
         ...style,
       }}
       onChange={(event) => setHour(event.target.value)}
