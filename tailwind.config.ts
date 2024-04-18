@@ -118,7 +118,7 @@ const config: Config = {
       backgroundImage: {
         iconsOverlay: `
           url('../app/auth/(complete)/complete_register/assets/icons_overlay.svg'),
-          linear-gradient(theme(colors.handle.blue-500), theme(colors.handle.blue-500))
+          linear-gradient(theme('colors.handle.blue.DEFAULT'), theme('colors.handle.blue.DEFAULT'))
         `,
       },
     },
