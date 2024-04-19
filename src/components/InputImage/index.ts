@@ -1,3 +1,3 @@
-import { InputImage } from './input'
+import { InputImage } from './InputImage'
 
 export { InputImage }

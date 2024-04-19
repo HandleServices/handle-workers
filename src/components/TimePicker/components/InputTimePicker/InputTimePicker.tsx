@@ -1,8 +1,8 @@
-import './TimePickerComponent.css'
+import './inputTimePicker.styles.css'
 
-import Input from '../Input'
+import Input from '../../../Input'
 
-interface TimePickerComponentProps {
+export interface InputTimePickerProps {
   width?: number
   height?: number
   hour: string
@@ -11,7 +11,7 @@ interface TimePickerComponentProps {
   className?: string
 }
 
-const TimePickerComponent: React.FC<TimePickerComponentProps> = ({
+const InputTimePicker: React.FC<InputTimePickerProps> = ({
   width = 140,
   height = 60,
   hour,
@@ -21,13 +21,14 @@ const TimePickerComponent: React.FC<TimePickerComponentProps> = ({
   return (
     <Input
       type="time"
+      className={`tracking-[0.5em] m-0 bg-handle-background}`}
       style={{
         width,
         height,
         textAlign: 'center',
-        letterSpacing: '.5rem',
-        lineHeight: `${height}px`,
-        fontSize: `${width / 5}px`,
+        fontWeight: 300,
+        lineHeight: `${height / 16}rem`,
+        fontSize: `${width / 64}rem`,
         ...style,
       }}
       onChange={(event) => setHour(event.target.value)}
@@ -36,4 +37,4 @@ const TimePickerComponent: React.FC<TimePickerComponentProps> = ({
   )
 }
 
-export default TimePickerComponent
+export default InputTimePicker

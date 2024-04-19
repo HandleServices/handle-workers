@@ -2,15 +2,16 @@
 import { useState } from 'react'
 import resolveConfig from 'tailwindcss/resolveConfig'
 
+import { cn } from '@/lib/utils'
+
 import config from './../../../tailwind.config'
-import TimePickerComponent from './TimePickerComponent'
-import TimePickerLabel from './TimePickerLabel'
+import InputTimePicker from './components/InputTimePicker'
 
 const handleColors = resolveConfig(config).handle
 
 function inputStyle(inHour: string, outHour: string) {
   const [color, borderColor] =
-    inHour !== '00:00' || outHour !== '00:00' // cause you can't job from 00:00 to 00:00.
+    inHour !== '00:00' || outHour !== '00:00'
       ? handleColors.gray[700]
       : handleColors.blue.DEFAULT
   return {
@@ -57,24 +58,24 @@ const TimePicker = ({
   }
 
   return (
-    <div className={`flex row gap-[95px] ${groupClassName}`}>
+    <div
+      className={`flex row gap-4 md:gap-14 lg:gap-[5.948rem] ${groupClassName}`}
+    >
       <div>
-        <TimePickerLabel
-          className={labelClassName}
-          style={{ ...inputStyle(inHour, outHour) }}
+        <label
+          className={cn('tracking-widest text-sm font-thin', labelClassName)}
         >
-          Inicio
-        </TimePickerLabel>
-        <TimePickerComponent {...defaultProps(inHour, setInHour)} />
+          início
+        </label>
+        <InputTimePicker {...defaultProps(inHour, setInHour)} />
       </div>
       <div>
-        <TimePickerLabel
-          className={labelClassName}
-          style={{ ...inputStyle(inHour, outHour) }}
+        <label
+          className={cn('tracking-widest text-sm font-thin', labelClassName)}
         >
-          Fim
-        </TimePickerLabel>
-        <TimePickerComponent {...defaultProps(outHour, setOutHour)} />
+          fim
+        </label>
+        <InputTimePicker {...defaultProps(outHour, setOutHour)} />
       </div>
     </div>
   )

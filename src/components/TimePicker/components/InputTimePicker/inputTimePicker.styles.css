@@ -23,7 +23,11 @@ input[type=time]::-webkit-datetime-edit-hour-field:focus,
 input[type=time]::-webkit-datetime-edit-minute-field:focus,
 input[type=time]::-webkit-datetime-edit-second-field:focus,
 input[type=time]::-webkit-datetime-edit-ampm-field:focus {
-  color: blue;
+  color: #0062E3;
   background: transparent;
 }
 
+input[type=time] {
+  color: #323238;
+  background: transparent;
+}

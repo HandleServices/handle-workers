@@ -1,15 +1,10 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import {
   Select,
   SelectContent,
-  SelectGroup,
   SelectItem,
-  SelectLabel,
-  SelectScrollDownButton,
-  SelectScrollUpButton,
-  SelectSeparator,
   SelectTrigger,
   SelectValue,
 } from '@/components/Select/Select'
@@ -32,7 +27,7 @@ function SelectComponent({
 
   return (
     <Select onValueChange={setSelectedValue} {...rest}>
-      <SelectTrigger className={`w-[180px] ${boxClassName}`}>
+      <SelectTrigger className={`w-80 ${boxClassName}`}>
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent>
