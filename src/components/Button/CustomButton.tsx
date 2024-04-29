@@ -52,7 +52,7 @@ function Loading({ type }: loadingProps): JSX.Element {
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   size: 'small' | 'medium' | 'large' | 'extra'
   variant: 'primary' | 'secondary' | 'neutral'
-  action: (() => Promise<void>) | (() => void)
+  action?: (() => Promise<void>) | (() => void)
   icon?: JSX.Element
 }
 
