@@ -27,7 +27,7 @@ const registerSchema = z
       .string()
       .transform((arg) => phoneMask(arg))
       .refine((arg) => checkPhoneMask(arg), {
-        message: 'Nùmero de telefone inválido.',
+        message: 'Número de telefone inválido.',
       }),
     identificationNumber: z
       .string()
