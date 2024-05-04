@@ -2,6 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as Separator from '@radix-ui/react-separator'
+import path from 'path'
 import { useState } from 'react'
 import { SubmitHandler } from 'react-hook-form'
 import { z } from 'zod'
@@ -41,6 +42,10 @@ const registerSchema = z
     repeatPassword: z
       .string()
       .min(8, { message: 'Deve ter no mínimo 8 caracteres.' }),
+    agree: z.boolean().refine((value) => value === true, {
+      message: 'Aceite os termos de consentimento para continuar.',
+      path: ['agree'],
+    }),
   })
   .refine((arg) => arg.password === arg.repeatPassword, {
     message: 'As senhas devem ser iguais.',
@@ -50,7 +55,7 @@ const registerSchema = z
 type RegisterType = z.infer<typeof registerSchema>
 
 export default function Register() {
-  const [isChecked, setIsChecked] = useState(false)
+  const [isChecked, setIsChecked] = useState<boolean>(false)
 
   const {
     register,
@@ -170,15 +175,17 @@ export default function Register() {
 
         <div className="flex flex-col gap-1">
           <CustomCheckbox
+            {...register('agree')}
             checked={isChecked}
-            onCheckedChange={(checked) =>
-              checked === 'indeterminate'
-                ? setIsChecked(true)
-                : setIsChecked(checked)
-            }
+            onCheckedChange={(checked) => {
+              const isChecked = checked === 'indeterminate' ? true : checked
+              setIsChecked(isChecked)
+            }}
             checkboxId="checkbox-login"
             label="Concordo e aceito os termos de consentimento."
           />
+
+          <LabelError errors={errors} name="agree" />
 
           <Button size="extra" variant="primary">
             <span className="text-handle-background text-lg">Finalizar</span>
