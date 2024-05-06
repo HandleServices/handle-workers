@@ -2,9 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as Separator from '@radix-ui/react-separator'
-import path from 'path'
-import { useState } from 'react'
-import { SubmitHandler } from 'react-hook-form'
+import { Controller, SubmitHandler } from 'react-hook-form'
 import { z } from 'zod'
 
 import { Button } from '@/components/Button'
@@ -44,7 +42,6 @@ const registerSchema = z
       .min(8, { message: 'Deve ter no mínimo 8 caracteres.' }),
     agree: z.boolean().refine((value) => value === true, {
       message: 'Aceite os termos de consentimento para continuar.',
-      path: ['agree'],
     }),
   })
   .refine((arg) => arg.password === arg.repeatPassword, {
@@ -55,9 +52,8 @@ const registerSchema = z
 type RegisterType = z.infer<typeof registerSchema>
 
 export default function Register() {
-  const [isChecked, setIsChecked] = useState<boolean>(false)
-
   const {
+    control,
     register,
     registerFormatted,
     handleSubmit,
@@ -174,15 +170,23 @@ export default function Register() {
         </div>
 
         <div className="flex flex-col gap-1">
-          <CustomCheckbox
-            {...register('agree')}
-            checked={isChecked}
-            onCheckedChange={(checked) => {
-              const isChecked = checked === 'indeterminate' ? true : checked
-              setIsChecked(isChecked)
-            }}
-            checkboxId="checkbox-login"
-            label="Concordo e aceito os termos de consentimento."
+          <Controller
+            name="agree"
+            control={control}
+            render={({ field: { name, onChange, ref, disabled, value } }) => (
+              <CustomCheckbox
+                ref={ref}
+                name={name}
+                disabled={disabled}
+                checked={value === true}
+                onCheckedChange={(checked) => {
+                  const isChecked = checked === 'indeterminate' ? true : checked
+                  onChange(isChecked)
+                }}
+                checkboxId="checkbox-login"
+                label="Concordo e aceito os termos de consentimento."
+              />
+            )}
           />
 
           <LabelError errors={errors} name="agree" />
