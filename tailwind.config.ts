@@ -54,16 +54,6 @@ const config: Config = {
   prefix: '',
   ...handleTheme(), // to import handle color as tailwind config.
   theme: {
-    borderWidth: {
-      '1/2px': '0.031rem',
-      'default-width': '0.094rem',
-      '2px': '0.125rem',
-    },
-    ringWidth: {
-      '1/2px': '0.031rem',
-      'default-width': '0.094rem',
-      '2px': '0.125rem',
-    },
     container: {
       center: true,
       padding: '2rem',
