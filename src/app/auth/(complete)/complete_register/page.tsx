@@ -17,15 +17,15 @@ import TimePicker from '@/components/TimePicker'
 export default function CompleteRegister() {
   const [selectedDay, setSelectedDay] = React.useState<string>('')
   return (
-    <form className="grid grid-rows-[30px_1fr_1fr_50px] w-full h-full gap-12 sm:gap-6 min-[200px]:max-[500px]:gap-5">
-      <h1 className="text-2xl font-semibold tracking-wider text-handle-blue text-center min-[200px]:max-[500px]:-mt-4">
+    <form className="grid grid-rows-[30px_1fr_1fr_50px] w-full h-full gap-12 sm:gap-6 min-[200px]:max-[700px]:gap-5">
+      <h1 className="text-2xl font-semibold tracking-wider text-handle-blue text-center min-[200px]:max-[700px]:-mt-4">
         Nos conte sobre sua vida profissional :)
       </h1>
       <div className="md:grid md:grid-cols-[1fr_2fr] sm:flex sm:flex-col sm:items-center gap-6">
         <div className="flex flex-col items-center">
           <InputImage />
         </div>
-        <div className="flex flex-col justify-evenly gap-[38px] w-full min-[200px]:mt-6 min-[200px]:max-[374px]:w-full items-center min-[200px]:max-[500px]:gap-3">
+        <div className="flex flex-col justify-evenly gap-[38px] w-full min-[200px]:mt-6 min-[200px]:max-[700px]:w-full items-center min-[200px]:max-[700px]:gap-3">
           <Input
             placeholder="Nome"
             customBgColor="bg-handle-background"
