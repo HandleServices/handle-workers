@@ -67,7 +67,6 @@ const InputImage = React.forwardRef<HTMLInputElement, InputProps>(
           >
             {!image && (
               <svg
-                className="mb-[]"
                 width={width}
                 height={height}
                 viewBox={`0 -60 180 180`}
