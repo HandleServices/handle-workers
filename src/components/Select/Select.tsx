@@ -18,7 +18,7 @@ const SelectTrigger = React.forwardRef<
     <SelectPrimitive.Trigger
       ref={ref}
       className={cn(
-        'box-border flex h-12 w-full items-center tracking-widest justify-between rounded-md bg-background outline-none border-[0.094rem] border-handle-blue px-3 py-2 text-base disabled:cursor-not-allowed disabled:opacity-50 text-handle-blue-500 [&>svg]:data-[state=open]:rotate-180 data-[state=close]:delay-100 data-[placeholder]:text-handle-gray-700 [&:not(:focus)]:data-[state=closed]:border-handle-gray-700',
+        'box-border flex h-12 w-full items-center tracking-widest justify-between rounded-md bg-background outline-none border-[0.094rem] border-handle-blue px-3 py-2 text-base disabled:cursor-not-allowed disabled:opacity-50 focus:text-handle-blue data-[state=open]:text-handle-blue [&>svg]:data-[state=open]:rotate-180 data-[state=close]:delay-100 data-[placeholder]:text-handle-gray-700 [&:not(:focus)]:data-[state=closed]:border-handle-gray-700',
         className,
       )}
       {...props}
@@ -127,7 +127,7 @@ const SelectItem = React.forwardRef<
     <SelectPrimitive.Item
       ref={ref}
       className={cn(
-        'relative flex w-full h-12 cursor-default select-none items-center border-b-[0.5px] rounded-s border-gray-300 rounded-none py-2 pl-2 text-sm tracking-widest outline-none data-[state=checked]:bg-handle-background-blue data-[state=checked]:font-bold data-[disabled]:pointer-events-none data-[disabled]:opacity-50 box-border data-[state=checked]:border-b-[2px] data-[state=checked]:border-b-handle-blue data-[state=checked]:text-handle-blue hover:cursor-pointer hover:text-handle-blue',
+        'relative flex w-full h-12 cursor-default select-none items-center border-b-[0.5px] rounded-s border-gray-300 rounded-none py-2 pl-2 text-sm tracking-widest outline-none data-[state=checked]:bg-handle-background-blue data-[disabled]:pointer-events-none data-[disabled]:opacity-50 box-border data-[state=checked]:border-b-[2px] data-[state=checked]:border-b-handle-blue data-[state=checked]:text-handle-blue hover:cursor-pointer hover:text-handle-blue',
         className,
       )}
       {...props}
