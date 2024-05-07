@@ -80,6 +80,8 @@ export default function Register() {
     alert(JSON.stringify(data))
   }
 
+  console.log(errors)
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -172,6 +174,7 @@ export default function Register() {
         <div className="flex flex-col gap-1">
           <Controller
             name="agree"
+            defaultValue={false}
             control={control}
             render={({ field: { name, onChange, ref, disabled, value } }) => (
               <CustomCheckbox
