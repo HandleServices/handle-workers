@@ -9,6 +9,7 @@ function handleTheme() {
       background: {
         DEFAULT: '#E1E1E6',
         blue: '#D1E3FA',
+        intern: '#F4F5F8',
       },
       white: '#F7F8F4',
       blue: {
@@ -21,6 +22,7 @@ function handleTheme() {
       gray: {
         DEFAULT: '#7c828d',
         '700': '#323238',
+        icons: '#7887A4',
       },
       red: {
         500: '#FF5252',
