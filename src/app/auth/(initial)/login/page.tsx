@@ -2,6 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as Separator from '@radix-ui/react-separator'
+import { useRouter } from 'next/navigation'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -27,10 +28,17 @@ export default function Login() {
     resolver: zodResolver(loginSchema),
   })
 
+  const router = useRouter()
+
   const onSubmit: SubmitHandler<LoginType> = (data) => {
-    console.log('FINISHED')
+    // console.log('FINISHED')
     console.log(data)
-    alert(JSON.stringify(data))
+    // alert(JSON.stringify(data))
+    router.push('/admin/home')
+  }
+
+  const openRegister = () => {
+    router.push('register')
   }
 
   return (
@@ -69,6 +77,12 @@ export default function Login() {
         </div>
 
         <div className="flex flex-col gap-2">
+          <p className="">
+            Ainda não possui uma conta?{' '}
+            <a onClick={openRegister} className="font-bold cursor-pointer">
+              Cadastre-se
+            </a>
+          </p>
           <Button
             type="submit"
             size="extra"

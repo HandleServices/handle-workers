@@ -2,6 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as Separator from '@radix-ui/react-separator'
+import { useRouter } from 'next/navigation'
 import { Controller, SubmitHandler } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -52,6 +53,8 @@ const registerSchema = z
 type RegisterType = z.infer<typeof registerSchema>
 
 export default function Register() {
+  const router = useRouter()
+
   const {
     control,
     register,
@@ -75,12 +78,11 @@ export default function Register() {
   )
 
   const onSubmit: SubmitHandler<RegisterType> = (data) => {
-    console.log('FINISHED')
+    // console.log('FINISHED')
     console.log(data)
-    alert(JSON.stringify(data))
+    // alert(JSON.stringify(data))
+    router.push('complete_register')
   }
-
-  console.log(errors)
 
   return (
     <form
@@ -195,7 +197,7 @@ export default function Register() {
           <LabelError errors={errors} name="agree" />
 
           <Button size="extra" variant="primary">
-            <span className="text-handle-background text-lg">Finalizar</span>
+            <span className="text-handle-background text-lg">Cadastrar</span>
           </Button>
         </div>
 

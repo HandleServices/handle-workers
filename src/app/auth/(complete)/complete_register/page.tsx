@@ -1,5 +1,7 @@
 'use client'
+import { useRouter } from 'next/navigation'
 import React from 'react'
+import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { Button } from '@/components/Button'
 import { DayOfWeekPicker } from '@/components/DaysOfWeekPicker'
@@ -16,8 +18,20 @@ import TimePicker from '@/components/TimePicker'
 
 export default function CompleteRegister() {
   const [selectedDay, setSelectedDay] = React.useState<string>('')
+
+  const { handleSubmit } = useForm<any>({})
+
+  const router = useRouter()
+
+  const onSubmit: SubmitHandler<any> = (data) => {
+    console.log(data)
+    router.push('/admin/home')
+  }
   return (
-    <form className="grid grid-rows-[30px_1fr_1fr_50px] w-full h-full gap-12 sm:gap-6 min-[200px]:max-[700px]:gap-5">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="grid grid-rows-[30px_1fr_1fr_50px] w-full h-full gap-12 sm:gap-6 min-[200px]:max-[700px]:gap-5"
+    >
       <h1 className="text-2xl font-semibold tracking-wider text-handle-blue text-center min-[200px]:max-[700px]:-mt-4">
         Nos conte sobre sua vida profissional :)
       </h1>
@@ -80,7 +94,7 @@ export default function CompleteRegister() {
       </div>
       <div className="flex flex-col justify-center items-center">
         <Button size="large" variant={'primary'} className="text-lg">
-          Continuar
+          Finalizar
         </Button>
       </div>
     </form>
