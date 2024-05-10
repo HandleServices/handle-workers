@@ -72,7 +72,7 @@ export default function CompleteRegister() {
           </Select>
         </div>
       </div>
-      <div className="border-[0.098rem] border-handle-gray-700 w-full h-full rounded-sm">
+      <div className="border-[0.098rem] border-handle-gray-300 w-full h-full rounded-sm">
         <label className="absolute text-sm tracking-widest -mt-[15px] bg-handle-background ml-2 p-1">
           Meu expediente
         </label>

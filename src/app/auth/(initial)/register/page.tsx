@@ -223,7 +223,7 @@ export default function Register() {
           icon={<SvgComponent />}
           variant="secondary"
         >
-          <span className="text-custom-gray-300 text-lg">
+          <span className="text-handle-gray-300 text-lg">
             Cadastrar-se com Google
           </span>
         </Button>

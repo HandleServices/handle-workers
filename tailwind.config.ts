@@ -14,14 +14,10 @@ function handleTheme() {
       white: '#F7F8F4',
       blue: {
         DEFAULT: '#1A73E8',
-        '500': {
-          15: '#1A73E815',
-          20: '#1A73E820',
-        },
       },
       gray: {
-        DEFAULT: '#7c828d',
-        '700': '#323238',
+        DEFAULT: '#7C828D',
+        '300': '#323238',
         icons: '#7887A4',
       },
       red: {

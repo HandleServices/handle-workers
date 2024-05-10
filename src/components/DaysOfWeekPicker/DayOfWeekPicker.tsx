@@ -63,7 +63,7 @@ const StyledToggle = ({ ...props }) => {
         padding: '0.1px 0px 4px 0px',
       }}
       {...props}
-      className="text-base tracking-[0.08rem] text-handle-gray-700 rounded-full outline-none focus-visible:ring-0 border-[0.094rem] border-handle-gray-700 data-[state=on]:border-handle-blue data-[state=on]:bg-handle-background-blue font-medium data-[state=on]:text-handle-blue"
+      className="text-base tracking-[0.08rem] text-handle-gray-300 rounded-full outline-none focus-visible:ring-0 border-[0.094rem] border-handle-gray-300 data-[state=on]:border-handle-blue data-[state=on]:bg-handle-background-blue font-medium data-[state=on]:text-handle-blue"
       value={props.value}
       key={props.value}
       aria-label={props.value}
