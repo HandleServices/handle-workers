@@ -41,7 +41,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       clsx({
         'w-full rounded-md bg-transparent box-border outline-none transition-all duration-300 ease-in-out focus-visible:text-handle-blue border-[0.094rem] border-handle-gray-300 focus-visible:border-handle-blue peer':
           true,
-        'text-handle-red-500 border-handle-red-500 focus-visible:text-handle-red-500 focus-visible:border-handle-red-500':
+        'text-handle-red border-handle-red focus-visible:text-handle-red focus-visible:border-handle-red':
           error,
       }),
       {
@@ -61,7 +61,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     const currentTextColor = useMemo(
       () =>
         clsx({
-          'text-handle-red-500': error,
+          'text-handle-red': error,
           'text-handle-gray-300 peer-focus-visible:text-handle-blue': !error,
         }),
       [error],

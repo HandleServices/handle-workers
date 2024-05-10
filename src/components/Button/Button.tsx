@@ -23,7 +23,7 @@ const variants = cva(
       },
       size: {
         small: ['w-40', 'text-xs'],
-        medium: ['w-52', 'text-xs'],
+        medium: ['w-52 h-12', 'text-xs'],
         large: ['w-80 h-12', 'text-lg'],
         extra: ['w-96 h-12', 'text-lg'],
       },

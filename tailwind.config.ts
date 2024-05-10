@@ -21,7 +21,7 @@ function handleTheme() {
         icons: '#7887A4',
       },
       red: {
-        500: '#FF5252',
+        DEFAULT: '#FF5252',
         600: '#FF3636',
       },
     },
