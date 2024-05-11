@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import resolveConfig from 'tailwindcss/resolveConfig'
 
 import { cn } from '@/lib/utils'
@@ -27,6 +27,7 @@ export interface TimePickerProps {
   groupClassName?: string
   style?: React.CSSProperties
   labelClassName?: string
+  cb?: (timeRange: string[]) => void
 }
 
 const TimePicker = ({
@@ -36,6 +37,7 @@ const TimePicker = ({
   className = '',
   groupClassName = '',
   labelClassName = '',
+  cb,
 }: TimePickerProps) => {
   const [inHour, setInHour] = useState('00:00')
   const [outHour, setOutHour] = useState('00:00')
@@ -56,6 +58,11 @@ const TimePicker = ({
       setHour,
     }
   }
+
+  useEffect(() => {
+    // eslint-disable-next-line n/no-callback-literal
+    cb && cb([inHour, outHour])
+  }, [inHour, outHour])
 
   return (
     <div
