@@ -50,7 +50,7 @@ const InputImage = React.forwardRef<HTMLInputElement, InputProps>(
           }
         >
           <div
-            className={`box-border rounded-lg border-[0.094rem] border-handle-gray-300`}
+            className={`box-border rounded-lg border-15 border-handle-gray-300`}
             style={
               image
                 ? {

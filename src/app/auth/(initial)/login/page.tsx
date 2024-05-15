@@ -85,7 +85,7 @@ export default function Login() {
           </p>
           <Button
             type="submit"
-            size="extra"
+            size="large"
             action={() => ({})}
             variant="primary"
           >

@@ -93,7 +93,7 @@ export default function CompleteRegister() {
         </div>
       </div>
       <div className="flex flex-col justify-center items-center">
-        <Button size="large" variant={'primary'} className="text-lg">
+        <Button size="extra" variant={'primary'} className="text-lg">
           Finalizar
         </Button>
       </div>

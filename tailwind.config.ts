@@ -58,6 +58,12 @@ const config: Config = {
       },
     },
     extend: {
+      borderWidth: {
+        '15': '0.094rem',
+      },
+      spacing: {
+        'button-extra': '26.25rem',
+      },
       colors: {
         ...handleTheme(),
         border: 'hsl(var(--border))',

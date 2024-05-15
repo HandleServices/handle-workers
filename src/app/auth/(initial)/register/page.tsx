@@ -196,7 +196,7 @@ export default function Register() {
 
           <LabelError errors={errors} name="agree" />
 
-          <Button size="extra" variant="primary">
+          <Button size="large" variant="primary">
             <span className="text-handle-background text-lg">Cadastrar</span>
           </Button>
         </div>
