@@ -2,7 +2,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
 import React from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { Form, SubmitHandler, useForm } from 'react-hook-form'
 import { string, z } from 'zod'
 
 import { Button } from '@/components/Button'
@@ -20,7 +20,7 @@ import TimePicker from '@/components/TimePicker'
 
 const registerSchema = z.object({
   name: z.string().min(2, { message: 'Nome deve ter ao menos 2 caracteres.' }),
-  role: z.string().min(1, { message: 'Selecione uma profissão' }),
+  selectedRole: z.string().min(1, { message: 'Selecione uma profissão' }),
   image: z.string().min(1, { message: 'Adicione uma imagem!' }),
   workingDays: z
     .string()
@@ -35,29 +35,27 @@ const registerSchema = z.object({
 type RegisterType = z.infer<typeof registerSchema>
 
 export default function CompleteRegister() {
-  const [workingDays, setworkingDays] = React.useState<string>('')
-  const [workingHours, setWorkingHours] = React.useState<Array<string>>()
-  const [selectedRole, setSelectedRole] = React.useState<string>('')
-
-  const handleTimeChange = (timeRange: string[]) => {
-    setWorkingHours(timeRange)
-  }
-
   const router = useRouter()
 
   const {
     control,
-    register,
     handleSubmit,
+    register,
     formState: { errors },
   } = useForm<RegisterType>({
     resolver: zodResolver(registerSchema),
   })
 
-  const onSubmit: SubmitHandler<RegisterType> = (data) => {
-    console.log(data)
-    // router.push('complete_register')
+  const onSubmit: SubmitHandler<RegisterType> = async (data) => {
+    try {
+      console.log(data)
+      router.push('/app')
+    } catch (error) {
+      console.error(error)
+    }
   }
+
+  console.error(errors)
 
   return (
     <form
@@ -69,17 +67,18 @@ export default function CompleteRegister() {
       </h1>
       <div className="md:grid md:grid-cols-[1fr_2fr] sm:flex sm:flex-col sm:items-center gap-6">
         <div className="flex flex-col items-center">
-          <InputImage {...register('image')} />
+          <InputImage {...register('image')} ref={null} />
         </div>
         <div className="flex flex-col justify-evenly gap-[38px] w-full min-[200px]:mt-6 min-[200px]:max-[700px]:w-full items-center min-[200px]:max-[700px]:gap-3">
           <Input
             {...register('name')}
+            error={!!errors.name}
             placeholder="Nome"
             customBgColor="bg-handle-background"
             sz="large"
             className="w-full"
           />
-          <Select {...register('role')} onValueChange={setSelectedRole}>
+          <Select>
             <SelectTrigger className="bg-transparent h-16">
               <SelectValue placeholder={'Selecione sua profissão'} />
             </SelectTrigger>
@@ -116,22 +115,22 @@ export default function CompleteRegister() {
             </label>
             <DayOfWeekPicker
               {...register('workingDays')}
-              value={workingDays}
-              onValueChange={(selectedDay: string) => {
-                if (selectedDay) setworkingDays(selectedDay)
-              }}
               className="h-full gap-[21.59px] min-[200px]:max-[500px]:gap-1 mb-[25px] w-full"
             />
           </div>
           <TimePicker
             {...register('workingHour')}
-            className="gap[95px] w-full"
-            cb={handleTimeChange}
+            className={'gap[95px] w-full'}
           />
         </div>
       </div>
       <div className="flex flex-col justify-center items-center">
-        <Button size="large" variant={'primary'} className="text-lg">
+        <Button
+          type="submit"
+          size="large"
+          variant={'primary'}
+          className="text-lg"
+        >
           Finalizar
         </Button>
       </div>
