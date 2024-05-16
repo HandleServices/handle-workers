@@ -39,7 +39,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 
     const variants = cva(
       clsx({
-        'w-full rounded-md bg-transparent box-border outline-none transition-all duration-300 ease-in-out focus-visible:text-handle-blue border-15 border-handle-gray-300 focus-visible:border-handle-blue peer':
+        'w-full rounded-md bg-transparent box-border outline-none transition-all duration-300 ease-in-out focus-visible:text-handle-blue border-1.5 border-handle-gray-300 focus-visible:border-handle-blue peer':
           true,
         'text-handle-red border-handle-red focus-visible:text-handle-red focus-visible:border-handle-red':
           error,

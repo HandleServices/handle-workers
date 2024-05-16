@@ -17,9 +17,9 @@ const variants = cva(
   {
     variants: {
       variant: {
-        primary: ['bg-handle-blue', 'text-white'],
+        primary: ['bg-handle-blue', 'text-handle-background'],
         secondary: ['bg-handle-background', 'text-handle-blue'],
-        neutral: ['bg-handle-gray', 'text-white'],
+        neutral: ['bg-handle-gray', 'text-handle-backgroud'],
       },
       size: {
         small: ['w-40', 'text-xs'],

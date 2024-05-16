@@ -39,15 +39,16 @@ export default function CompleteRegister() {
         <div className="flex flex-col items-center">
           <InputImage />
         </div>
-        <div className="flex flex-col justify-evenly gap-[38px] w-full min-[200px]:mt-6 min-[200px]:max-[700px]:w-full items-center min-[200px]:max-[700px]:gap-3">
+        <div className="flex flex-col justify-evenly gap-[28px] w-full min-[200px]:mt-6 min-[200px]:max-[700px]:w-full items-center min-[200px]:max-[700px]:gap-3">
           <Input
-            placeholder="Nome"
+            placeholder="Nome do seu negócio"
             customBgColor="bg-handle-background"
             sz="large"
+            height={56}
             className="w-full"
           />
           <Select>
-            <SelectTrigger className="bg-transparent h-16">
+            <SelectTrigger className="bg-transparent h-14">
               <SelectValue placeholder={'Selecione sua profissão'} />
             </SelectTrigger>
             <SelectContent>
@@ -72,14 +73,17 @@ export default function CompleteRegister() {
           </Select>
         </div>
       </div>
-      <div className="border-[0.098rem] border-handle-gray-300 w-full h-full rounded-sm">
+      <div className="border-1.5 border-handle-gray-300 w-full h-full rounded-lg">
         <label className="absolute text-sm tracking-widest -mt-[15px] bg-handle-background ml-2 p-1">
           Meu expediente
         </label>
         <div className="flex flex-col items-center  w-full h-full justify-center min-[200px]:py-4 min-[200px]:px-1">
-          <div>
-            <label htmlFor="" className="self-start mb-[7px] mt-[7px]">
-              Selecione os dias que você trabalha :)
+          <div className="flex flex-col gap-2">
+            <label
+              htmlFor=""
+              className="self-start text-sm tracking-widest font-thin"
+            >
+              selecione os dias que você trabalha :)
             </label>
             <DayOfWeekPicker
               value={selectedDay}

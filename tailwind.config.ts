@@ -7,7 +7,7 @@ function handleTheme() {
   return {
     handle: {
       background: {
-        DEFAULT: '#E1E1E6',
+        DEFAULT: '#EDEDED',
         blue: '#D1E3FA',
         intern: '#F4F5F8',
       },
@@ -59,7 +59,7 @@ const config: Config = {
     },
     extend: {
       borderWidth: {
-        '15': '0.094rem',
+        '1.5': '0.094rem',
       },
       spacing: {
         'button-extra': '26.25rem',
