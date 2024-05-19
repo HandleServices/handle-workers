@@ -7,13 +7,16 @@ function handleTheme() {
   return {
     handle: {
       background: {
-        DEFAULT: '#EDEDED',
+        DEFAULT: '#E1E1E6',
         blue: '#D1E3FA',
         intern: '#F4F5F8',
       },
       white: '#F7F8F4',
       blue: {
         DEFAULT: '#1A73E8',
+      },
+      hover: {
+        blue: '#4285F4',
       },
       gray: {
         DEFAULT: '#7C828D',

@@ -28,7 +28,7 @@ const SidebarItem = ({ menu }: { menu: ISidebarItem }) => {
   return (
     <li>
       <div
-        className={`sidebar-item pl-10 flex gap-5 items-center py-5 cursor-pointer hover:text-handle-blue font-medium duration-200 ${isActive ? 'active text-handle-blue bg-handle-background-blue border-r-[2.5px] border-handle-blue' : 'text-handle-gray-icons'}`}
+        className={`sidebar-item pl-10 flex gap-5 items-center py-5 cursor-pointer [&:not(.active)]:hover:text-handle-hover-blue [&:not(.active)]:hover:font-medium font-normal ${isActive ? 'active text-handle-blue bg-handle-background-blue border-r-[2.5px] border-handle-blue' : 'text-handle-gray-icons'}`}
         onClick={handleChangePath}
       >
         <div className="icon-wrapper">
