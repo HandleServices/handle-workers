@@ -3,6 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as Separator from '@radix-ui/react-separator'
 import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
 import { Controller, SubmitHandler } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -54,6 +55,19 @@ type RegisterType = z.infer<typeof registerSchema>
 
 export default function Register() {
   const router = useRouter()
+  const [width, setWidth] = useState(window.innerWidth)
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWidth(window.innerWidth)
+    }
+
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
 
   const {
     control,
@@ -87,9 +101,9 @@ export default function Register() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="w-full min-h-screen px-20 py-10 flex items-center justify-center"
+      className="w-full min-h-screen px-20 py-10 max-[1200px]:px-2 flex items-center justify-center"
     >
-      <div className="w-2/3 gap-10 flex flex-col items-center justify-center bg-handle-background">
+      <div className="w-2/3 max-[585px]:w-10/12 gap-10 flex flex-col items-center justify-center bg-handle-background">
         <div className="w-full flex flex-col gap-6 bg-handle-background">
           <div className="w-full flex flex-col gap-1">
             <Input
@@ -116,7 +130,7 @@ export default function Register() {
             <LabelError errors={errors} name="email" />
           </div>
 
-          <div className="flex flex-row gap-6">
+          <div className="flex flex-row gap-6 max-[650px]:gap-2">
             <div className="w-full flex flex-col gap-1">
               <Input
                 {...registerFormatted('phoneNumber')}
@@ -142,7 +156,7 @@ export default function Register() {
             </div>
           </div>
 
-          <div className="flex flex-row gap-6">
+          <div className="flex flex-row gap-6 max-[650px]:gap-2">
             <div className="w-full flex flex-col gap-1">
               <Input
                 {...register('password')}
@@ -196,7 +210,7 @@ export default function Register() {
 
           <LabelError errors={errors} name="agree" />
 
-          <Button size="extra" variant="primary">
+          <Button size={'extra'} variant="primary">
             <span className="text-handle-background text-lg">Cadastrar</span>
           </Button>
         </div>
