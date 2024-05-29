@@ -7,34 +7,34 @@ import tailwindConfig from '@/../tailwind.config'
 const fullConfig = resolveConfig(tailwindConfig as unknown as Config)
 
 const breakpoints = fullConfig?.theme?.screens || {
-    xs: '480px',
-    sm: '640px',
-    md: '768px',
-    lg: '1024px',
-    xl: '1280px',
+  xs: '480px',
+  sm: '640px',
+  md: '768px',
+  lg: '1024px',
+  xl: '1280px',
 }
 
 type BreakpointSizes = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 
 export function useBreakpoint<K extends BreakpointSizes>(breakpointKey: K) {
-    const breakpointValue = breakpoints[breakpointKey as keyof typeof breakpoints]
+  const breakpointValue = breakpoints[breakpointKey as keyof typeof breakpoints]
 
-    const bool = useMediaQuery({
-        query: `(max-width: ${breakpointValue})`,
-    })
+  const bool = useMediaQuery({
+    query: `(max-width: ${breakpointValue})`,
+  })
 
-    const capitalizedKey =
-        breakpointKey[0]!.toUpperCase() + breakpointKey.substring(1)
+  const capitalizedKey =
+    breakpointKey[0]!.toUpperCase() + breakpointKey.substring(1)
 
-    type KeyAbove = `isAbove${Capitalize<K>}`
-    type KeyBelow = `isBelow${Capitalize<K>}`
-    type KeyEqual = `is${Capitalize<K>}`
+  type KeyAbove = `isAbove${Capitalize<K>}`
+  type KeyBelow = `isBelow${Capitalize<K>}`
+  type KeyEqual = `is${Capitalize<K>}`
 
-    return {
-        [`is${capitalizedKey}`]: Number(
-            String(breakpointValue).replace(/[^0-9]/g, ''),
-        ),
-        [`isAbove${capitalizedKey}`]: !bool,
-        [`isBelow${capitalizedKey}`]: bool,
-    } as Record<KeyAbove | KeyEqual | KeyBelow, boolean>
+  return {
+    [`is${capitalizedKey}`]: Number(
+      String(breakpointValue).replace(/[^0-9]/g, ''),
+    ),
+    [`isAbove${capitalizedKey}`]: !bool,
+    [`isBelow${capitalizedKey}`]: bool,
+  } as Record<KeyAbove | KeyEqual | KeyBelow, boolean>
 }

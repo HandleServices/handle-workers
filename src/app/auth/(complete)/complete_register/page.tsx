@@ -2,8 +2,8 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
 import React from 'react'
-import { Form, SubmitHandler, useForm } from 'react-hook-form'
-import { string, z } from 'zod'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { z } from 'zod'
 
 import { Button } from '@/components/Button'
 import { DayOfWeekPicker } from '@/components/DaysOfWeekPicker'
@@ -38,7 +38,6 @@ export default function CompleteRegister() {
   const router = useRouter()
 
   const {
-    control,
     handleSubmit,
     register,
     formState: { errors },

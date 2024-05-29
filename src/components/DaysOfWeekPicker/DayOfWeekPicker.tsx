@@ -1,5 +1,5 @@
 import { ToggleGroup, ToggleGroupItem } from '@radix-ui/react-toggle-group'
-import React, { forwardRef, Ref } from 'react'
+import React, { forwardRef } from 'react'
 
 const DAYS = [
   {

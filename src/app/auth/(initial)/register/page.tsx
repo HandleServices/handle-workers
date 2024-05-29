@@ -11,10 +11,10 @@ import { CustomCheckbox } from '@/components/Checkbox'
 import Input from '@/components/Input'
 import { LabelError } from '@/components/LabelError'
 import { generalErrorSchemaKey } from '@/components/LabelError/LabelError'
+import { useBreakpoint } from '@/hooks/useBreakpoints'
 import { useFormattedForm } from '@/hooks/useFormattedForm'
 import { checkCpfCnpj, cpfCnpjMask } from '@/utils/mask-cpf-cnpj'
 import { checkPhoneMask, phoneMask } from '@/utils/mask-phone'
-import { useBreakpoint } from '@/hooks/useBreakpoints'
 
 import SvgComponent from '../assets/google'
 

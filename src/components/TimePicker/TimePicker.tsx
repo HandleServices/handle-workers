@@ -1,5 +1,5 @@
 'use client'
-import { forwardRef, LegacyRef, useEffect, useState } from 'react'
+import { forwardRef, LegacyRef, useState } from 'react'
 import resolveConfig from 'tailwindcss/resolveConfig'
 
 import { cn } from '@/lib/utils'
@@ -39,7 +39,6 @@ const TimePicker = forwardRef<HTMLInputElement, TimePickerProps>(
       className = '',
       groupClassName = '',
       labelClassName = '',
-      cb = undefined,
     }: TimePickerProps,
     ref,
   ) => {
@@ -62,11 +61,6 @@ const TimePicker = forwardRef<HTMLInputElement, TimePickerProps>(
         setHour,
       }
     }
-
-    useEffect(() => {
-      // eslint-disable-next-line n/no-callback-literal
-      cb && cb([inHour, outHour])
-    }, [inHour, outHour])
 
     return (
       <div

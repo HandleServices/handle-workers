@@ -9,9 +9,9 @@ import { z } from 'zod'
 import { Button } from '@/components/Button'
 import Input from '@/components/Input'
 import { LabelError } from '@/components/LabelError'
+import { useBreakpoint } from '@/hooks/useBreakpoints'
 
 import SvgComponent from '../assets/google'
-import { useBreakpoint } from '@/hooks/useBreakpoints'
 
 const loginSchema = z.object({
   email: z.string().email({ message: 'Endereço de e-mail inválido.' }),
@@ -78,7 +78,7 @@ export default function Login() {
           </div>
         </div>
 
-        <div className='flex flex-col gap-5 justify-center items-center'>
+        <div className="flex flex-col gap-5 justify-center items-center">
           <div className="flex flex-col gap-4">
             <p className="">
               Ainda não possui uma conta?{' '}
@@ -91,7 +91,7 @@ export default function Login() {
               size={isBelowMd ? 'large' : 'extra'}
               action={() => ({})}
               variant="primary"
-              className='self-center'
+              className="self-center"
             >
               <span className="text-handle-background text-lg">Entrar</span>
             </Button>
