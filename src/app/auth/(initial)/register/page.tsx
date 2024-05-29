@@ -3,7 +3,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as Separator from '@radix-ui/react-separator'
 import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
 import { Controller, SubmitHandler } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -15,6 +14,7 @@ import { generalErrorSchemaKey } from '@/components/LabelError/LabelError'
 import { useFormattedForm } from '@/hooks/useFormattedForm'
 import { checkCpfCnpj, cpfCnpjMask } from '@/utils/mask-cpf-cnpj'
 import { checkPhoneMask, phoneMask } from '@/utils/mask-phone'
+import { useBreakpoint } from '@/hooks/useBreakpoints'
 
 import SvgComponent from '../assets/google'
 
@@ -55,19 +55,7 @@ type RegisterType = z.infer<typeof registerSchema>
 
 export default function Register() {
   const router = useRouter()
-  const [width, setWidth] = useState(window.innerWidth)
-
-  useEffect(() => {
-    const handleResize = () => {
-      setWidth(window.innerWidth)
-    }
-
-    window.addEventListener('resize', handleResize)
-
-    return () => {
-      window.removeEventListener('resize', handleResize)
-    }
-  }, [])
+  const { isBelowMd } = useBreakpoint('md')
 
   const {
     control,
@@ -101,9 +89,9 @@ export default function Register() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="w-full min-h-screen px-20 py-10 max-[1200px]:px-2 flex items-center justify-center"
+      className="w-full min-[585px]:min-h-screen max-[585px]:h-2/3 max-[1000px]:px-4 max-[1000px]:py-8 px-20 py-10 flex min-[585px]:items-center justify-center"
     >
-      <div className="w-2/3 max-[585px]:w-10/12 gap-10 flex flex-col items-center justify-center bg-handle-background">
+      <div className="w-2/3 max-[1000px]:w-11/12 max-[1400px]:w-10/12 gap-10 flex flex-col items-center min-[585px]:justify-center bg-handle-background">
         <div className="w-full flex flex-col gap-6 bg-handle-background">
           <div className="w-full flex flex-col gap-1">
             <Input
@@ -187,60 +175,62 @@ export default function Register() {
           <LabelError errors={errors} name={generalErrorSchemaKey} />
         </div>
 
-        <div className="flex flex-col gap-1">
-          <Controller
-            name="agree"
-            defaultValue={false}
-            control={control}
-            render={({ field: { name, onChange, ref, disabled, value } }) => (
-              <CustomCheckbox
-                ref={ref}
-                name={name}
-                disabled={disabled}
-                checked={value === true}
-                onCheckedChange={(checked) => {
-                  const isChecked = checked === 'indeterminate' ? true : checked
-                  onChange(isChecked)
-                }}
-                checkboxId="checkbox-login"
-                label="Concordo e aceito os termos de consentimento."
-              />
-            )}
-          />
+        <div className="flex flex-col gap-5 items-center justify-center">
+          <div className="flex flex-col gap-1 items-center justify-center">
+            <Controller
+              name="agree"
+              defaultValue={false}
+              control={control}
+              render={({ field: { name, onChange, ref, disabled, value } }) => (
+                <CustomCheckbox
+                  ref={ref}
+                  name={name}
+                  disabled={disabled}
+                  checked={value === true}
+                  onCheckedChange={(checked) => {
+                    const isChecked =
+                      checked === 'indeterminate' ? true : checked
+                    onChange(isChecked)
+                  }}
+                  checkboxId="checkbox-login"
+                  label="Concordo e aceito os termos de consentimento."
+                />
+              )}
+            />
 
-          <LabelError errors={errors} name="agree" />
+            <LabelError errors={errors} name="agree" />
+            <Button size={isBelowMd ? 'large' : 'extra'} variant="primary">
+              <span className="text-handle-background text-lg">Cadastrar</span>
+            </Button>
+          </div>
 
-          <Button size={'extra'} variant="primary">
-            <span className="text-handle-background text-lg">Cadastrar</span>
+          <div className="w-full gap-4 flex flex-row items-center">
+            <Separator.Root
+              className="bg-handle-gray h-[1px] w-full "
+              decorative
+              orientation="horizontal"
+            ></Separator.Root>
+
+            <span className="text-handle-gray">ou</span>
+
+            <Separator.Root
+              className="bg-handle-gray h-[1px] w-full"
+              decorative
+              orientation="horizontal"
+            ></Separator.Root>
+          </div>
+
+          <Button
+            type="button"
+            size={isBelowMd ? 'large' : 'extra'}
+            icon={<SvgComponent />}
+            variant="secondary"
+          >
+            <span className="text-custom-gray-300 text-lg">
+              Cadastrar-se com Google
+            </span>
           </Button>
         </div>
-
-        <div className="w-full gap-4 flex flex-row items-center">
-          <Separator.Root
-            className="bg-handle-gray h-[1px] w-full"
-            decorative
-            orientation="horizontal"
-          ></Separator.Root>
-
-          <span className="text-handle-gray">ou</span>
-
-          <Separator.Root
-            className="bg-handle-gray h-[1px] w-full"
-            decorative
-            orientation="horizontal"
-          ></Separator.Root>
-        </div>
-
-        <Button
-          type="button"
-          size="extra"
-          icon={<SvgComponent />}
-          variant="secondary"
-        >
-          <span className="text-custom-gray-300 text-lg">
-            Cadastrar-se com Google
-          </span>
-        </Button>
       </div>
     </form>
   )

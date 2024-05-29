@@ -11,6 +11,7 @@ import Input from '@/components/Input'
 import { LabelError } from '@/components/LabelError'
 
 import SvgComponent from '../assets/google'
+import { useBreakpoint } from '@/hooks/useBreakpoints'
 
 const loginSchema = z.object({
   email: z.string().email({ message: 'Endereço de e-mail inválido.' }),
@@ -20,6 +21,7 @@ const loginSchema = z.object({
 type LoginType = z.infer<typeof loginSchema>
 
 export default function Login() {
+  const { isBelowMd } = useBreakpoint('md')
   const {
     register,
     handleSubmit,
@@ -44,9 +46,9 @@ export default function Login() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="w-full max-w-screen min-h-screen px-5 lg:px-20 py-0 lg:py-10 flex items-center justify-center"
+      className="w-full min-[585px]:min-h-screen max-[585px]:h-2/3 max-[1000px]:px-4 max-[1000px]:py-8 px-20 py-10 flex min-[585px]:items-center justify-center"
     >
-      <div className="w-2/3 gap-10 flex flex-col items-center justify-center bg-handle-background">
+      <div className="w-2/3 max-[1000px]:w-11/12 max-[1400px]:w-10/12 gap-10 flex flex-col items-center min-[585px]:justify-center bg-handle-background">
         <div className="w-full flex flex-col gap-6 bg-handle-background">
           <div className="w-full flex flex-col gap-1">
             <Input
@@ -76,51 +78,54 @@ export default function Login() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-2">
-          <p className="">
-            Ainda não possui uma conta?{' '}
-            <a onClick={openRegister} className="font-bold cursor-pointer">
-              Cadastre-se
-            </a>
-          </p>
-          <Button
-            type="submit"
-            size="extra"
-            action={() => ({})}
-            variant="primary"
-          >
-            <span className="text-handle-background text-lg">Entrar</span>
-          </Button>
-        </div>
+        <div className='flex flex-col gap-5 justify-center items-center'>
+          <div className="flex flex-col gap-4">
+            <p className="">
+              Ainda não possui uma conta?{' '}
+              <a onClick={openRegister} className="font-bold cursor-pointer">
+                Cadastre-se
+              </a>
+            </p>
+            <Button
+              type="submit"
+              size={isBelowMd ? 'large' : 'extra'}
+              action={() => ({})}
+              variant="primary"
+              className='self-center'
+            >
+              <span className="text-handle-background text-lg">Entrar</span>
+            </Button>
+          </div>
 
-        <div className="w-full gap-4 flex flex-row items-center">
-          <Separator.Root
-            className="bg-handle-gray h-[1px] w-full"
-            decorative
-            orientation="horizontal"
-          />
+          <div className="w-full gap-4 flex flex-row items-center">
+            <Separator.Root
+              className="bg-handle-gray h-[1px] w-full"
+              decorative
+              orientation="horizontal"
+            />
 
-          <span className="text-handle-gray">ou</span>
+            <span className="text-handle-gray">ou</span>
 
-          <Separator.Root
-            className="bg-handle-gray h-[1px] w-full"
-            decorative
-            orientation="horizontal"
-          />
-        </div>
+            <Separator.Root
+              className="bg-handle-gray h-[1px] w-full"
+              decorative
+              orientation="horizontal"
+            />
+          </div>
 
-        <div>
-          <Button
-            type="button"
-            size="extra"
-            icon={<SvgComponent />}
-            action={() => ({})}
-            variant="secondary"
-          >
-            <span className="text-custom-gray-300 text-lg">
-              Entrar com Google
-            </span>
-          </Button>
+          <div>
+            <Button
+              type="button"
+              size={isBelowMd ? 'large' : 'extra'}
+              icon={<SvgComponent />}
+              action={() => ({})}
+              variant="secondary"
+            >
+              <span className="text-custom-gray-300 text-lg">
+                Entrar com Google
+              </span>
+            </Button>
+          </div>
         </div>
       </div>
     </form>
