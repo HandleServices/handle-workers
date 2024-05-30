@@ -151,6 +151,7 @@ export default function CompleteRegister() {
               <Controller
                 control={control}
                 name="workingDays"
+                defaultValue={[]}
                 render={({ field }) => (
                   <DayOfWeekPicker
                     {...field}

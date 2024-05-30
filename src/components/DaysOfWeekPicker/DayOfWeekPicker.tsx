@@ -35,12 +35,13 @@ const DAYS = [
 interface StyledToggleButtonGroupProps {
   className?: string
   children: React.ReactNode
+  onChange?: (value: string[]) => void
 }
 
 const StyledToggleButtonGroup = forwardRef<
   HTMLDivElement,
   StyledToggleButtonGroupProps
->(({ ...props }, ref) => {
+>(({ onChange, ...props }, ref) => {
   return (
     <ToggleGroup
       aria-label="Escolha os dias da semana"
@@ -54,6 +55,7 @@ const StyledToggleButtonGroup = forwardRef<
         justifyContent: 'center',
         padding: '0.2px 0px',
       }}
+      onValueChange={onChange}
     >
       {props.children}
     </ToggleGroup>
@@ -97,12 +99,13 @@ StyledToggle.displayName = 'StyledToggle' // Add display name
 interface DayOfWeekPickerProps {
   className?: string
   props?: React.ComponentProps<'div'>
+  onChange?: (value: string[]) => void
 }
 
 export const DayOfWeekPicker = forwardRef<HTMLDivElement, DayOfWeekPickerProps>(
-  ({ ...props }, ref) => {
+  ({ onChange, ...props }, ref) => {
     return (
-      <StyledToggleButtonGroup {...props} ref={ref}>
+      <StyledToggleButtonGroup onChange={onChange} {...props} ref={ref}>
         {DAYS.map((day) => (
           <StyledToggle key={day.key} value={day.key}>
             {day.label}
