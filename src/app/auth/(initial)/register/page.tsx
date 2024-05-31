@@ -40,7 +40,7 @@ const registerSchema = z
       .min(8, { message: 'A senha deve ter no mínimo 8 caracteres.' }),
     repeatPassword: z
       .string()
-      .min(8, { message: 'Deve ter no mínimo 8 caracteres.' }),
+      .min(8, { message: 'A senha deve ter no mínimo 8 caracteres.' }),
     agree: z.boolean().refine((value) => value === true, {
       message: 'Aceite os termos de consentimento para continuar.',
     }),
