@@ -31,9 +31,7 @@ export default function Login() {
   const router = useRouter()
 
   const onSubmit: SubmitHandler<LoginType> = (data) => {
-    // console.log('FINISHED')
     console.log(data)
-    // alert(JSON.stringify(data))
     router.push('/admin/home')
   }
 

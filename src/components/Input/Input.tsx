@@ -75,8 +75,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       return show ? 'text' : 'password'
     }, [show, type])
 
-    console.log(variants({ sz }))
-
     return (
       <div className={twMerge('relative bg-inherit', className)}>
         <input

@@ -78,9 +78,7 @@ export default function Register() {
   )
 
   const onSubmit: SubmitHandler<RegisterType> = (data) => {
-    // console.log('FINISHED')
     console.log(data)
-    // alert(JSON.stringify(data))
     router.push('complete_register')
   }
 

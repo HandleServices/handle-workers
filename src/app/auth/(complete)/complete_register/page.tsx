@@ -1,7 +1,7 @@
 'use client'
 import { zodResolver } from '@hookform/resolvers/zod'
+import clsx from 'clsx'
 import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
@@ -32,8 +32,7 @@ const registerSchema = z.object({
     },
     { message: 'Deve ter no mínimo 1 dia.' },
   ),
-
-  workingHour: z.tuple([z.date(), z.date()]),
+  workingHour: z.tuple([z.string(), z.string()]),
 })
 
 type RegisterType = z.infer<typeof registerSchema>
@@ -59,14 +58,6 @@ export default function CompleteRegister() {
       console.log(data)
     }
   }
-
-  useEffect(() => {
-    console.log(errors.image)
-    console.log(errors.name)
-    console.log(errors.selectedRole)
-    console.log(errors.workingDays)
-    console.log(errors.workingHour)
-  }, [errors])
 
   return (
     <form
@@ -151,7 +142,7 @@ export default function CompleteRegister() {
             >
               Selecione os dias que você trabalha :)
             </label>
-            <div className="flex flex-col">
+            <div className="flex flex-col gap-0">
               <Controller
                 control={control}
                 name="workingDays"
@@ -159,24 +150,34 @@ export default function CompleteRegister() {
                 render={({ field }) => (
                   <DaysOfWeekPicker
                     {...field}
-                    className="h-full gap-[21.59px] min-[200px]:max-[500px]:gap-1 mb-[25px] w-full"
+                    className={clsx(
+                      'h-full gap-[21.59px] min-[200px]:max-[500px]:gap-1 w-full',
+                      {
+                        'mb-3': errors.workingDays,
+                        'mb-6': !errors.workingDays,
+                      },
+                    )}
                   />
                 )}
               />
-              <div className="flex justify-center">
+              <div
+                className={clsx('flex justify-center', {
+                  'mb-5': errors.workingDays,
+                  'mb-0': !errors.workingDays,
+                })}
+              >
                 <LabelError errors={errors} name="workingDays" />
               </div>
             </div>
           </div>
-          <div className="flex flex-col gap-1">
-            <TimePicker
-              {...register('workingHour')}
-              className="gap-[95px] w-full"
-            />
-            <div className="flex justify-center">
-              <LabelError errors={errors} name="workingHour" />
-            </div>
-          </div>
+          <Controller
+            name="workingHour"
+            control={control}
+            defaultValue={['00:00', '00:00']}
+            render={({ field }) => (
+              <TimePicker value={field.value} onChange={field.onChange} />
+            )}
+          />
         </div>
       </div>
       <div className="flex flex-col justify-center items-center">

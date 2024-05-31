@@ -28,6 +28,8 @@ export interface TimePickerProps {
   style?: React.CSSProperties
   labelClassName?: string
   cb?: (timeRange: string[]) => void
+  value?: [string, string]
+  onChange?: (value: [string, string]) => void
 }
 
 const TimePicker = forwardRef<HTMLInputElement, TimePickerProps>(
@@ -39,12 +41,14 @@ const TimePicker = forwardRef<HTMLInputElement, TimePickerProps>(
       className = '',
       groupClassName = '',
       labelClassName = '',
-      cb = undefined,
+      cb,
+      value = ['00:00', '00:00'],
+      onChange,
     }: TimePickerProps,
     ref,
   ) => {
-    const [inHour, setInHour] = useState('00:00')
-    const [outHour, setOutHour] = useState('00:00')
+    const [inHour, setInHour] = useState(value[0])
+    const [outHour, setOutHour] = useState(value[1])
 
     const defaultProps = (
       hour: string,
@@ -64,9 +68,15 @@ const TimePicker = forwardRef<HTMLInputElement, TimePickerProps>(
     }
 
     useEffect(() => {
-      // eslint-disable-next-line n/no-callback-literal
-      cb && cb([inHour, outHour])
-    }, [inHour, outHour])
+      const timeRange = [inHour, outHour]
+      if (cb) cb(timeRange)
+      if (onChange) onChange([timeRange[0], timeRange[1]])
+    }, [inHour, outHour, cb, onChange])
+
+    useEffect(() => {
+      setInHour(value[0])
+      setOutHour(value[1])
+    }, [value])
 
     return (
       <div
