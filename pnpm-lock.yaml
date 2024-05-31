@@ -1937,13 +1937,19 @@ packages:
     engines: {node: '>=6'}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7dc3b88 (fix: fixes on pnpm-lock)
   import@0.0.6:
     resolution: {integrity: sha512-QPhTdjy9J4wUzmWSG7APkSgMFuPGPw+iJTYUblcfc2AfpqaatbwgCldK1HoLYx+v/+lWvab63GWZtNkcnj9JcQ==}
     engines: {node: '>=0.10.0'}
     hasBin: true
 
+<<<<<<< HEAD
 =======
 >>>>>>> e870ab7 (fix: wrong config files)
+=======
+>>>>>>> 7dc3b88 (fix: fixes on pnpm-lock)
   imurmurhash@0.1.4:
     resolution: {integrity: sha512-JmXMZ6wuvDmLiHEml9ykzqO6lwFbof0GG4IkcGaENdCRDDmMVnny7s5HsIgHCbaq0w2MyPhDqkhTUgS2LU2PHA==}
     engines: {node: '>=0.8.19'}
@@ -2346,11 +2352,17 @@ packages:
     engines: {node: '>=12'}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   optimist@0.3.7:
     resolution: {integrity: sha512-TCx0dXQzVtSCg2OgY/bO9hjM9cV4XYx09TVK+s3+FhkjT6LovsLe+pPMzpWf+6yXK/hUizs2gUoTw3jHM0VaTQ==}
 
 =======
 >>>>>>> e870ab7 (fix: wrong config files)
+=======
+  optimist@0.3.7:
+    resolution: {integrity: sha512-TCx0dXQzVtSCg2OgY/bO9hjM9cV4XYx09TVK+s3+FhkjT6LovsLe+pPMzpWf+6yXK/hUizs2gUoTw3jHM0VaTQ==}
+
+>>>>>>> 7dc3b88 (fix: fixes on pnpm-lock)
   optionator@0.9.3:
     resolution: {integrity: sha512-JjCoypp+jKn1ttEFExxhetCKeJt9zhAgAve5FXHixTvFDW/5aEktX9bufBKLRRMdU7bNtpLfcGu94B3cdEJgjg==}
     engines: {node: '>= 0.8.0'}
@@ -3090,12 +3102,18 @@ packages:
     hasBin: true
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7dc3b88 (fix: fixes on pnpm-lock)
   wordwrap@0.0.3:
     resolution: {integrity: sha512-1tMA907+V4QmxV7dbRvb4/8MaRALK6q9Abid3ndMYnbyo8piisCmeONVqVSXqQA3KaP4SLt5b7ud6E2sqP8TFw==}
     engines: {node: '>=0.4.0'}
 
+<<<<<<< HEAD
 =======
 >>>>>>> e870ab7 (fix: wrong config files)
+=======
+>>>>>>> 7dc3b88 (fix: fixes on pnpm-lock)
   wrap-ansi@7.0.0:
     resolution: {integrity: sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==}
     engines: {node: '>=10'}
@@ -5566,6 +5584,9 @@ snapshots:
       resolve-from: 4.0.0
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7dc3b88 (fix: fixes on pnpm-lock)
   import@0.0.6:
     dependencies:
       optimist: 0.3.7
@@ -5993,12 +6014,18 @@ snapshots:
       mimic-fn: 4.0.0
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7dc3b88 (fix: fixes on pnpm-lock)
   optimist@0.3.7:
     dependencies:
       wordwrap: 0.0.3
 
+<<<<<<< HEAD
 =======
 >>>>>>> e870ab7 (fix: wrong config files)
+=======
+>>>>>>> 7dc3b88 (fix: fixes on pnpm-lock)
   optionator@0.9.3:
     dependencies:
       '@aashutoshrathi/word-wrap': 1.2.6
@@ -6912,10 +6939,15 @@ snapshots:
       stackback: 0.0.2
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   wordwrap@0.0.3: {}
 
 =======
 >>>>>>> e870ab7 (fix: wrong config files)
+=======
+  wordwrap@0.0.3: {}
+
+>>>>>>> 7dc3b88 (fix: fixes on pnpm-lock)
   wrap-ansi@7.0.0:
     dependencies:
       ansi-styles: 4.3.0
