@@ -14,7 +14,7 @@ import SvgComponent from '../assets/google'
 
 const loginSchema = z.object({
   email: z.string().email({ message: 'Endereço de e-mail inválido.' }),
-  password: z.string().min(8, { message: 'Deve ter no mínimo 8 caracteres.' }),
+  password: z.string().min(8, { message: 'Senha inválida' }),
 })
 
 type LoginType = z.infer<typeof loginSchema>
