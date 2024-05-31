@@ -12,7 +12,7 @@ const handleColors = resolveConfig(config).handle
 function inputStyle(inHour: string, outHour: string) {
   const [color, borderColor] =
     inHour !== '00:00' || outHour !== '00:00'
-      ? handleColors.gray[700]
+      ? handleColors.gray[300]
       : handleColors.blue.DEFAULT
   return {
     color,

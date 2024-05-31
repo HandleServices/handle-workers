@@ -196,7 +196,7 @@ export default function Register() {
 
           <LabelError errors={errors} name="agree" />
 
-          <Button size="extra" variant="primary">
+          <Button size="large" variant="primary">
             <span className="text-handle-background text-lg">Cadastrar</span>
           </Button>
         </div>
@@ -223,7 +223,7 @@ export default function Register() {
           icon={<SvgComponent />}
           variant="secondary"
         >
-          <span className="text-custom-gray-300 text-lg">
+          <span className="text-handle-gray-300 text-lg">
             Cadastrar-se com Google
           </span>
         </Button>

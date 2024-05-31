@@ -85,7 +85,7 @@ export default function Login() {
           </p>
           <Button
             type="submit"
-            size="extra"
+            size="large"
             action={() => ({})}
             variant="primary"
           >
@@ -117,7 +117,7 @@ export default function Login() {
             action={() => ({})}
             variant="secondary"
           >
-            <span className="text-custom-gray-300 text-lg">
+            <span className="text-handle-gray-300 text-lg">
               Entrar com Google
             </span>
           </Button>
