@@ -12,18 +12,21 @@ const SelectValue = SelectPrimitive.Value
 
 export interface SelectTriggerProps
   extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger> {
-  error?: boolean
+  error: boolean
 }
 
 const SelectTrigger = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Trigger>,
   SelectTriggerProps
->(({ className, children, ...props }, ref) => {
+>(({ className, children, error, ...props }, ref) => {
   return (
     <SelectPrimitive.Trigger
       ref={ref}
       className={cn(
-        'box-border flex h-12 w-full items-center tracking-widest justify-between rounded-md bg-background outline-none border-1.5 border-handle-blue px-3 py-2 text-base disabled:cursor-not-allowed disabled:opacity-50 focus:text-handle-blue data-[state=open]:text-handle-blue [&>svg]:data-[state=open]:rotate-180 data-[state=close]:delay-100 data-[placeholder]:text-handle-gray-300 [&:not(:focus)]:data-[state=closed]:border-handle-gray-300',
+        'box-border flex h-12 w-full items-center tracking-widest justify-between rounded-md bg-background outline-none border-1.5 px-3 py-2 text-base disabled:cursor-not-allowed disabled:opacity-50 [&>svg]:data-[state=open]:rotate-180 data-[state=close]:delay-100',
+        error
+          ? 'border-handle-red text-handle-red data-[state=open]:border-handle-red data-[state=open]:text-handle-red'
+          : 'border-handle-gray-300 text-handle-gray-300 data-[state=open]:border-handle-blue data-[state=open]:text-handle-blue',
         className,
       )}
       {...props}

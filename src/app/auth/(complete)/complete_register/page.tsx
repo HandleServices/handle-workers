@@ -30,7 +30,7 @@ const registerSchema = z.object({
       const quantity = arg.length
       return quantity > 0
     },
-    { message: 'Deve ter no mínimo 1 dia.' },
+    { message: 'Selecione ao menos um dia da semana ' },
   ),
   workingHour: z.tuple([z.string(), z.string()]),
 })
@@ -47,17 +47,22 @@ export default function CompleteRegister() {
     formState: { errors },
   } = useForm<RegisterType>({
     resolver: zodResolver(registerSchema),
+    defaultValues: {
+      selectedRole: '',
+    },
   })
 
   const onSubmit: SubmitHandler<RegisterType> = async (data) => {
     try {
       console.log(data)
-      router.push('/app')
+      router.push('/admin/home')
     } catch (error) {
       console.error(error)
       console.log(data)
     }
   }
+
+  console.log(errors.selectedRole)
 
   return (
     <form
@@ -96,7 +101,10 @@ export default function CompleteRegister() {
               control={control}
               name="selectedRole"
               render={({ field }) => (
-                <Select {...field} onValueChange={(val) => field.onChange(val)}>
+                <Select
+                  value={field.value}
+                  onValueChange={(value) => field.onChange(value)}
+                >
                   <SelectTrigger
                     error={!!errors.selectedRole}
                     className="bg-transparent h-14"
