@@ -6,7 +6,7 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 import { Button } from '@/components/Button'
-import { DayOfWeekPicker } from '@/components/DaysOfWeekPicker'
+import { DaysOfWeekPicker } from '@/components/DaysOfWeekPicker'
 import Input from '@/components/Input'
 import { InputImage } from '@/components/InputImage'
 import { LabelError } from '@/components/LabelError'
@@ -153,7 +153,7 @@ export default function CompleteRegister() {
                 name="workingDays"
                 defaultValue={[]}
                 render={({ field }) => (
-                  <DayOfWeekPicker
+                  <DaysOfWeekPicker
                     {...field}
                     className="h-full gap-[21.59px] min-[200px]:max-[500px]:gap-1 mb-[25px] w-full"
                   />
