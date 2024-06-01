@@ -24,6 +24,7 @@ const variants = cva(
       size: {
         small: ['w-40', 'text-xs'],
         medium: ['w-52', 'text-xs'],
+        mediumlg: ['w-[17rem]', 'text-[0.8em]'],
         large: ['w-64', 'text-[0.9em]'],
         extra: ['w-96 h-[3rem]', 'text-[0.9375em]'],
       },
@@ -50,7 +51,7 @@ function Loading({ type }: loadingProps): JSX.Element {
 }
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-  size: 'small' | 'medium' | 'large' | 'extra'
+  size: 'small' | 'medium' | 'mediumlg' | 'large' | 'extra'
   variant: 'primary' | 'secondary' | 'neutral'
   action?:
     | ((e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => Promise<void>)
@@ -88,7 +89,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 <div className="flex flex-row align-center items-center justify-center col-span-2">
                   {icon}
                 </div>
-                <p className="col-span-10 text-center p-0 m-0">{children}</p>
+                <p className="col-span-10 text-center pr-2 m-0">{children}</p>
               </div>
             )) ||
             children}

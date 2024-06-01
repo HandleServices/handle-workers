@@ -55,7 +55,7 @@ type RegisterType = z.infer<typeof registerSchema>
 
 export default function Register() {
   const router = useRouter()
-  const { isBelowMd } = useBreakpoint('md')
+  const { isBelowSm } = useBreakpoint('sm')
 
   const {
     control,
@@ -89,7 +89,7 @@ export default function Register() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="w-full min-[585px]:min-h-screen max-[585px]:h-2/3 max-[1000px]:px-4 max-[1000px]:py-8 px-20 py-10 flex min-[585px]:items-center justify-center"
+      className="w-full min-[586px]:min-h-screen max-[585px]:h-full max-[1000px]:px-2 max-[1000px]:py-8 px-20 py-10 flex items-center justify-center"
     >
       <div className="w-2/3 max-[1000px]:w-11/12 max-[1400px]:w-10/12 gap-10 flex flex-col items-center min-[585px]:justify-center bg-handle-background">
         <div className="w-full flex flex-col gap-6 bg-handle-background">
@@ -199,8 +199,14 @@ export default function Register() {
             />
 
             <LabelError errors={errors} name="agree" />
-            <Button size={isBelowMd ? 'large' : 'extra'} variant="primary">
-              <span className="text-handle-background text-lg">Cadastrar</span>
+            <Button
+              size={isBelowSm ? 'mediumlg' : 'extra'}
+              variant="primary"
+              className="mt-5"
+            >
+              <span className="text-handle-background max-[770px]:text-[0.9rem] text-lg">
+                Cadastrar
+              </span>
             </Button>
           </div>
 
@@ -222,11 +228,11 @@ export default function Register() {
 
           <Button
             type="button"
-            size={isBelowMd ? 'large' : 'extra'}
+            size={isBelowSm ? 'mediumlg' : 'extra'}
             icon={<SvgComponent />}
             variant="secondary"
           >
-            <span className="text-custom-gray-300 text-lg">
+            <span className="w-full text-custom-gray-300 max-[645px]:text-[0.85rem] min-[646px]:text-lg">
               Cadastrar-se com Google
             </span>
           </Button>

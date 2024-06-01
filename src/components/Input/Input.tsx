@@ -76,13 +76,13 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     }, [show, type])
 
     return (
-      <div className={twMerge('relative bg-inherit', className)}>
+      <div className={twMerge('relative bg-inherit grid', className)}>
         <input
           ref={ref}
           id={name}
           name={name}
           style={{ width, height }}
-          className={twMerge(variants({ sz }))}
+          className={twMerge(variants({ sz }), 'pr-14')}
           {...props}
           type={currentType}
           placeholder=" "

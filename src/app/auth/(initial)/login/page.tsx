@@ -46,9 +46,9 @@ export default function Login() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="w-full min-[585px]:min-h-screen max-[585px]:h-2/3 max-[1000px]:px-4 max-[1000px]:py-8 px-20 py-10 flex min-[585px]:items-center justify-center"
+      className="w-full min-[586px]:min-h-screen max-[585px]:h-full max-[1000px]:px-4 max-[1000px]:py-8 px-20 py-10 flex items-center justify-evenly"
     >
-      <div className="w-2/3 max-[1000px]:w-11/12 max-[1400px]:w-10/12 gap-10 flex flex-col items-center min-[585px]:justify-center bg-handle-background">
+      <div className="w-2/3 max-[1000px]:w-11/12 max-[1400px]:w-10/12 h-full gap-10 max-[585px]:gap-14 flex flex-col items-center justify-start max-[585px]:mt-20 bg-handle-background">
         <div className="w-full flex flex-col gap-6 bg-handle-background">
           <div className="w-full flex flex-col gap-1">
             <Input
@@ -88,7 +88,7 @@ export default function Login() {
             </p>
             <Button
               type="submit"
-              size={isBelowMd ? 'large' : 'extra'}
+              size={isBelowMd ? 'mediumlg' : 'extra'}
               action={() => ({})}
               variant="primary"
               className="self-center"
@@ -116,7 +116,7 @@ export default function Login() {
           <div>
             <Button
               type="button"
-              size={isBelowMd ? 'large' : 'extra'}
+              size={isBelowMd ? 'mediumlg' : 'extra'}
               icon={<SvgComponent />}
               action={() => ({})}
               variant="secondary"
