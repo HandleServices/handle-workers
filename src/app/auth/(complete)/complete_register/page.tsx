@@ -21,7 +21,7 @@ import TimePicker from '@/components/TimePicker'
 
 const registerSchema = z.object({
   image: z.any().refine((file) => file && file.length > 0, {
-    message: 'selecione uma image!',
+    message: 'selecione uma imagem!',
   }),
   name: z.string().min(2, { message: 'Nome deve ter ao menos 2 caracteres.' }),
   selectedRole: z.string().min(1, { message: 'Selecione uma profissão' }),
