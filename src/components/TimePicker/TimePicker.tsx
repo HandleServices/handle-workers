@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { forwardRef, LegacyRef, useEffect, useState } from 'react'
 import resolveConfig from 'tailwindcss/resolveConfig'
 
 import { cn } from '@/lib/utils'
@@ -12,7 +12,7 @@ const handleColors = resolveConfig(config).handle
 function inputStyle(inHour: string, outHour: string) {
   const [color, borderColor] =
     inHour !== '00:00' || outHour !== '00:00'
-      ? handleColors.gray[700]
+      ? handleColors.gray[300]
       : handleColors.blue.DEFAULT
   return {
     color,
@@ -27,58 +27,83 @@ export interface TimePickerProps {
   groupClassName?: string
   style?: React.CSSProperties
   labelClassName?: string
+  cb?: (timeRange: string[]) => void
+  value?: [string, string]
+  onChange?: (value: [string, string]) => void
 }
 
-const TimePicker = ({
-  width = 140,
-  height = 60,
-  style = {},
-  className = '',
-  groupClassName = '',
-  labelClassName = '',
-}: TimePickerProps) => {
-  const [inHour, setInHour] = useState('00:00')
-  const [outHour, setOutHour] = useState('00:00')
-
-  const defaultProps = (
-    hour: string,
-    setHour: React.Dispatch<React.SetStateAction<string>>,
+const TimePicker = forwardRef<HTMLInputElement, TimePickerProps>(
+  (
+    {
+      width = 140,
+      height = 60,
+      style = {},
+      className = '',
+      groupClassName = '',
+      labelClassName = '',
+      cb,
+      value = ['00:00', '00:00'],
+      onChange,
+    }: TimePickerProps,
+    ref,
   ) => {
-    return {
-      style: {
-        ...style,
-        ...inputStyle(inHour, outHour),
-      },
-      className,
-      width,
-      height,
-      hour,
-      setHour,
-    }
-  }
+    const [inHour, setInHour] = useState(value[0])
+    const [outHour, setOutHour] = useState(value[1])
 
-  return (
-    <div
-      className={`flex row gap-4 md:gap-14 lg:gap-[5.948rem] ${groupClassName}`}
-    >
-      <div>
-        <label
-          className={cn('tracking-widest text-sm font-thin', labelClassName)}
-        >
-          início
-        </label>
-        <InputTimePicker {...defaultProps(inHour, setInHour)} />
+    const defaultProps = (
+      hour: string,
+      setHour: React.Dispatch<React.SetStateAction<string>>,
+    ) => {
+      return {
+        style: {
+          ...style,
+          ...inputStyle(inHour, outHour),
+        },
+        className,
+        width,
+        height,
+        hour,
+        setHour,
+      }
+    }
+
+    useEffect(() => {
+      const timeRange = [inHour, outHour]
+      if (cb) cb(timeRange)
+      if (onChange) onChange([timeRange[0], timeRange[1]])
+    }, [inHour, outHour, cb, onChange])
+
+    useEffect(() => {
+      setInHour(value[0])
+      setOutHour(value[1])
+    }, [value])
+
+    return (
+      <div
+        className={`flex row gap-4 md:gap-14 lg:gap-[5.948rem] ${groupClassName}`}
+        ref={ref as LegacyRef<HTMLDivElement>}
+      >
+        <div>
+          <label
+            className={cn('tracking-widest text-sm font-thin', labelClassName)}
+          >
+            início
+          </label>
+          <InputTimePicker {...defaultProps(inHour, setInHour)} />
+        </div>
+        <div>
+          <label
+            className={cn('tracking-widest text-sm font-thin', labelClassName)}
+          >
+            fim
+          </label>
+          <InputTimePicker {...defaultProps(outHour, setOutHour)} />
+        </div>
       </div>
-      <div>
-        <label
-          className={cn('tracking-widest text-sm font-thin', labelClassName)}
-        >
-          fim
-        </label>
-        <InputTimePicker {...defaultProps(outHour, setOutHour)} />
-      </div>
-    </div>
-  )
-}
+    )
+  },
+)
+
+TimePicker.displayName = 'TimePicker'
 
 export default TimePicker

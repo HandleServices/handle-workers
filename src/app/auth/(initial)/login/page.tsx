@@ -14,7 +14,7 @@ import SvgComponent from '../assets/google'
 
 const loginSchema = z.object({
   email: z.string().email({ message: 'Endereço de e-mail inválido.' }),
-  password: z.string().min(8, { message: 'Deve ter no mínimo 8 caracteres.' }),
+  password: z.string().min(8, { message: 'Senha inválida' }),
 })
 
 type LoginType = z.infer<typeof loginSchema>
@@ -31,9 +31,7 @@ export default function Login() {
   const router = useRouter()
 
   const onSubmit: SubmitHandler<LoginType> = (data) => {
-    // console.log('FINISHED')
     console.log(data)
-    // alert(JSON.stringify(data))
     router.push('/admin/home')
   }
 
@@ -85,7 +83,7 @@ export default function Login() {
           </p>
           <Button
             type="submit"
-            size="extra"
+            size="large"
             action={() => ({})}
             variant="primary"
           >
@@ -117,7 +115,7 @@ export default function Login() {
             action={() => ({})}
             variant="secondary"
           >
-            <span className="text-custom-gray-300 text-lg">
+            <span className="text-handle-gray-300 text-lg">
               Entrar com Google
             </span>
           </Button>

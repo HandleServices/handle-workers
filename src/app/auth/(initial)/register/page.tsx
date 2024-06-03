@@ -37,10 +37,10 @@ const registerSchema = z
       }),
     password: z
       .string()
-      .min(8, { message: 'Deve ter no mínimo 8 caracteres.' }),
+      .min(8, { message: 'A senha deve ter no mínimo 8 caracteres.' }),
     repeatPassword: z
       .string()
-      .min(8, { message: 'Deve ter no mínimo 8 caracteres.' }),
+      .min(8, { message: 'A senha deve ter no mínimo 8 caracteres.' }),
     agree: z.boolean().refine((value) => value === true, {
       message: 'Aceite os termos de consentimento para continuar.',
     }),
@@ -78,9 +78,7 @@ export default function Register() {
   )
 
   const onSubmit: SubmitHandler<RegisterType> = (data) => {
-    // console.log('FINISHED')
     console.log(data)
-    // alert(JSON.stringify(data))
     router.push('complete_register')
   }
 
@@ -196,7 +194,7 @@ export default function Register() {
 
           <LabelError errors={errors} name="agree" />
 
-          <Button size="extra" variant="primary">
+          <Button size="large" variant="primary">
             <span className="text-handle-background text-lg">Cadastrar</span>
           </Button>
         </div>
@@ -223,7 +221,7 @@ export default function Register() {
           icon={<SvgComponent />}
           variant="secondary"
         >
-          <span className="text-custom-gray-300 text-lg">
+          <span className="text-handle-gray-300 text-lg">
             Cadastrar-se com Google
           </span>
         </Button>

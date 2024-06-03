@@ -17,7 +17,7 @@ const CustomCheckbox = React.forwardRef<
       {...props}
       ref={ref}
       id={checkboxId}
-      className="w-4 h-4 mt-1 rounded-sm ring-1 ring-inset ring-handle-gray-700 focus:outline-none focus:ring-1 focus:ring-inset data-[state=checked]:ring-handle-blue"
+      className="w-4 h-4 mt-1 rounded-sm ring-1 ring-inset ring-handle-gray-300 focus:outline-none focus:ring-1 focus:ring-inset data-[state=checked]:ring-handle-blue"
     >
       <Checkbox.Indicator className="text-handle-blue">
         {props.checked === 'indeterminate' && <DividerHorizontalIcon />}
