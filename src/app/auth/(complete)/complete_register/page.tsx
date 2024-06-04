@@ -67,12 +67,12 @@ export default function CompleteRegister() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="grid grid-rows-[30px_1fr_1fr_50px] w-full h-full gap-12 sm:gap-6 min-[200px]:max-[700px]:gap-5"
+      className="grid w-full h-full gap-6 sm:gap-12 sm:p-10 items-start sm:items-center"
     >
-      <h1 className="text-2xl font-semibold tracking-wider text-handle-blue text-center min-[200px]:max-[700px]:-mt-4">
+      <h1 className="text-2xl font-semibold tracking-wider text-handle-blue text-center">
         Nos conte sobre sua vida profissional :)
       </h1>
-      <div className="md:grid md:grid-cols-[1fr_2fr] sm:flex sm:flex-col sm:items-center gap-6">
+      <div className="grid sm:grid-cols-[0.3fr_1fr] sm:items-center gap-6">
         <div className="flex flex-col items-center">
           <Controller
             control={control}
@@ -81,22 +81,20 @@ export default function CompleteRegister() {
           />
           <LabelError errors={errors} name="image" />
         </div>
-        <div className="flex flex-col justify-evenly gap-[28px] w-full min-[200px]:mt-6 min-[200px]:max-[700px]:w-full items-center min-[200px]:max-[700px]:gap-3">
-          <div className="w-full flex flex-col gap-1">
-            <Input
-              {...register('name')}
-              error={!!errors.name}
-              placeholder="Nome do seu negócio"
-              customBgColor="bg-handle-background"
-              sz="large"
-              height={56}
-              className="w-full"
-            />
+        <div className="flex flex-col justify-evenly gap-[28px] w-full items-center">
+          <Input
+            {...register('name')}
+            error={!!errors.name}
+            placeholder="Nome do seu negócio"
+            customBgColor="bg-handle-background"
+            sz="large"
+            height={56}
+            className="w-11/12 sm:w-full"
+          />
 
-            <LabelError errors={errors} name="name" />
-          </div>
+          <LabelError errors={errors} name="name" />
 
-          <div className="w-full flex flex-col gap-1">
+          <div className="w-11/12 sm:w-full flex flex-col gap-1">
             <Controller
               control={control}
               name="selectedRole"
@@ -138,11 +136,11 @@ export default function CompleteRegister() {
           </div>
         </div>
       </div>
-      <div className="border-1.5 border-handle-gray-300 w-full h-full rounded-lg">
+      <div className="border-1.5 border-handle-gray-300 w-11/12 sm:w-full h-full rounded-lg justify-self-center">
         <label className="absolute text-sm tracking-widest -mt-[15px] bg-handle-background ml-2 p-1">
           Meu expediente
         </label>
-        <div className="flex flex-col items-center w-full h-full justify-center min-[200px]:py-4 min-[200px]:px-1">
+        <div className="flex flex-col items-center w-full h-full justify-center min-[200px]:py-4 min-[200px]:px-0">
           <div className="flex flex-col gap-2">
             <label
               htmlFor=""
@@ -150,7 +148,7 @@ export default function CompleteRegister() {
             >
               Selecione os dias que você trabalha :)
             </label>
-            <div className="flex flex-col gap-0">
+            <div className="flex flex-col">
               <Controller
                 control={control}
                 name="workingDays"
@@ -159,7 +157,7 @@ export default function CompleteRegister() {
                   <DaysOfWeekPicker
                     {...field}
                     className={clsx(
-                      'h-full gap-[21.59px] min-[200px]:max-[500px]:gap-1 w-full',
+                      'h-full gap-1 min-[415px]:gap-2 sm:gap-[21.59px]  w-full',
                       {
                         'mb-3': errors.workingDays,
                         'mb-6': !errors.workingDays,
@@ -191,7 +189,7 @@ export default function CompleteRegister() {
       <div className="flex flex-col justify-center items-center">
         <Button
           type="submit"
-          size="extra"
+          size="large"
           variant={'primary'}
           className="text-lg"
         >
