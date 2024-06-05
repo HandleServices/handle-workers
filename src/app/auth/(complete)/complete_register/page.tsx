@@ -67,7 +67,7 @@ export default function CompleteRegister() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="grid w-full h-full gap-6 sm:gap-12 sm:p-10 items-start sm:items-center"
+      className="grid w-full h-full gap-6 sm:gap-12 py-5 sm:p-10 items-start sm:items-center"
     >
       <h1 className="text-2xl font-semibold tracking-wider text-handle-blue text-center">
         Nos conte sobre sua vida profissional :)
@@ -82,17 +82,19 @@ export default function CompleteRegister() {
           <LabelError errors={errors} name="image" />
         </div>
         <div className="flex flex-col justify-evenly gap-[28px] w-full items-center">
-          <Input
-            {...register('name')}
-            error={!!errors.name}
-            placeholder="Nome do seu negócio"
-            customBgColor="bg-handle-background"
-            sz="large"
-            height={56}
-            className="w-11/12 sm:w-full"
-          />
+          <div className="w-11/12 sm:w-full flex flex-col gap-1">
+            <Input
+              {...register('name')}
+              error={!!errors.name}
+              placeholder="Nome do seu negócio"
+              customBgColor="bg-handle-background"
+              sz="large"
+              height={56}
+              className="w-full"
+            />
 
-          <LabelError errors={errors} name="name" />
+            <LabelError errors={errors} name="name" />
+          </div>
 
           <div className="w-11/12 sm:w-full flex flex-col gap-1">
             <Controller
@@ -136,7 +138,7 @@ export default function CompleteRegister() {
           </div>
         </div>
       </div>
-      <div className="border-1.5 border-handle-gray-300 w-11/12 sm:w-full h-full rounded-lg justify-self-center">
+      <div className="relative border-1.5 border-handle-gray-300 w-11/12 sm:w-full h-full rounded-lg justify-self-center">
         <label className="absolute text-sm tracking-widest -mt-[15px] bg-handle-background ml-2 p-1">
           Meu expediente
         </label>
@@ -186,7 +188,7 @@ export default function CompleteRegister() {
           />
         </div>
       </div>
-      <div className="flex flex-col justify-center items-center">
+      <div className="flex flex-col justify-center items-center pb-5">
         <Button
           type="submit"
           size="large"
