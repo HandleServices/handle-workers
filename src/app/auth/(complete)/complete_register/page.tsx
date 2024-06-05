@@ -183,7 +183,11 @@ export default function CompleteRegister() {
             control={control}
             defaultValue={['00:00', '00:00']}
             render={({ field }) => (
-              <TimePicker value={field.value} onChange={field.onChange} />
+              <TimePicker
+                className=""
+                value={field.value}
+                onChange={field.onChange}
+              />
             )}
           />
         </div>
