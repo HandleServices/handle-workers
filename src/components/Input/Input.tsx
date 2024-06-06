@@ -82,7 +82,10 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           id={name}
           name={name}
           style={{ width, height }}
-          className={twMerge(variants({ sz }), 'pr-14')}
+          className={twMerge(
+            variants({ sz }),
+            currentType === 'password' ? 'pr-14' : '',
+          )}
           {...props}
           type={currentType}
           placeholder=" "
