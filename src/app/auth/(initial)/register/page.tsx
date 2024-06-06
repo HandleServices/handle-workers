@@ -11,6 +11,7 @@ import { CustomCheckbox } from '@/components/Checkbox'
 import Input from '@/components/Input'
 import { LabelError } from '@/components/LabelError'
 import { generalErrorSchemaKey } from '@/components/LabelError/LabelError'
+import { useBreakpoint } from '@/hooks/useBreakpoints'
 import { useFormattedForm } from '@/hooks/useFormattedForm'
 import { checkCpfCnpj, cpfCnpjMask } from '@/utils/mask-cpf-cnpj'
 import { checkPhoneMask, phoneMask } from '@/utils/mask-phone'
@@ -54,6 +55,7 @@ type RegisterType = z.infer<typeof registerSchema>
 
 export default function Register() {
   const router = useRouter()
+  const { isBelowSm } = useBreakpoint('sm')
 
   const {
     control,
@@ -85,9 +87,9 @@ export default function Register() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="w-full min-h-screen px-20 py-10 flex items-center justify-center"
+      className="w-full min-[586px]:min-h-screen max-[585px]:h-full max-[1000px]:px-2 max-[1000px]:py-8 px-20 py-10 flex items-center justify-center"
     >
-      <div className="w-2/3 gap-10 flex flex-col items-center justify-center bg-handle-background">
+      <div className="w-2/3 max-[1000px]:w-11/12 max-[1400px]:w-10/12 gap-10 flex flex-col items-center min-[585px]:justify-center bg-handle-background">
         <div className="w-full flex flex-col gap-6 bg-handle-background">
           <div className="w-full flex flex-col gap-1">
             <Input
@@ -114,7 +116,7 @@ export default function Register() {
             <LabelError errors={errors} name="email" />
           </div>
 
-          <div className="flex flex-row gap-6">
+          <div className="flex flex-row gap-6 max-[650px]:gap-2">
             <div className="w-full flex flex-col gap-1">
               <Input
                 {...registerFormatted('phoneNumber')}
@@ -140,7 +142,7 @@ export default function Register() {
             </div>
           </div>
 
-          <div className="flex flex-row gap-6">
+          <div className="flex flex-row gap-6 max-[650px]:gap-2">
             <div className="w-full flex flex-col gap-1">
               <Input
                 {...register('password')}
@@ -149,6 +151,7 @@ export default function Register() {
                 placeholder="Senha"
                 type="password"
                 customBgColor="bg-handle-background"
+                inputClassName="pr-14"
               />
 
               <LabelError errors={errors} name="password" />
@@ -162,6 +165,7 @@ export default function Register() {
                 placeholder="Repita a senha"
                 type="password"
                 customBgColor="bg-handle-background"
+                inputClassName="pr-14"
               />
 
               <LabelError errors={errors} name="repeatPassword" />
@@ -171,60 +175,68 @@ export default function Register() {
           <LabelError errors={errors} name={generalErrorSchemaKey} />
         </div>
 
-        <div className="flex flex-col gap-1">
-          <Controller
-            name="agree"
-            defaultValue={false}
-            control={control}
-            render={({ field: { name, onChange, ref, disabled, value } }) => (
-              <CustomCheckbox
-                ref={ref}
-                name={name}
-                disabled={disabled}
-                checked={value === true}
-                onCheckedChange={(checked) => {
-                  const isChecked = checked === 'indeterminate' ? true : checked
-                  onChange(isChecked)
-                }}
-                checkboxId="checkbox-login"
-                label="Concordo e aceito os termos de consentimento."
-              />
-            )}
-          />
+        <div className="flex flex-col gap-5 items-center justify-center">
+          <div className="flex flex-col gap-1 items-center justify-center">
+            <Controller
+              name="agree"
+              defaultValue={false}
+              control={control}
+              render={({ field: { name, onChange, ref, disabled, value } }) => (
+                <CustomCheckbox
+                  ref={ref}
+                  name={name}
+                  disabled={disabled}
+                  checked={value === true}
+                  onCheckedChange={(checked) => {
+                    const isChecked =
+                      checked === 'indeterminate' ? true : checked
+                    onChange(isChecked)
+                  }}
+                  checkboxId="checkbox-login"
+                  label="Concordo e aceito os termos de consentimento."
+                />
+              )}
+            />
 
-          <LabelError errors={errors} name="agree" />
+            <LabelError errors={errors} name="agree" />
+            <Button
+              size={isBelowSm ? 'mediumlg' : 'large'}
+              variant="primary"
+              className="mt-5"
+            >
+              <span className="text-handle-background max-[770px]:text-[0.9rem] text-lg">
+                Cadastrar
+              </span>
+            </Button>
+          </div>
 
-          <Button size="large" variant="primary">
-            <span className="text-handle-background text-lg">Cadastrar</span>
+          <div className="w-full gap-4 flex flex-row items-center">
+            <Separator.Root
+              className="bg-handle-gray h-[1px] w-full"
+              decorative
+              orientation="horizontal"
+            ></Separator.Root>
+
+            <span className="text-handle-gray">ou</span>
+
+            <Separator.Root
+              className="bg-handle-gray h-[1px] w-full"
+              decorative
+              orientation="horizontal"
+            ></Separator.Root>
+          </div>
+
+          <Button
+            type="button"
+            size={isBelowSm ? 'mediumlg' : 'extra'}
+            icon={<SvgComponent />}
+            variant="secondary"
+          >
+            <span className="w-full text-handle-gray-300 max-[645px]:text-[0.85rem] min-[646px]:text-lg">
+              Cadastrar-se com Google
+            </span>
           </Button>
         </div>
-
-        <div className="w-full gap-4 flex flex-row items-center">
-          <Separator.Root
-            className="bg-handle-gray h-[1px] w-full"
-            decorative
-            orientation="horizontal"
-          ></Separator.Root>
-
-          <span className="text-handle-gray">ou</span>
-
-          <Separator.Root
-            className="bg-handle-gray h-[1px] w-full"
-            decorative
-            orientation="horizontal"
-          ></Separator.Root>
-        </div>
-
-        <Button
-          type="button"
-          size="extra"
-          icon={<SvgComponent />}
-          variant="secondary"
-        >
-          <span className="text-handle-gray-300 text-lg">
-            Cadastrar-se com Google
-          </span>
-        </Button>
       </div>
     </form>
   )

@@ -15,6 +15,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: boolean
   sz?: 'small' | 'medium' | 'large'
   customBgColor?: string | undefined
+  inputClassName?: string | undefined
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
@@ -29,6 +30,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       height,
       sz = 'medium',
       type,
+      inputClassName,
       ...props
     },
     ref,
@@ -76,13 +78,13 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     }, [show, type])
 
     return (
-      <div className={twMerge('relative bg-inherit', className)}>
+      <div className={twMerge('relative bg-inherit grid', className)}>
         <input
           ref={ref}
           id={name}
           name={name}
           style={{ width, height }}
-          className={twMerge(variants({ sz }))}
+          className={twMerge(variants({ sz }), inputClassName)}
           {...props}
           type={currentType}
           placeholder=" "
@@ -102,7 +104,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         {type === 'password' && (
           <div
             className={twMerge(
-              `p-0 mr-4 cursor-pointer absolute right-0 top-1/2 transform -translate-y-1/2`,
+              `p-0 mr-4 select-none cursor-pointer absolute right-0 top-1/2 transform -translate-y-1/2`,
               currentTextColor,
             )}
             onClick={() => setShow((prev) => !prev)}

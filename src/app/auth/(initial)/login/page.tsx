@@ -9,6 +9,7 @@ import { z } from 'zod'
 import { Button } from '@/components/Button'
 import Input from '@/components/Input'
 import { LabelError } from '@/components/LabelError'
+import { useBreakpoint } from '@/hooks/useBreakpoints'
 
 import SvgComponent from '../assets/google'
 
@@ -20,6 +21,7 @@ const loginSchema = z.object({
 type LoginType = z.infer<typeof loginSchema>
 
 export default function Login() {
+  const { isBelowMd } = useBreakpoint('md')
   const {
     register,
     handleSubmit,
@@ -42,9 +44,9 @@ export default function Login() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="w-full max-w-screen min-h-screen px-5 lg:px-20 py-0 lg:py-10 flex items-center justify-center"
+      className="w-full min-[586px]:min-h-screen max-[585px]:h-full max-[1000px]:px-4 max-[1000px]:py-8 px-20 py-10 flex items-center justify-evenly"
     >
-      <div className="w-2/3 gap-10 flex flex-col items-center justify-center bg-handle-background">
+      <div className="w-2/3 max-[1000px]:w-11/12 max-[1400px]:w-10/12 h-full gap-10 max-[585px]:gap-14 flex flex-col items-center justify-start max-[585px]:mt-20 bg-handle-background">
         <div className="w-full flex flex-col gap-6 bg-handle-background">
           <div className="w-full flex flex-col gap-1">
             <Input
@@ -68,57 +70,61 @@ export default function Login() {
               type="password"
               customBgColor="bg-handle-background"
               height="3rem"
+              inputClassName="pr-14"
             />
 
             <LabelError errors={errors} name="password" />
           </div>
         </div>
 
-        <div className="flex flex-col gap-2">
-          <p className="">
-            Ainda não possui uma conta?{' '}
-            <a onClick={openRegister} className="font-bold cursor-pointer">
-              Cadastre-se
-            </a>
-          </p>
-          <Button
-            type="submit"
-            size="large"
-            action={() => ({})}
-            variant="primary"
-          >
-            <span className="text-handle-background text-lg">Entrar</span>
-          </Button>
-        </div>
+        <div className="flex flex-col gap-2 justify-center items-center">
+          <div className="flex flex-col gap-4">
+            <p className="">
+              Ainda não possui uma conta?{' '}
+              <a onClick={openRegister} className="font-bold cursor-pointer">
+                Cadastre-se
+              </a>
+            </p>
+            <Button
+              type="submit"
+              size={isBelowMd ? 'mediumlg' : 'large'}
+              action={() => ({})}
+              variant="primary"
+              className="self-center"
+            >
+              <span className="text-handle-background text-lg">Entrar</span>
+            </Button>
+          </div>
 
-        <div className="w-full gap-4 flex flex-row items-center">
-          <Separator.Root
-            className="bg-handle-gray h-[1px] w-full"
-            decorative
-            orientation="horizontal"
-          />
+          <div className="w-full gap-4 flex flex-row items-center">
+            <Separator.Root
+              className="bg-handle-gray h-[1px] w-full"
+              decorative
+              orientation="horizontal"
+            />
 
-          <span className="text-handle-gray">ou</span>
+            <span className="text-handle-gray">ou</span>
 
-          <Separator.Root
-            className="bg-handle-gray h-[1px] w-full"
-            decorative
-            orientation="horizontal"
-          />
-        </div>
+            <Separator.Root
+              className="bg-handle-gray h-[1px] w-full"
+              decorative
+              orientation="horizontal"
+            />
+          </div>
 
-        <div>
-          <Button
-            type="button"
-            size="extra"
-            icon={<SvgComponent />}
-            action={() => ({})}
-            variant="secondary"
-          >
-            <span className="text-handle-gray-300 text-lg">
-              Entrar com Google
-            </span>
-          </Button>
+          <div>
+            <Button
+              type="button"
+              size="extra"
+              icon={<SvgComponent />}
+              action={() => ({})}
+              variant="secondary"
+            >
+              <span className="text-handle-gray-300 text-lg">
+                Entrar com Google
+              </span>
+            </Button>
+          </div>
         </div>
       </div>
     </form>
