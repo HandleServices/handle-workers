@@ -41,6 +41,7 @@ export default function CompleteRegister() {
   const router = useRouter()
 
   const {
+    control,
     handleSubmit,
     register,
     formState: { errors },
