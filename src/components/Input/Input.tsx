@@ -6,6 +6,7 @@ import { cva } from 'class-variance-authority'
 import { clsx } from 'clsx'
 import { forwardRef, InputHTMLAttributes, useMemo, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
+import { e } from 'vitest/dist/reporters-yx5ZTtEV.js'
 
 import CloseEyeIcon from '@/app/auth/(initial)/assets/close-eye-icon'
 import OpenEyeIcon from '@/app/auth/(initial)/assets/open-eye-icon'
@@ -15,6 +16,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: boolean
   sz?: 'small' | 'medium' | 'large'
   customBgColor?: string | undefined
+  inputClassName?: string | undefined
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
@@ -29,6 +31,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       height,
       sz = 'medium',
       type,
+      inputClassName,
       ...props
     },
     ref,
@@ -82,10 +85,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           id={name}
           name={name}
           style={{ width, height }}
-          className={twMerge(
-            variants({ sz }),
-            currentType === 'password' ? 'pr-14' : '',
-          )}
+          className={twMerge(variants({ sz }), inputClassName)}
           {...props}
           type={currentType}
           placeholder=" "
@@ -105,7 +105,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         {type === 'password' && (
           <div
             className={twMerge(
-              `p-0 mr-4 cursor-pointer absolute right-0 top-1/2 transform -translate-y-1/2`,
+              `p-0 mr-4 select-none cursor-pointer absolute right-0 top-1/2 transform -translate-y-1/2`,
               currentTextColor,
             )}
             onClick={() => setShow((prev) => !prev)}

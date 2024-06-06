@@ -151,6 +151,7 @@ export default function Register() {
                 placeholder="Senha"
                 type="password"
                 customBgColor="bg-handle-background"
+                inputClassName="pr-14"
               />
 
               <LabelError errors={errors} name="password" />
@@ -164,6 +165,7 @@ export default function Register() {
                 placeholder="Repita a senha"
                 type="password"
                 customBgColor="bg-handle-background"
+                inputClassName="pr-14"
               />
 
               <LabelError errors={errors} name="repeatPassword" />

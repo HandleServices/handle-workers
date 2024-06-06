@@ -70,6 +70,7 @@ export default function Login() {
               type="password"
               customBgColor="bg-handle-background"
               height="3rem"
+              inputClassName="pr-14"
             />
 
             <LabelError errors={errors} name="password" />
