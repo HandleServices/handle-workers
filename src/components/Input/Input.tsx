@@ -6,7 +6,6 @@ import { cva } from 'class-variance-authority'
 import { clsx } from 'clsx'
 import { forwardRef, InputHTMLAttributes, useMemo, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
-import { e } from 'vitest/dist/reporters-yx5ZTtEV.js'
 
 import CloseEyeIcon from '@/app/auth/(initial)/assets/close-eye-icon'
 import OpenEyeIcon from '@/app/auth/(initial)/assets/open-eye-icon'

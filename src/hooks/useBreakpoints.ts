@@ -24,7 +24,7 @@ export function useBreakpoint<K extends BreakpointSizes>(breakpointKey: K) {
   })
 
   const capitalizedKey =
-    breakpointKey[0]!.toUpperCase() + breakpointKey.substring(1)
+    breakpointKey[0]?.toUpperCase() + breakpointKey.substring(1)
 
   type KeyAbove = `isAbove${Capitalize<K>}`
   type KeyBelow = `isBelow${Capitalize<K>}`
