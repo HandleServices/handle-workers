@@ -13,7 +13,9 @@ const LabelError = <T extends FieldValues>({
 }: LabelErrorProps<T>) => {
   if (!errors[name]) return undefined
   return (
-    <p className="text-red-500 text-sm">{errors[name]?.message?.toString()}</p>
+    <p className="text-handle-red-600 text-sm">
+      {errors[name]?.message?.toString()}
+    </p>
   )
 }
 

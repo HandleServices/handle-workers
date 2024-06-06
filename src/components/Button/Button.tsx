@@ -17,16 +17,16 @@ const variants = cva(
   {
     variants: {
       variant: {
-        primary: ['bg-handle-blue', 'text-white'],
-        secondary: ['bg-custom-gray-700', 'text-handle-blue'],
-        neutral: ['bg-handle-gray', 'text-white'],
+        primary: ['bg-handle-blue', 'text-handle-background'],
+        secondary: ['bg-[#DDDDE1]', 'text-handle-blue'],
+        neutral: ['bg-handle-gray', 'text-handle-backgroud'],
       },
       size: {
         small: ['w-40', 'text-xs'],
-        medium: ['w-52', 'text-xs'],
-        mediumlg: ['w-[17rem]', 'text-[0.8em]'],
-        large: ['w-64', 'text-[0.9em]'],
-        extra: ['w-96 h-[3rem]', 'text-[0.9375em]'],
+        medium: ['w-52 h-12', 'text-xs'],
+        mediumlg: ['w-[17rem] h-12', 'text-[0.8em]'],
+        large: ['w-96 h-12', 'text-lg'],
+        extra: ['w-button-extra h-12', 'text-lg'],
       },
     },
     defaultVariants: {

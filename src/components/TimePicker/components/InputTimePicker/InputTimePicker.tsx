@@ -21,12 +21,12 @@ const InputTimePicker: React.FC<InputTimePickerProps> = ({
   return (
     <Input
       type="time"
-      className={`tracking-[0.5em] m-0 bg-handle-background}`}
+      className={`m-0 bg-handle-background}`}
       style={{
         width,
         height,
         textAlign: 'center',
-        fontWeight: 300,
+        fontWeight: 100,
         lineHeight: `${height / 16}rem`,
         fontSize: `${width / 64}rem`,
         ...style,

@@ -15,7 +15,7 @@ import SvgComponent from '../assets/google'
 
 const loginSchema = z.object({
   email: z.string().email({ message: 'Endereço de e-mail inválido.' }),
-  password: z.string().min(8, { message: 'Deve ter no mínimo 8 caracteres.' }),
+  password: z.string().min(8, { message: 'Senha inválida' }),
 })
 
 type LoginType = z.infer<typeof loginSchema>
@@ -33,9 +33,7 @@ export default function Login() {
   const router = useRouter()
 
   const onSubmit: SubmitHandler<LoginType> = (data) => {
-    // console.log('FINISHED')
     console.log(data)
-    // alert(JSON.stringify(data))
     router.push('/admin/home')
   }
 
@@ -78,7 +76,7 @@ export default function Login() {
           </div>
         </div>
 
-        <div className="flex flex-col gap-5 justify-center items-center">
+        <div className="flex flex-col gap-2 justify-center items-center">
           <div className="flex flex-col gap-4">
             <p className="">
               Ainda não possui uma conta?{' '}
@@ -88,7 +86,7 @@ export default function Login() {
             </p>
             <Button
               type="submit"
-              size={isBelowMd ? 'mediumlg' : 'extra'}
+              size={isBelowMd ? 'mediumlg' : 'large'}
               action={() => ({})}
               variant="primary"
               className="self-center"
@@ -116,12 +114,12 @@ export default function Login() {
           <div>
             <Button
               type="button"
-              size={isBelowMd ? 'mediumlg' : 'extra'}
+              size="extra"
               icon={<SvgComponent />}
               action={() => ({})}
               variant="secondary"
             >
-              <span className="text-custom-gray-300 text-lg">
+              <span className="text-handle-gray-300 text-lg">
                 Entrar com Google
               </span>
             </Button>

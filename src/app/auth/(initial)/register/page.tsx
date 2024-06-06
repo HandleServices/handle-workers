@@ -38,10 +38,10 @@ const registerSchema = z
       }),
     password: z
       .string()
-      .min(8, { message: 'Deve ter no mínimo 8 caracteres.' }),
+      .min(8, { message: 'A senha deve ter no mínimo 8 caracteres.' }),
     repeatPassword: z
       .string()
-      .min(8, { message: 'Deve ter no mínimo 8 caracteres.' }),
+      .min(8, { message: 'A senha deve ter no mínimo 8 caracteres.' }),
     agree: z.boolean().refine((value) => value === true, {
       message: 'Aceite os termos de consentimento para continuar.',
     }),
@@ -80,9 +80,7 @@ export default function Register() {
   )
 
   const onSubmit: SubmitHandler<RegisterType> = (data) => {
-    // console.log('FINISHED')
     console.log(data)
-    // alert(JSON.stringify(data))
     router.push('complete_register')
   }
 
@@ -200,7 +198,7 @@ export default function Register() {
 
             <LabelError errors={errors} name="agree" />
             <Button
-              size={isBelowSm ? 'mediumlg' : 'extra'}
+              size={isBelowSm ? 'mediumlg' : 'large'}
               variant="primary"
               className="mt-5"
             >
@@ -212,7 +210,7 @@ export default function Register() {
 
           <div className="w-full gap-4 flex flex-row items-center">
             <Separator.Root
-              className="bg-handle-gray h-[1px] w-full "
+              className="bg-handle-gray h-[1px] w-full"
               decorative
               orientation="horizontal"
             ></Separator.Root>
@@ -232,7 +230,7 @@ export default function Register() {
             icon={<SvgComponent />}
             variant="secondary"
           >
-            <span className="w-full text-custom-gray-300 max-[645px]:text-[0.85rem] min-[646px]:text-lg">
+            <span className="w-full text-handle-gray-300 max-[645px]:text-[0.85rem] min-[646px]:text-lg">
               Cadastrar-se com Google
             </span>
           </Button>

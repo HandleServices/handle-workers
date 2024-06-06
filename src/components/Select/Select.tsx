@@ -10,15 +10,23 @@ const Select = SelectPrimitive.Root
 const SelectGroup = SelectPrimitive.Group
 const SelectValue = SelectPrimitive.Value
 
+export interface SelectTriggerProps
+  extends React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger> {
+  error?: boolean
+}
+
 const SelectTrigger = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Trigger>,
-  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>
->(({ className, children, ...props }, ref) => {
+  SelectTriggerProps
+>(({ className, children, error, ...props }, ref) => {
   return (
     <SelectPrimitive.Trigger
       ref={ref}
       className={cn(
-        'box-border flex h-12 w-full items-center tracking-widest justify-between rounded-md bg-background outline-none border-default-width border-none ring-default-width ring-handle-blue-500 px-3 py-2 text-base disabled:cursor-not-allowed disabled:opacity-50 text-handle-blue-500 [&>svg]:data-[state=open]:rotate-180 data-[state=close]:delay-100 data-[placeholder]:border-handle-gray-700 data-[placeholder]:ring-default-width data-[placeholder]:ring-handle-gray-700 data-[placeholder]:text-handle-gray-700 [&:not(:focus)]:data-[state=closed]:ring-handle-gray-700 focus:text-handle-blue',
+        'box-border flex h-12 w-full items-center tracking-widest justify-between rounded-md bg-background outline-none border-1.5 px-3 py-2 text-base disabled:cursor-not-allowed disabled:opacity-50 [&>svg]:data-[state=open]:rotate-180 data-[state=close]:delay-100',
+        error
+          ? 'border-handle-red text-handle-red data-[state=open]:border-handle-red data-[state=open]:text-handle-red'
+          : 'border-handle-gray-300 text-handle-gray-300 data-[state=open]:border-handle-blue data-[state=open]:text-handle-blue',
         className,
       )}
       {...props}
@@ -80,7 +88,7 @@ const SelectContent = React.forwardRef<
       <SelectPrimitive.Content
         ref={ref}
         className={cn(
-          'relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-none bg-popover text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-1 data-[side=top]:slide-in-from-bottom-2',
+          'relative z-50 max-h-96 min-w-[8rem] overflow-hidden rounded-none text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 bg-handle-background data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-1 data-[side=top]:slide-in-from-bottom-2',
           position === 'popper' &&
             'data-[side=bottom]:translate-y-0 data-[side=left]:-translate-x-0 data-[side=right]:translate-x-0 data-[side=top]:-translate-y-0',
           className,
@@ -127,7 +135,7 @@ const SelectItem = React.forwardRef<
     <SelectPrimitive.Item
       ref={ref}
       className={cn(
-        'relative flex w-full h-12 cursor-default select-none items-center border-b-[0.031rem] rounded-s border-gray-300 rounded-none py-2 pl-2 text-sm tracking-widest outline-none data-[state=checked]:bg-handle-background-blue data-[disabled]:pointer-events-none data-[disabled]:opacity-50 box-border data-[state=checked]:border-b-[0.125rem] data-[state=checked]:border-b-handle-blue data-[state=checked]:text-handle-blue hover:cursor-pointer hover:text-handle-blue',
+        'relative flex w-full h-12 cursor-default select-none items-center border-b-[0.031rem] rounded-s border-handle-gray-300 rounded-none py-2 pl-2 text-sm tracking-widest outline-none data-[state=checked]:bg-handle-background-blue data-[disabled]:pointer-events-none data-[disabled]:opacity-50 box-border data-[state=checked]:border-b-[0.125rem] data-[state=checked]:border-b-handle-blue data-[state=checked]:text-handle-blue hover:cursor-pointer hover:text-handle-blue',
         className,
       )}
       {...props}

@@ -1,3 +1,3 @@
-import { DayOfWeekPicker } from './DayOfWeekPicker'
+import { DaysOfWeekPicker } from './DaysOfWeekPicker'
 
-export { DayOfWeekPicker }
+export { DaysOfWeekPicker }

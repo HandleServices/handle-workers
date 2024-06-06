@@ -63,7 +63,7 @@ const Sidebar = ({ children }: SidebarProps) => {
   return (
     <aside className="flex z-50">
       <div
-        className={`${open ? 'w-72 open' : 'w-24 close'} rounded-r-lg h-screen relative bg-white border-r shadow-xl p-0 duration-300`}
+        className={`${open ? 'w-72 open' : 'w-20 close'} rounded-r-lg h-screen relative bg-white border-r shadow-xl p-0 duration-300`}
       >
         <ArrowIcon
           onClick={() => {
