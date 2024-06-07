@@ -28,7 +28,7 @@ const InputTimePicker: React.FC<InputTimePickerProps> = ({
         textAlign: 'center',
         fontWeight: 100,
         lineHeight: `${height / 16}rem`,
-        fontSize: `${width / 64}rem`,
+        fontSize: `${width / 70}rem`,
         ...style,
       }}
       onChange={(event) => setHour(event.target.value)}
