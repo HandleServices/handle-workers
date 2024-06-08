@@ -4,6 +4,8 @@ import type { Metadata } from 'next'
 import { Manrope } from 'next/font/google'
 import { twMerge } from 'tailwind-merge'
 
+import { AuthProvider } from '@/contexts/AuthContext'
+
 const manrope = Manrope({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700'],
@@ -23,7 +25,7 @@ export default function RootLayout({
     <html lang="pt-BR">
       <body>
         <div className={twMerge(manrope.className, 'min-h-screen w-screen')}>
-          {children}
+          <AuthProvider>{children}</AuthProvider>
         </div>
       </body>
     </html>
