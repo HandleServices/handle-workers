@@ -18,12 +18,15 @@ import {
   SelectValue,
 } from '@/components/Select/Select'
 import TimePicker from '@/components/TimePicker'
+import { useRegisterFormData } from '@/contexts/RegisterFormContext'
 
 const registerSchema = z.object({
   image: z.any().refine((file) => file && file.length > 0, {
     message: 'selecione uma imagem!',
   }),
-  name: z.string().min(2, { message: 'Nome deve ter ao menos 2 caracteres.' }),
+  businessName: z
+    .string()
+    .min(2, { message: 'Nome deve ter ao menos 2 caracteres.' }),
   selectedRole: z.string().min(1, { message: 'Selecione uma profissão' }),
   workingDays: z.array(z.string()).refine(
     (arg) => {
@@ -52,9 +55,14 @@ export default function CompleteRegister() {
     },
   })
 
+  const { formData, updateFormData } = useRegisterFormData()
+
   const onSubmit: SubmitHandler<RegisterType> = async (data) => {
     try {
       console.log(data)
+      const combinedData = { ...formData, ...data }
+      updateFormData(combinedData)
+      console.log(combinedData)
       router.push('/admin/home')
     } catch (error) {
       console.error(error)
@@ -84,8 +92,8 @@ export default function CompleteRegister() {
         <div className="flex flex-col justify-evenly gap-[28px] w-full items-center">
           <div className="w-11/12 sm:w-full flex flex-col gap-1">
             <Input
-              {...register('name')}
-              error={!!errors.name}
+              {...register('businessName')}
+              error={!!errors.businessName}
               placeholder="Nome do seu negócio"
               customBgColor="bg-handle-background"
               sz="large"
@@ -93,7 +101,7 @@ export default function CompleteRegister() {
               className="w-full"
             />
 
-            <LabelError errors={errors} name="name" />
+            <LabelError errors={errors} name="businessName" />
           </div>
 
           <div className="w-11/12 sm:w-full flex flex-col gap-1">

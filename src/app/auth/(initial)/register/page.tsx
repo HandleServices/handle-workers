@@ -11,6 +11,7 @@ import { CustomCheckbox } from '@/components/Checkbox'
 import Input from '@/components/Input'
 import { LabelError } from '@/components/LabelError'
 import { generalErrorSchemaKey } from '@/components/LabelError/LabelError'
+import { useRegisterFormData } from '@/contexts/RegisterFormContext'
 import { useBreakpoint } from '@/hooks/useBreakpoints'
 import { useFormattedForm } from '@/hooks/useFormattedForm'
 import { checkCpfCnpj, cpfCnpjMask } from '@/utils/mask-cpf-cnpj'
@@ -79,8 +80,19 @@ export default function Register() {
     ],
   )
 
+  const { updateFormData } = useRegisterFormData()
+
   const onSubmit: SubmitHandler<RegisterType> = (data) => {
-    console.log(data)
+    const { name, email, phoneNumber, identificationNumber, password } = data
+    const passData = {
+      name,
+      email,
+      phoneNumber,
+      identificationNumber,
+      password,
+    }
+    console.log(passData)
+    updateFormData(passData)
     router.push('complete_register')
   }
 
