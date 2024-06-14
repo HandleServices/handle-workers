@@ -91,6 +91,7 @@ export default function CompleteRegister() {
               sz="large"
               height={56}
               className="w-full"
+              labelClassName="text-base"
             />
 
             <LabelError errors={errors} name="name" />
@@ -107,7 +108,7 @@ export default function CompleteRegister() {
                 >
                   <SelectTrigger
                     error={!!errors.selectedRole}
-                    className="bg-transparent h-14"
+                    className="bg-transparent h-16"
                   >
                     <SelectValue placeholder={'Selecione sua profissão'} />
                   </SelectTrigger>
