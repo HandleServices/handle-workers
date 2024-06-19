@@ -1,4 +1,5 @@
 'use client'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 
 import Sidebar from '@/components/Sidebar'
@@ -20,10 +21,19 @@ export default function AdminLayout({
           <div className="grid justify-start ml-12 mt-8 text-2xl font-bold text-handle-blue">
             {menuNames.find((e) => e.path === pathName)?.name}
           </div>
-          <div>
-            {
-              // Notification Component
-            }
+          <div className="flex flex-col p-8">
+            <div className="justify-self-end self-end">
+              {
+                // Here insert Handle icon and Notification icon
+              }
+
+              <Image
+                src="/assets/handlelogo.png"
+                alt="handle icon"
+                width={100}
+                height={80}
+              />
+            </div>
           </div>
         </div>
         <div className="pl-12">{children}</div>
