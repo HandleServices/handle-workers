@@ -1,1 +1,1 @@
-export * from './auth/newUserDto'
+export * from './auth/NewUserDto'
