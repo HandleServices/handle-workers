@@ -28,7 +28,7 @@ export default function AdminLayout({
               }
 
               <Image
-                src="/assets/handlelogo.png"
+                src="/images/handlelogo.png"
                 alt="handle icon"
                 width={100}
                 height={80}
