@@ -80,7 +80,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     }, [show, type])
 
     return (
-      <div className={twMerge('relative bg-inherit grid', className)}>
+      <div className={twMerge('relative bg-inherit grid group', className)}>
         <input
           ref={ref}
           id={name}
@@ -99,6 +99,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             currentTextColor,
             labelBg,
             labelClassName,
+            'group-focus-within:text-xs',
           )}
         >
           {placeholder}
