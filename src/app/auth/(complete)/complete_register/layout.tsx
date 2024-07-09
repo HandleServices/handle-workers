@@ -1,3 +1,5 @@
+import { Toaster } from 'react-hot-toast'
+
 export default function CompleteRegisterLayout({
   children,
 }: {
@@ -5,6 +7,7 @@ export default function CompleteRegisterLayout({
 }) {
   return (
     <section className="relative h-screen w-screen">
+      <Toaster position="top-right" toastOptions={{ duration: 5000 }} />
       <section className="absolute inset-0 bg-iconsOverlay bg-repeat flex items-center justify-center overflow-hidden w-full h-full">
         <section className="bg-handle-background rounded-lg overflow-auto sm:max-w-[45.62rem] w-full h-full lg:h-[90%] lg:w-3/5 transition-all">
           {children}

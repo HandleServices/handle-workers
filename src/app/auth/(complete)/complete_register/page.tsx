@@ -2,7 +2,9 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import clsx from 'clsx'
 import { useRouter } from 'next/navigation'
+import { useContext, useEffect, useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import { toast } from 'react-hot-toast'
 import { z } from 'zod'
 
 import { Button } from '@/components/Button'
@@ -18,7 +20,10 @@ import {
   SelectValue,
 } from '@/components/Select/Select'
 import TimePicker from '@/components/TimePicker'
-import { useRegisterFormData } from '@/contexts/RegisterFormContext'
+import { RegisterFormContext } from '@/contexts/RegisterFormContext'
+import authService from '@/services/auth.service'
+
+import useCompleteRegisterHook from './complete-register.hook'
 
 const registerSchema = z.object({
   image: z.any().refine((file) => file && file.length > 0, {
@@ -41,6 +46,13 @@ const registerSchema = z.object({
 type RegisterType = z.infer<typeof registerSchema>
 
 export default function CompleteRegister() {
+  const mockInitialData = {
+    email: 'alsamir.gabriel@gmail.com',
+    identificationNumber: '07.777.777/7777-77',
+    name: 'Gabriel Al-Samir',
+    password: 'Gabriell@13',
+    phoneNumber: '(63) 9 9299-4718',
+  }
   const router = useRouter()
 
   const {
@@ -55,22 +67,37 @@ export default function CompleteRegister() {
     },
   })
 
-  const { formData, updateFormData } = useRegisterFormData()
+  const { formData, updateFormData, isFirstRegisterComplete } =
+    useContext(RegisterFormContext)
+  const [loading, setLoading] = useState(false)
+  const { setupRequest } = useCompleteRegisterHook()
+
+  useEffect(() => {
+    !isFirstRegisterComplete && router.push('/auth/register')
+  }, [isFirstRegisterComplete, router])
 
   const onSubmit: SubmitHandler<RegisterType> = async (data) => {
     try {
-      console.log(data)
-      const combinedData = { ...formData, ...data }
+      setLoading(true)
+      // TO-DO: Remove mock data
+      const combinedData = { ...mockInitialData, ...data }
       updateFormData(combinedData)
-      console.log(combinedData)
-      router.push('/admin/home')
+      const sendData = setupRequest(combinedData)
+      const response = await authService.signup(sendData)
+
+      if (response.error) {
+        toast.error(response.error)
+      } else {
+        toast.success('Cadastro feito com sucesso. Seja bem-vindo!')
+        router.push('/auth/login')
+      }
     } catch (error) {
       console.error(error)
-      console.log(data)
+    } finally {
+      // TO-DO: BETTER DEAL WITH VISUAL LOADING
+      setLoading(false)
     }
   }
-
-  console.log(errors.selectedRole)
 
   return (
     <form
@@ -206,8 +233,9 @@ export default function CompleteRegister() {
           size="large"
           variant={'primary'}
           className="text-lg"
+          disabled={!!loading}
         >
-          Finalizar
+          {loading ? '...' : 'Finalizar'}
         </Button>
       </div>
     </form>
