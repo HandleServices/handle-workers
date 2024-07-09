@@ -1,3 +1,5 @@
+import { Toaster } from 'react-hot-toast'
+
 import AuthInfo from './components/AuthInfo'
 import { ReleasedLogos } from './components/ReleasedLogos'
 
@@ -8,6 +10,7 @@ export default function AuthLayout({
 }) {
   return (
     <section className="h-screen flex flex-row max-[585px]:flex-col">
+      <Toaster position="top-right" toastOptions={{ duration: 5000 }} />
       <section className="min-[585px]:min-h-full w-1/3 max-[585px]:w-full max-[585px]:h-[13%] bg-handle-blue flex flex-col max-[585px]:flex-row items-center justify-center">
         <AuthInfo className="p-4 min-[900px]:ml-36 ml-3 flex flex-col flex-grow gap-3 items-start text-white tracking-[0.3em] pt-36 max-[585px]:p-0 max-[585px]:w-full" />
 

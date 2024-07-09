@@ -3,13 +3,17 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as Separator from '@radix-ui/react-separator'
 import { useRouter } from 'next/navigation'
+import { useContext, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 import { z } from 'zod'
 
 import { Button } from '@/components/Button'
 import Input from '@/components/Input'
 import { LabelError } from '@/components/LabelError'
-import { useBreakpoint } from '@/hooks/useBreakpoints'
+import { AuthContext } from '@/contexts/AuthContext'
+import { useBreakpoint } from '@/lib/hooks/useBreakpoints'
+import { LoginDto } from '@/types/dtos/auth/LoginDto'
 
 import SvgComponent from '../assets/google'
 
@@ -22,6 +26,7 @@ type LoginType = z.infer<typeof loginSchema>
 
 export default function Login() {
   const { isBelowMd } = useBreakpoint('md')
+  const [loading, setLoading] = useState(false)
   const {
     register,
     handleSubmit,
@@ -31,10 +36,23 @@ export default function Login() {
   })
 
   const router = useRouter()
+  const { signIn } = useContext(AuthContext)
 
-  const onSubmit: SubmitHandler<LoginType> = (data) => {
-    console.log(data)
-    router.push('/admin/home')
+  const onSubmit: SubmitHandler<LoginType> = async (data: LoginDto) => {
+    try {
+      setLoading(true)
+      const response = await signIn(data)
+      if (response.error) {
+        toast.error(response.error)
+      } else {
+        toast.success('Login realizado com sucesso! ;)')
+        router.push('/admin/home')
+      }
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setLoading(false)
+    }
   }
 
   const openRegister = () => {
@@ -91,6 +109,7 @@ export default function Login() {
               action={() => ({})}
               variant="primary"
               className="self-center"
+              disabled={!!loading}
             >
               <span className="text-handle-background text-lg">Entrar</span>
             </Button>
@@ -119,6 +138,7 @@ export default function Login() {
               icon={<SvgComponent />}
               action={() => ({})}
               variant="secondary"
+              disabled={!!loading}
             >
               <span className="text-handle-gray-300 text-lg">
                 Entrar com Google
