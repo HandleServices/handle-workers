@@ -7,6 +7,8 @@ import { NewUserDto } from '@/types/dtos'
 type RegisterFormContextType = {
   formData: NewUserDto
   updateFormData: (newData: Partial<NewUserDto>) => void
+  isFirstRegisterComplete: boolean
+  setIsFirstRegisterComplete: (value: boolean) => void
 }
 
 const initialFormData: NewUserDto = {
@@ -26,20 +28,14 @@ interface RegisterFormProviderProps {
   children: ReactNode
 }
 
-const RegisterFormContext = createContext({} as RegisterFormContextType)
-
-export const useRegisterFormData = (): RegisterFormContextType => {
-  const context = useContext(RegisterFormContext)
-  if (!context)
-    throw new Error('useRegisterFormData must be used within a FormProvider')
-
-  return context
-}
+export const RegisterFormContext = createContext({} as RegisterFormContextType)
 
 export const RegisterFormProvider = ({
   children,
 }: RegisterFormProviderProps) => {
   const [formData, setFormData] = useState<NewUserDto>(initialFormData)
+  // TO_DO: Change to fALSE
+  const [isFirstRegisterComplete, setIsFirstRegisterComplete] = useState(true)
 
   const updateFormData = (newData: Partial<NewUserDto>) => {
     setFormData((prevData) => ({
@@ -49,7 +45,14 @@ export const RegisterFormProvider = ({
   }
 
   return (
-    <RegisterFormContext.Provider value={{ formData, updateFormData }}>
+    <RegisterFormContext.Provider
+      value={{
+        formData,
+        updateFormData,
+        isFirstRegisterComplete,
+        setIsFirstRegisterComplete,
+      }}
+    >
       {children}
     </RegisterFormContext.Provider>
   )

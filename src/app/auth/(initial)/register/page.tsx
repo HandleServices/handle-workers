@@ -3,7 +3,9 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as Separator from '@radix-ui/react-separator'
 import { useRouter } from 'next/navigation'
+import { useContext, useState } from 'react'
 import { Controller, SubmitHandler } from 'react-hook-form'
+import { toast } from 'react-hot-toast'
 import { z } from 'zod'
 
 import { Button } from '@/components/Button'
@@ -11,13 +13,15 @@ import { CustomCheckbox } from '@/components/Checkbox'
 import Input from '@/components/Input'
 import { LabelError } from '@/components/LabelError'
 import { generalErrorSchemaKey } from '@/components/LabelError/LabelError'
-import { useRegisterFormData } from '@/contexts/RegisterFormContext'
-import { useBreakpoint } from '@/hooks/useBreakpoints'
-import { useFormattedForm } from '@/hooks/useFormattedForm'
+import { RegisterFormContext } from '@/contexts/RegisterFormContext'
+import { useBreakpoint } from '@/lib/hooks/useBreakpoints'
+import { useFormattedForm } from '@/lib/hooks/useFormattedForm'
+import { ValidateRegisterDto } from '@/types/dtos/auth/ValidateRegisterDto'
 import { checkCpfCnpj, cpfCnpjMask } from '@/utils/mask-cpf-cnpj'
 import { checkPhoneMask, phoneMask } from '@/utils/mask-phone'
 
 import SvgComponent from '../assets/google'
+import useRegisterHook from './register.hook'
 
 const registerSchema = z
   .object({
@@ -80,9 +84,12 @@ export default function Register() {
     ],
   )
 
-  const { updateFormData } = useRegisterFormData()
+  const { updateFormData, setIsFirstRegisterComplete } =
+    useContext(RegisterFormContext)
+  const [loading, setLoading] = useState(false)
+  const { validateRegister } = useRegisterHook()
 
-  const onSubmit: SubmitHandler<RegisterType> = (data) => {
+  const onSubmit: SubmitHandler<RegisterType> = async (data) => {
     const { name, email, phoneNumber, identificationNumber, password } = data
     const passData = {
       name,
@@ -91,9 +98,26 @@ export default function Register() {
       identificationNumber,
       password,
     }
-    console.log(passData)
-    updateFormData(passData)
-    router.push('complete_register')
+
+    const validateData: ValidateRegisterDto = {
+      email,
+      identificationNumber,
+      phoneNumber,
+    }
+
+    try {
+      setLoading(true)
+      await validateRegister(validateData)
+      updateFormData(passData)
+      setIsFirstRegisterComplete(true)
+      router.push('complete_register')
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message)
+      }
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -215,9 +239,10 @@ export default function Register() {
               size={isBelowSm ? 'mediumlg' : 'large'}
               variant="primary"
               className="mt-5"
+              disabled={!!loading}
             >
               <span className="text-handle-background max-[770px]:text-[0.9rem] text-lg">
-                Cadastrar
+                {loading ? '...' : 'Cadastrar'}
               </span>
             </Button>
           </div>
