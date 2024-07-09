@@ -2,13 +2,13 @@ import { ToggleGroup, ToggleGroupItem } from '@radix-ui/react-toggle-group'
 import React, { forwardRef } from 'react'
 
 const DAYS = [
-  { key: 'domingo', label: 'dom' },
-  { key: 'segunda', label: 'seg' },
-  { key: 'terca', label: 'ter' },
-  { key: 'quarta', label: 'qua' },
-  { key: 'quinta', label: 'qui' },
-  { key: 'sexta', label: 'sex' },
-  { key: 'sabado', label: 'sab' },
+  { key: 'SUN', label: 'dom' },
+  { key: 'MON', label: 'seg' },
+  { key: 'TUE', label: 'ter' },
+  { key: 'WED', label: 'qua' },
+  { key: 'THR', label: 'qui' },
+  { key: 'FRI', label: 'sex' },
+  { key: 'SAT', label: 'sab' },
 ]
 
 interface DaysOfWeekGroupProps {
