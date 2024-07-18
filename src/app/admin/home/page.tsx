@@ -22,7 +22,7 @@ type tab = {
 const Home = () => {
   const [activeTab, setActiveTab] = useState('Solicitações')
   const [search, setSearch] = useState('')
-  const [tabData, setTabData] = useState<Map<string, Cards[]>>(new Map())
+  const [tabData] = useState<Map<string, Cards[]>>(new Map()) // FIX: Insert setTabData, removed because of esLint problems in build.
 
   // TODO: Make logic to each tab data here.
   const tabs: tab[] = [
@@ -44,6 +44,7 @@ const Home = () => {
   ]
 
   type TabCircleProps = { color: string; className?: string }
+
   const TabCircle = ({ color, className }: TabCircleProps) => {
     return <div className={`h-4 w-4 rounded-full ${color} ${className}`} />
   }
