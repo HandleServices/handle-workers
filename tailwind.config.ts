@@ -27,6 +27,9 @@ function handleTheme() {
         DEFAULT: '#FF5252',
         600: '#FF3636',
       },
+      green: {
+        DEFAULT: '#4ECB71',
+      },
     },
     'custom-gray': {
       '800': '#FFFFFF',
