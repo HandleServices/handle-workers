@@ -46,13 +46,6 @@ const registerSchema = z.object({
 type RegisterType = z.infer<typeof registerSchema>
 
 export default function CompleteRegister() {
-  const mockInitialData = {
-    email: 'alsamir.gabriel@gmail.com',
-    identificationNumber: '07.777.777/7777-77',
-    name: 'Gabriel Al-Samir',
-    password: 'Gabriell@13',
-    phoneNumber: '(63) 9 9299-4718',
-  }
   const router = useRouter()
 
   const {
@@ -79,8 +72,7 @@ export default function CompleteRegister() {
   const onSubmit: SubmitHandler<RegisterType> = async (data) => {
     try {
       setLoading(true)
-      // TO-DO: Remove mock data
-      const combinedData = { ...mockInitialData, ...data }
+      const combinedData = { ...formData, ...data }
       updateFormData(combinedData)
       const sendData = setupRequest(combinedData)
       const response = await authService.signup(sendData)
