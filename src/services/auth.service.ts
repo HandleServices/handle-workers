@@ -1,13 +1,13 @@
-import axios from 'axios'
+import axios, { AxiosResponse } from 'axios'
 
-import { userApi } from '@/lib/axios'
+import { authApi } from '@/lib/axios'
 import { LoginDto } from '@/types/dtos/auth/LoginDto'
 import { RegisterUserDto } from '@/types/dtos/auth/RegisterUserDto'
 import { ValidateRegisterDto } from '@/types/dtos/auth/ValidateRegisterDto'
 
 const signup = async (userData: RegisterUserDto) => {
   try {
-    const response = await userApi.post('/register', userData)
+    const response: AxiosResponse = await authApi.post('/register', userData)
     return response.data
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -19,11 +19,19 @@ const signup = async (userData: RegisterUserDto) => {
 }
 
 const signin = async ({ email, password }: LoginDto) => {
-  const response = await userApi.post('/login', {
-    email,
-    password,
-  })
-  return response.data
+  try {
+    const response: AxiosResponse = await authApi.post('/login', {
+      email,
+      password,
+    })
+    return response.data
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      throw new Error(error.response?.data || 'Unknown error')
+    } else {
+      throw new Error('An unexpected error occurred')
+    }
+  }
 }
 
 const validateRegister = async ({
@@ -38,11 +46,17 @@ const validateRegister = async ({
   }
 
   try {
-    const response = await userApi.post('/register/validate', requestData)
-
+    const response: AxiosResponse = await authApi.post(
+      '/register/validate',
+      requestData,
+    )
     return response.data
   } catch (error) {
-    throw new Error('Error de conexão')
+    if (axios.isAxiosError(error)) {
+      throw new Error(error.response?.data || 'Unknown error')
+    } else {
+      throw new Error('An unexpected error occurred')
+    }
   }
 }
 const authService = {
