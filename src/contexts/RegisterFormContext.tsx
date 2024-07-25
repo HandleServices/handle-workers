@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, ReactNode, useContext, useState } from 'react'
+import { createContext, ReactNode, useState } from 'react'
 
 import { NewUserDto } from '@/types/dtos'
 
@@ -34,8 +34,7 @@ export const RegisterFormProvider = ({
   children,
 }: RegisterFormProviderProps) => {
   const [formData, setFormData] = useState<NewUserDto>(initialFormData)
-  // TO_DO: Change to fALSE
-  const [isFirstRegisterComplete, setIsFirstRegisterComplete] = useState(true)
+  const [isFirstRegisterComplete, setIsFirstRegisterComplete] = useState(false)
 
   const updateFormData = (newData: Partial<NewUserDto>) => {
     setFormData((prevData) => ({
