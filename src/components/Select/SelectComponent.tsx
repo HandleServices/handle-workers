@@ -24,7 +24,6 @@ function SelectComponent({
   ...rest
 }: SelectProps) {
   const [selectedValue, setSelectedValue] = useState('')
-  console.log(selectedValue)
   return (
     <Select onValueChange={setSelectedValue} {...rest}>
       <SelectTrigger className={`w-80 ${boxClassName}`}>

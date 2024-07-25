@@ -49,7 +49,8 @@ export default function Login() {
         router.push('/admin/home')
       }
     } catch (error) {
-      console.log(error)
+      console.error('Login error:', error)
+      throw error
     } finally {
       setLoading(false)
     }
