@@ -3,4 +3,4 @@
  * @constant
  */
 
-export const USER_API_URL = 'http://localhost:9000'
+export const AUTH_API_URL = 'http://localhost:8000'
