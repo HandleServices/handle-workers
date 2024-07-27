@@ -5,7 +5,9 @@ import { LoginDto } from '@/types/dtos/auth/LoginDto'
 import { RegisterUserDto } from '@/types/dtos/auth/RegisterUserDto'
 import { ValidateRegisterDto } from '@/types/dtos/auth/ValidateRegisterDto'
 
-const signup = async (userData: RegisterUserDto) => {
+import { SignInResponse, SignUpResponse, ValidateResponse } from './types'
+
+const signup = async (userData: RegisterUserDto): Promise<SignUpResponse> => {
   try {
     const response: AxiosResponse = await authApi.post('/register', userData)
     return response.data
@@ -18,7 +20,10 @@ const signup = async (userData: RegisterUserDto) => {
   }
 }
 
-const signin = async ({ email, password }: LoginDto) => {
+const signin = async ({
+  email,
+  password,
+}: LoginDto): Promise<SignInResponse> => {
   try {
     const response: AxiosResponse = await authApi.post('/login', {
       email,
@@ -44,7 +49,7 @@ const validateRegister = async ({
   email,
   identificationNumber,
   phoneNumber,
-}: ValidateRegisterDto) => {
+}: ValidateRegisterDto): Promise<ValidateResponse> => {
   const requestData = {
     email,
     docNum: identificationNumber.replace(/\D/g, ''),

@@ -73,6 +73,9 @@ export default function CompleteRegister() {
     try {
       const combinedData = { ...formData, ...data }
       updateFormData(combinedData)
+      // TODO: Deal with the photo
+      // TODO: Deal with gender
+      // TODO: Deal with job-id (lets create the others option)
       const sendData = setupRequest(combinedData)
       await authService.signup(sendData)
       toast.success('Cadastro feito com sucesso. Seja bem-vindo!')
