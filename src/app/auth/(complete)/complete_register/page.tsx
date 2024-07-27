@@ -22,6 +22,7 @@ import {
 import TimePicker from '@/components/TimePicker'
 import { RegisterFormContext } from '@/contexts/RegisterFormContext'
 import authService from '@/services/auth/auth.service'
+import { handleErrorMessage } from '@/utils/functions/errors-type-guards'
 
 import useCompleteRegisterHook from './complete-register.hook'
 
@@ -73,16 +74,12 @@ export default function CompleteRegister() {
       const combinedData = { ...formData, ...data }
       updateFormData(combinedData)
       const sendData = setupRequest(combinedData)
-      const response = await authService.signup(sendData)
-
-      if (response.error) {
-        toast.error(response.error)
-      } else {
-        toast.success('Cadastro feito com sucesso. Seja bem-vindo!')
-        router.push('/auth/login')
-      }
+      await authService.signup(sendData)
+      toast.success('Cadastro feito com sucesso. Seja bem-vindo!')
+      router.push('/auth/login')
     } catch (error) {
-      console.error(error)
+      const errorMessage = handleErrorMessage(error)
+      toast.error(errorMessage)
     }
   }
 
