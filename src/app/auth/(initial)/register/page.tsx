@@ -16,6 +16,7 @@ import { generalErrorSchemaKey } from '@/components/LabelError/LabelError'
 import { RegisterFormContext } from '@/contexts/RegisterFormContext'
 import { ValidateRegisterDto } from '@/types/dtos/auth/ValidateRegisterDto'
 import { handleErrorMessage } from '@/utils/functions/errors-type-guards'
+import { hashPassword } from '@/utils/functions/hash-password'
 import { useBreakpoint } from '@/utils/hooks/useBreakpoints'
 import { useFormattedForm } from '@/utils/hooks/useFormattedForm'
 import { checkCpfCnpj, cpfCnpjMask } from '@/utils/masks/mask-cpf-cnpj'
@@ -90,7 +91,9 @@ export default function Register() {
   const { validateRegister } = useRegisterHook()
 
   const onSubmit: SubmitHandler<RegisterType> = async (data) => {
+    data.password = await hashPassword(data.password)
     const { name, email, phoneNumber, identificationNumber, password } = data
+
     const passData = {
       name,
       email,

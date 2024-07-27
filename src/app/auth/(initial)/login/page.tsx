@@ -1,5 +1,4 @@
 'use client'
-
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as Separator from '@radix-ui/react-separator'
 import { useRouter } from 'next/navigation'
@@ -15,6 +14,7 @@ import { AuthContext } from '@/contexts/AuthContext'
 import authService from '@/services/auth/auth.service'
 import { LoginDto } from '@/types/dtos/auth/LoginDto'
 import { handleErrorMessage } from '@/utils/functions/errors-type-guards'
+import { hashPassword } from '@/utils/functions/hash-password'
 import { useBreakpoint } from '@/utils/hooks/useBreakpoints'
 
 import SvgComponent from '../assets/google'
@@ -41,9 +41,10 @@ export default function Login() {
 
   const onSubmit: SubmitHandler<LoginType> = async (data: LoginDto) => {
     try {
+      data.password = await hashPassword(data.password)
       const response = await authService.signin(data)
       signIn(response)
-      toast.success('Login realizado com sucesso!! ;)')
+      toast.success('Login realizado com sucesso ;)')
       router.push('/admin/home')
     } catch (error) {
       const errorMessage = handleErrorMessage(error)
