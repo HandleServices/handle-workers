@@ -2,7 +2,8 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import clsx from 'clsx'
 import { useRouter } from 'next/navigation'
-import { useContext, useEffect, useState } from 'react'
+import { parseCookies } from 'nookies'
+import { useContext, useEffect, useLayoutEffect, useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { toast } from 'react-hot-toast'
 import { z } from 'zod'
@@ -61,13 +62,18 @@ export default function CompleteRegister() {
     },
   })
 
-  const { formData, updateFormData, isFirstRegisterComplete } =
-    useContext(RegisterFormContext)
+  const { formData, updateFormData } = useContext(RegisterFormContext)
   const { setupRequest } = useCompleteRegisterHook()
 
-  useEffect(() => {
-    !isFirstRegisterComplete && router.push('/auth/register')
-  }, [isFirstRegisterComplete, router])
+  useLayoutEffect(() => {
+    const cookies = parseCookies()
+    const isFirstRegisterComplete =
+      cookies['handleworkers.isFirstRegisterComplete']
+
+    if (!isFirstRegisterComplete) {
+      router.push('/auth/register')
+    }
+  }, [router])
 
   const onSubmit: SubmitHandler<RegisterType> = async (data) => {
     try {

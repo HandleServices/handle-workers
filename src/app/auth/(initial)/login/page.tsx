@@ -53,7 +53,7 @@ export default function Login() {
   }
 
   const openRegister = () => {
-    router.push('register')
+    router.push('/auth/register')
   }
 
   return (

@@ -1,14 +1,13 @@
 'use client'
 
-import { createContext, ReactNode, useState } from 'react'
+import { destroyCookie, setCookie } from 'nookies'
+import { createContext, ReactNode, useEffect, useState } from 'react'
 
 import { NewUserDto } from '@/types/dtos'
 
 type RegisterFormContextType = {
   formData: NewUserDto
   updateFormData: (newData: Partial<NewUserDto>) => void
-  isFirstRegisterComplete: boolean
-  setIsFirstRegisterComplete: (value: boolean) => void
 }
 
 const initialFormData: NewUserDto = {
@@ -34,13 +33,24 @@ export const RegisterFormProvider = ({
   children,
 }: RegisterFormProviderProps) => {
   const [formData, setFormData] = useState<NewUserDto>(initialFormData)
-  const [isFirstRegisterComplete, setIsFirstRegisterComplete] = useState(false)
 
   const updateFormData = (newData: Partial<NewUserDto>) => {
     setFormData((prevData) => ({
       ...prevData,
       ...newData,
     }))
+
+    setCookie(null, 'handleworkers.isFirstRegisterComplete', 'true', {
+      path: '/auth',
+      sameSite: 'strict',
+      secure: true,
+    })
+  }
+
+  if (formData.password === '') {
+    destroyCookie(null, 'handleworkers.isFirstRegisterComplete', {
+      path: '/auth',
+    })
   }
 
   return (
@@ -48,8 +58,6 @@ export const RegisterFormProvider = ({
       value={{
         formData,
         updateFormData,
-        isFirstRegisterComplete,
-        setIsFirstRegisterComplete,
       }}
     >
       {children}

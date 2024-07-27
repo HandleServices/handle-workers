@@ -3,6 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as Separator from '@radix-ui/react-separator'
 import { useRouter } from 'next/navigation'
+import router from 'next/router'
 import { useContext, useState } from 'react'
 import { Controller, SubmitHandler } from 'react-hook-form'
 import { toast } from 'react-hot-toast'
@@ -86,32 +87,30 @@ export default function Register() {
     ],
   )
 
-  const { updateFormData, setIsFirstRegisterComplete } =
-    useContext(RegisterFormContext)
+  const { updateFormData } = useContext(RegisterFormContext)
   const { validateRegister } = useRegisterHook()
 
   const onSubmit: SubmitHandler<RegisterType> = async (data) => {
-    data.password = await hashPassword(data.password)
-    const { name, email, phoneNumber, identificationNumber, password } = data
-
-    const passData = {
-      name,
-      email,
-      phoneNumber,
-      identificationNumber,
-      password,
-    }
-
-    const validateData: ValidateRegisterDto = {
-      email,
-      identificationNumber,
-      phoneNumber,
-    }
-
     try {
+      data.password = await hashPassword(data.password)
+      const { name, email, phoneNumber, identificationNumber, password } = data
+
+      const passData = {
+        name,
+        email,
+        phoneNumber,
+        identificationNumber,
+        password,
+      }
+
+      const validateData: ValidateRegisterDto = {
+        email,
+        identificationNumber,
+        phoneNumber,
+      }
+
       await validateRegister(validateData)
-      updateFormData(passData)
-      setIsFirstRegisterComplete(true)
+      await updateFormData(passData)
       router.push('complete_register')
     } catch (error) {
       const errorMessage = handleErrorMessage(error)
