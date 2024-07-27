@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 
-import authService from '@/services/auth.service'
+import authService from '@/services/auth/auth.service'
 import { ValidateRegisterDto } from '@/types/dtos/auth/ValidateRegisterDto'
 
 type AvailableType = {

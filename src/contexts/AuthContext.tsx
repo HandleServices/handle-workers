@@ -10,8 +10,7 @@ import {
 } from 'react'
 
 import { authApi } from '@/lib/axios'
-import authService from '@/services/auth.service'
-import { LoginDto } from '@/types/dtos/auth/LoginDto'
+import { SignInResponse } from '@/services/auth/types'
 import { User } from '@/types/models/User.model'
 
 interface AuthProviderProps {
@@ -21,7 +20,7 @@ interface AuthProviderProps {
 type AuthContextType = {
   isAuthenticated: boolean
   user: User | null
-  signIn: (data: LoginDto) => Promise<any>
+  signIn: (response: SignInResponse) => void
   logout: () => Promise<void>
 }
 
@@ -60,37 +59,20 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     }
   }, [token])
 
-  const signIn = async ({ email, password }: LoginDto) => {
-    try {
-      const response = await authService.signin({ email, password })
+  const signIn = (response: SignInResponse) => {
+    setToken(response.accessToken)
 
-      console.log('TESTE: ', response)
+    setCookie(undefined, 'handleworkers.token', response.accessToken, {
+      path: '/',
+      maxAge: 3600,
+      sameSite: 'strict',
+      secure: true,
+    })
 
-      if (response.status === 404) {
-        throw new Error('Usuário não encontrado')
-      } else if (response.error) {
-        throw new Error(response.error)
-      }
-
-      setToken(response.access_token)
-
-      setCookie(undefined, 'handleworkers.token', response.access_token, {
-        path: '/',
-        maxAge: 3600,
-        sameSite: 'strict',
-        secure: true,
-      })
-
-      authApi.defaults.headers.Authorization = `Bearer ${response.access_token}`
-      setIsAuthenticated(true)
-
-      // TO-DO: getUser based on token
-      // TO-DO: setUser(response.user)
-      return response
-    } catch (error) {
-      console.error('Login error:', error)
-      throw error
-    }
+    authApi.defaults.headers.Authorization = `Bearer ${response.accessToken}`
+    setIsAuthenticated(true)
+    // TO-DO: getUser based on token
+    // TO-DO: setUser(response.user)
   }
 
   const logout = async () => {

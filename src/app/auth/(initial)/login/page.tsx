@@ -3,7 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as Separator from '@radix-ui/react-separator'
 import { useRouter } from 'next/navigation'
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { z } from 'zod'
@@ -12,8 +12,10 @@ import { Button } from '@/components/Button'
 import Input from '@/components/Input'
 import { LabelError } from '@/components/LabelError'
 import { AuthContext } from '@/contexts/AuthContext'
-import { useBreakpoint } from '@/lib/hooks/useBreakpoints'
+import authService from '@/services/auth/auth.service'
 import { LoginDto } from '@/types/dtos/auth/LoginDto'
+import { handleErrorMessage } from '@/utils/functions/errors-type-guards'
+import { useBreakpoint } from '@/utils/hooks/useBreakpoints'
 
 import SvgComponent from '../assets/google'
 
@@ -26,7 +28,6 @@ type LoginType = z.infer<typeof loginSchema>
 
 export default function Login() {
   const { isBelowMd } = useBreakpoint('md')
-  const [loading, setLoading] = useState(false)
   const {
     register,
     handleSubmit,
@@ -40,19 +41,13 @@ export default function Login() {
 
   const onSubmit: SubmitHandler<LoginType> = async (data: LoginDto) => {
     try {
-      setLoading(true)
-      const response = await signIn(data)
-      if (response.error) {
-        toast.error(response.error)
-      } else {
-        toast.success('Login realizado com sucesso! ;)')
-        router.push('/admin/home')
-      }
+      const response = await authService.signin(data)
+      signIn(response)
+      toast.success('Login realizado com sucesso!! ;)')
+      router.push('/admin/home')
     } catch (error) {
-      console.error('Login error:', error)
-      throw error
-    } finally {
-      setLoading(false)
+      const errorMessage = handleErrorMessage(error)
+      toast.error(errorMessage)
     }
   }
 
@@ -110,7 +105,7 @@ export default function Login() {
               action={() => ({})}
               variant="primary"
               className="self-center"
-              disabled={!!loading}
+              // disabled={!!mutation.isLoading}
             >
               <span className="text-handle-background text-lg">Entrar</span>
             </Button>
@@ -139,7 +134,7 @@ export default function Login() {
               icon={<SvgComponent />}
               action={() => ({})}
               variant="secondary"
-              disabled={!!loading}
+              // disabled={!!mutation.isLoading}
             >
               <span className="text-handle-gray-300 text-lg">
                 Entrar com Google

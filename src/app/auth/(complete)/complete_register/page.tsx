@@ -21,7 +21,7 @@ import {
 } from '@/components/Select/Select'
 import TimePicker from '@/components/TimePicker'
 import { RegisterFormContext } from '@/contexts/RegisterFormContext'
-import authService from '@/services/auth.service'
+import authService from '@/services/auth/auth.service'
 
 import useCompleteRegisterHook from './complete-register.hook'
 
