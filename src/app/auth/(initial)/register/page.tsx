@@ -110,12 +110,16 @@ export default function Register() {
       }
 
       await validateRegister(validateData)
-      await updateFormData(passData)
+      updateFormData(passData)
       router.push('complete_register')
     } catch (error) {
       const errorMessage = handleErrorMessage(error)
       toast.error(errorMessage)
     }
+  }
+
+  const openLogin = () => {
+    router.push('/auth/login')
   }
 
   return (
@@ -233,15 +237,23 @@ export default function Register() {
             />
 
             <LabelError errors={errors} name="agree" />
-            <Button
-              size={isBelowSm ? 'mediumlg' : 'large'}
-              variant="primary"
-              className="mt-5"
-            >
-              <span className="text-handle-background max-[770px]:text-[0.9rem] text-lg">
-                {'Cadastrar'}
-              </span>
-            </Button>
+            <div className="flex flex-col justify-center items-center mt-5">
+              <p className="">
+                Já possui uma conta?{' '}
+                <a onClick={openLogin} className="font-bold cursor-pointer">
+                  Entrar
+                </a>
+              </p>
+              <Button
+                size={isBelowSm ? 'mediumlg' : 'large'}
+                variant="primary"
+                className="mt-2"
+              >
+                <span className="text-handle-background max-[770px]:text-[0.9rem] text-lg">
+                  {'Cadastrar'}
+                </span>
+              </Button>
+            </div>
           </div>
 
           <div className="w-full gap-4 flex flex-row items-center">
