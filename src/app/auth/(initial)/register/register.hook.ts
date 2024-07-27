@@ -2,6 +2,7 @@ import { useCallback } from 'react'
 
 import authService from '@/services/auth/auth.service'
 import { ValidateRegisterDto } from '@/types/dtos/auth/ValidateRegisterDto'
+import { HandleError } from '@/utils/class/HandleError'
 
 type AvailableType = {
   field: string
@@ -17,11 +18,11 @@ function useRegisterHook() {
     )
     if (unavailableField) {
       if (unavailableField.field === 'email') {
-        throw new Error('Esse Email já foi cadastrado.')
+        throw new HandleError('Esse Email já foi cadastrado.')
       } else if (unavailableField.field === 'docNum') {
-        throw new Error('Esse CPF/CNPJ já foi cadastrado')
+        throw new HandleError('Esse CPF/CNPJ já foi cadastrado')
       } else if (unavailableField.field === 'phone') {
-        throw new Error('Esse número de telefone já foi cadastrado')
+        throw new HandleError('Esse número de telefone já foi cadastrado')
       }
     }
 
