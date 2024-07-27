@@ -62,7 +62,6 @@ export default function CompleteRegister() {
 
   const { formData, updateFormData, isFirstRegisterComplete } =
     useContext(RegisterFormContext)
-  const [loading, setLoading] = useState(false)
   const { setupRequest } = useCompleteRegisterHook()
 
   useEffect(() => {
@@ -71,7 +70,6 @@ export default function CompleteRegister() {
 
   const onSubmit: SubmitHandler<RegisterType> = async (data) => {
     try {
-      setLoading(true)
       const combinedData = { ...formData, ...data }
       updateFormData(combinedData)
       const sendData = setupRequest(combinedData)
@@ -85,9 +83,6 @@ export default function CompleteRegister() {
       }
     } catch (error) {
       console.error(error)
-    } finally {
-      // TO-DO: BETTER DEAL WITH VISUAL LOADING
-      setLoading(false)
     }
   }
 
@@ -225,9 +220,8 @@ export default function CompleteRegister() {
           size="large"
           variant={'primary'}
           className="text-lg"
-          disabled={!!loading}
         >
-          {loading ? '...' : 'Finalizar'}
+          {'Finalizar'}
         </Button>
       </div>
     </form>

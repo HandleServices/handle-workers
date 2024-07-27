@@ -1,3 +1,0 @@
-function useLoginHook() {
-  return null
-}

@@ -105,7 +105,6 @@ export default function Login() {
               action={() => ({})}
               variant="primary"
               className="self-center"
-              // disabled={!!mutation.isLoading}
             >
               <span className="text-handle-background text-lg">Entrar</span>
             </Button>
@@ -134,7 +133,6 @@ export default function Login() {
               icon={<SvgComponent />}
               action={() => ({})}
               variant="secondary"
-              // disabled={!!mutation.isLoading}
             >
               <span className="text-handle-gray-300 text-lg">
                 Entrar com Google

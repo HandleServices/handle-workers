@@ -86,7 +86,6 @@ export default function Register() {
 
   const { updateFormData, setIsFirstRegisterComplete } =
     useContext(RegisterFormContext)
-  const [loading, setLoading] = useState(false)
   const { validateRegister } = useRegisterHook()
 
   const onSubmit: SubmitHandler<RegisterType> = async (data) => {
@@ -106,7 +105,6 @@ export default function Register() {
     }
 
     try {
-      setLoading(true)
       await validateRegister(validateData)
       updateFormData(passData)
       setIsFirstRegisterComplete(true)
@@ -115,8 +113,6 @@ export default function Register() {
       if (error instanceof Error) {
         toast.error(error.message)
       }
-    } finally {
-      setLoading(false)
     }
   }
 
@@ -239,10 +235,9 @@ export default function Register() {
               size={isBelowSm ? 'mediumlg' : 'large'}
               variant="primary"
               className="mt-5"
-              disabled={!!loading}
             >
               <span className="text-handle-background max-[770px]:text-[0.9rem] text-lg">
-                {loading ? '...' : 'Cadastrar'}
+                {'Cadastrar'}
               </span>
             </Button>
           </div>
