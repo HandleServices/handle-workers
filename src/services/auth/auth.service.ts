@@ -1,4 +1,5 @@
-import axios, { AxiosResponse } from 'axios'
+import axios, { AxiosError, AxiosResponse } from 'axios'
+import toast from 'react-hot-toast'
 
 import { authApi } from '@/lib/axios'
 import { LoginDto } from '@/types/dtos/auth/LoginDto'
@@ -11,7 +12,7 @@ const signup = async (userData: RegisterUserDto) => {
     return response.data
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      throw new Error(error.response?.data || 'Unknown error')
+      throw error
     } else {
       throw new Error('An unexpected error occurred')
     }
@@ -27,9 +28,15 @@ const signin = async ({ email, password }: LoginDto) => {
     return response.data
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      throw new Error(error.response?.data || 'Unknown error')
+      if (error.response?.status === 401)
+        error.response.data.detail = 'Usuário ou Senha Incorretos'
+
+      if (error.response?.status === 404)
+        error.response.data.detail = 'Usuário não encontrado'
+
+      throw error
     } else {
-      throw new Error('An unexpected error occurred')
+      throw new Error('Um error inesperado aconteceu')
     }
   }
 }
@@ -53,7 +60,7 @@ const validateRegister = async ({
     return response.data
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      throw new Error(error.response?.data || 'Unknown error')
+      throw error
     } else {
       throw new Error('An unexpected error occurred')
     }
