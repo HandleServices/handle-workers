@@ -15,6 +15,7 @@ const variants = cva([], {
       pending: "bg-[#4ECB71] w-1/2",
       processing: "bg-[#1A73E8D4] w-2/3",
       canceled: "bg-[#FF5252] w-1/5",
+      finished: "bg-[#FF5252] w-full"
     },
   },
 });
@@ -48,7 +49,7 @@ const ServiceCardFooterButton = forwardRef<
     <button
       ref={ref}
       type="button"
-      className={cn("h-full m-0 p-0", variants({ variant }), className)}
+      className={cn("h-full m-0 p-0 hover:opacity-75", variants({ variant }), className)}
     >
       {children}
     </button>

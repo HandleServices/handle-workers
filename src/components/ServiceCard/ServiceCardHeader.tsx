@@ -1,40 +1,64 @@
-'use client'
+"use client"
 
-import { cn } from "@/lib/utils";
 import { cva } from "class-variance-authority";
 import clsx from "clsx";
+import dayjs from 'dayjs';
 import { MapPin } from "lucide-react";
-import { forwardRef, useState } from "react";
-import { ServiceCardProps, ServiceCardVariants } from "./types";
+import { Dispatch, forwardRef, SetStateAction, useState } from "react";
+
+import { cn } from "@/lib/utils";
+import { formatCurrency } from "@/utils/numberUtils";
+import { CheckCircledIcon } from "@radix-ui/react-icons";
 import Input from "../Input";
+import { ServiceCardProps, ServiceCardVariants } from "./types";
 
 const CommentPen = ({ className }: { className: SVGElement['className'] }) => {
   return (
     <svg className={className} width="21" height="20" viewBox="0 0 21 20" xmlns="http://www.w3.org/2000/svg">
-      <path d="M10.9402 0C5.42602 0 0.940186 4.48583 0.940186 10C0.940186 15.5142 5.42602 20 10.9402 20H20.9402V10C20.9402 4.48583 16.4544 0 10.9402 0ZM15.2077 9.26833L9.47519 15H5.94019V11.4642L11.6727 5.7325C12.6477 4.7575 14.2327 4.7575 15.2077 5.7325C15.6794 6.20417 15.9402 6.8325 15.9402 7.5C15.9402 8.1675 15.6794 8.79583 15.2077 9.26833ZM14.0294 6.91167C14.1869 7.06833 14.2735 7.2775 14.2735 7.50083C14.2735 7.72417 14.1869 7.9325 14.0294 8.09L8.78518 13.3342H7.60685V12.155L12.851 6.91167C13.1769 6.58667 13.7035 6.58667 14.0294 6.91167Z"/>
+      <path d="M10.9402 0C5.42602 0 0.940186 4.48583 0.940186 10C0.940186 15.5142 5.42602 20 10.9402 20H20.9402V10C20.9402 4.48583 16.4544 0 10.9402 0ZM15.2077 9.26833L9.47519 15H5.94019V11.4642L11.6727 5.7325C12.6477 4.7575 14.2327 4.7575 15.2077 5.7325C15.6794 6.20417 15.9402 6.8325 15.9402 7.5C15.9402 8.1675 15.6794 8.79583 15.2077 9.26833ZM14.0294 6.91167C14.1869 7.06833 14.2735 7.2775 14.2735 7.50083C14.2735 7.72417 14.1869 7.9325 14.0294 8.09L8.78518 13.3342H7.60685V12.155L12.851 6.91167C13.1769 6.58667 13.7035 6.58667 14.0294 6.91167Z" />
     </svg>
   )
 }
 
-export interface ServiceCardHeaderProps {
-  variant: ServiceCardVariants;
+export type ServiceCardHeaderProps = {
   children?: React.ReactNode;
   data: ServiceCardProps;
+  variant: ServiceCardVariants;
+  value: number,
+  setValue: Dispatch<SetStateAction<number>>
 }
 
 const variants = cva([], {
   variants: {
     variant: {
       pending: "bg-[#4ECB7133]",
-      processing: "bg-[#1A73E833]",
+      processing: "bg-[#D0E3FB]",
       canceled: "bg-[#F2DCDC]",
+      finished: "bg-[#F2DCDC]"
     },
   },
 });
 
 const ServiceCardHeader = forwardRef<HTMLInputElement, ServiceCardHeaderProps>(
-  ({ variant, data }, ref) => {
+  ({ variant, data, value, setValue }, ref) => {
     const [isEditing, setIsEditing] = useState(false)
+
+    const toggleEditing = () => {
+      setIsEditing(prev => !prev);
+    };
+
+    const changeNumber = (value: string) => {
+      const num = parseFloat(value);
+      if (!isNaN(num)) {
+        setValue(num);
+      }
+    };
+
+    const request = () => {
+      toggleEditing()
+    };
+
+    const formattedDate = dayjs(data.dateTime).format('MM/DD/YYYY')
 
     return (
       <div
@@ -48,7 +72,7 @@ const ServiceCardHeader = forwardRef<HTMLInputElement, ServiceCardHeaderProps>(
           <div className="flex flex-row gap-2 items-end justify-start">
             <p className="text-2xl/5 font-medium tracking-wider">{data.customer.name + ","}</p>
             <p className="text-xs/3 font-thin tracking-wider">
-              {data.dateTime.toLocaleDateString()}
+              {formattedDate}
             </p>
           </div>
 
@@ -83,30 +107,36 @@ const ServiceCardHeader = forwardRef<HTMLInputElement, ServiceCardHeaderProps>(
             clsx({
               "text-[#4ECB71] fill-[#4ECB71]": variant === "pending",
               "text-[#1A73E8D4] fill-[#1A73E8D4]": variant === "processing",
-              "text-[#FF5252] fill-[#FF5252]": variant === "canceled",
+              "text-[#FF5252] fill-[#FF5252]": variant === "canceled" || variant === "finished",
             }),
           )}
         >
-          {
-            variant === 'processing' &&
-              <button type="button" onClick={() => setIsEditing(prev => !prev)}>
-                <CommentPen className="absolute left-3 top-0 size-4" />
+          {variant === 'processing' && !isEditing && (
+            <button type="button" onClick={toggleEditing}>
+              <CommentPen className="absolute left-3 top-0 size-4" />
+            </button>
+          )}
+          {isEditing ? (
+            <div className="flex flex-col gap-1 items-center justify-center">
+              <Input
+                placeholder={`${formatCurrency(value)}`}
+                onChange={(e) => changeNumber(e.target.value)}
+                customBgColor="bg-[#D0E3FB]"
+                className="w-full h-full max-w-28"
+                sz='large'
+              />
+              
+              <button type="button" onClick={request} className="flex flex-row gap-1 items-center justify-center">
+                <p className="text-xs font-bold text-[#1A73E8D4]">solicitar</p>
+
+                <CheckCircledIcon className="text-[#1A73E8D4] size-3" />
               </button>
-          }
-          {
-            isEditing
-             ? (
-                <Input
-                  type="number"
-                  className="w-full h-full max-w-28 border-[#1A73E8D4]"
-                />
-              )
-              : (
-                <p className={"font-semibold text-2xl"}>
-                  R$ 100,00
-                </p>
-              )
-          }
+            </div>
+          ) : (
+            <p className="font-semibold text-2xl">
+              {formatCurrency(value)}
+            </p>
+          )}
         </div>
       </div>
     );

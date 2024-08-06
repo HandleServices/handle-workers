@@ -1,60 +1,104 @@
-import { ServiceCard } from "@/components/ServiceCard";
-import { ServiceCardProps, ServiceCardVariants } from "@/components/ServiceCard/types";
+"use client";
 
-interface ServiceCardType {
-  variant: ServiceCardVariants
-  data: ServiceCardProps
-}
+import { ServiceCard } from "@/components/ServiceCard";
+import { useState } from "react";
 
 export default function App() {
-  const cards: ServiceCardType[] = [
-    {
-      variant: 'pending',
-      data: {
-        customer: {
-          name: 'Lucas Rabelo',
-          address: 'Av. Diógenes Ribeiro 74 -  Alto da Lapa',
-        },
-        dateTime: new Date(),
-      }
-    },
-    {
-      variant: 'processing',
-      data: {
-        customer: {
-          name: 'Lucas Rabelo',
-          address: 'Av. Diógenes Ribeiro 74 -  Alto da Lapa',
-        },
-        dateTime: new Date(),
-      }
-    },
-    {
-      variant: 'canceled',
-      data: {
-        customer: {
-          name: 'Lucas Rabelo',
-          address: 'Av. Diógenes Ribeiro 74 -  Alto da Lapa',
-        },
-        dateTime: new Date(),
-      }
-    },
-  ]
+  const [value, setValue] = useState(100.0);
 
   return (
     <div className="w-screen h-screen pt-40 px-24 flex flex-col gap-8">
-      {
-        cards.map((card, idx) => (
-          <ServiceCard.Container key={idx} variant={card.variant}>
-            <ServiceCard.Header variant={card.variant} data={card.data} />
+      <ServiceCard.Container key={0} variant={"pending"}>
+        <ServiceCard.Header
+          variant={"pending"}
+          data={{
+            customer: {
+              name: "Lucas Rabelo",
+              address: "Av. Diógenes Ribeiro 74 -  Alto da Lapa",
+            },
+            dateTime: new Date(),
+          }}
+          value={value}
+          setValue={setValue}
+        />
 
-            <ServiceCard.Content variant={card.variant}>
-              <p className="text-[16px] font-light">{'Manutenção de Ar Condicionado - 10h'}</p>
-            </ServiceCard.Content>
+        <ServiceCard.Content variant={"pending"}>
+          <p className="text-[16px] font-light">
+            {"Manutenção de Ar Condicionado - 10h"}
+          </p>
+        </ServiceCard.Content>
 
-            <ServiceCard.Footer variant={card.variant} />
-          </ServiceCard.Container>
-        ))
-      }
+        <ServiceCard.Footer variant={"pending"} />
+      </ServiceCard.Container>
+
+      <ServiceCard.Container key={1} variant={"processing"}>
+        <ServiceCard.Header
+          variant={"processing"}
+          data={{
+            customer: {
+              name: "Lucas Rabelo",
+              address: "Av. Diógenes Ribeiro 74 -  Alto da Lapa",
+            },
+            dateTime: new Date(),
+          }}
+          value={value}
+          setValue={setValue}
+        />
+
+        <ServiceCard.Content variant={"processing"}>
+          <p className="text-[16px] font-light">
+            {"Manutenção de Ar Condicionado - 10h"}
+          </p>
+        </ServiceCard.Content>
+
+        <ServiceCard.Footer variant={"processing"} />
+      </ServiceCard.Container>
+
+      <ServiceCard.Container key={2} variant={"canceled"}>
+        <ServiceCard.Header
+          variant={"canceled"}
+          data={{
+            customer: {
+              name: "Lucas Rabelo",
+              address: "Av. Diógenes Ribeiro 74 -  Alto da Lapa",
+            },
+            dateTime: new Date(),
+          }}
+          value={value}
+          setValue={setValue}
+        />
+
+        <ServiceCard.Content variant={"canceled"}>
+          <p className="text-[16px] font-light">
+            {"Manutenção de Ar Condicionado - 10h"}
+          </p>
+        </ServiceCard.Content>
+
+        <ServiceCard.Footer variant={"canceled"} />
+      </ServiceCard.Container>
+
+      <ServiceCard.Container key={2} variant={"finished"}>
+        <ServiceCard.Header
+          variant={"finished"}
+          data={{
+            customer: {
+              name: "Lucas Rabelo",
+              address: "Av. Diógenes Ribeiro 74 -  Alto da Lapa",
+            },
+            dateTime: new Date(),
+          }}
+          value={value}
+          setValue={setValue}
+        />
+
+        <ServiceCard.Content variant={"finished"}>
+          <p className="text-[16px] font-light">
+            {"Manutenção de Ar Condicionado - 10h"}
+          </p>
+        </ServiceCard.Content>
+
+        <ServiceCard.Footer variant={"finished"} />
+      </ServiceCard.Container>
     </div>
-  )
+  );
 }

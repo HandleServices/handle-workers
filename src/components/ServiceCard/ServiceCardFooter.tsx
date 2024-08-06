@@ -16,6 +16,7 @@ const variants = cva([], {
       pending: "",
       processing: "",
       canceled: "",
+      finished: "",
     },
   },
 });
@@ -41,13 +42,22 @@ const PendingVariant: React.FC = () => (
 );
 
 const ProcessingVariant: React.FC = () => (
-  <ServiceCardFooterButton
-    variant={"processing"}
-    className="rounded-bl-[8px] pl-12 flex items-center justify-start gap-2"
-  >
-    <p className="text-white uppercase font-bold tracking-widest">Finalizar</p>
-    <Check className="text-white" strokeWidth={3} />
-  </ServiceCardFooterButton>
+  <div className="w-full h-full flex flex-row gap-0">
+    <ServiceCardFooterButton
+      variant={"processing"}
+      className="w-2/3 rounded-bl-[8px] pl-12 flex items-center justify-start gap-2"
+    >
+      <p className="text-white uppercase font-bold tracking-widest">Finalizar</p>
+      <Check className="text-white" strokeWidth={3} />
+    </ServiceCardFooterButton>
+
+    <div
+      className="w-1/3 rounded-br-[8px] pr-12 flex items-center justify-end gap-2"
+    >
+      <p className="text-white uppercase font-bold tracking-widest">Cancelar</p>
+      <X className="text-white" strokeWidth={2} />
+    </div>
+  </div>
 );
 
 const CanceledVariant: React.FC = () => (
@@ -57,6 +67,16 @@ const CanceledVariant: React.FC = () => (
   >
     <p className="text-white uppercase font-bold tracking-widest">Cancelado</p>
     <X className="text-white" strokeWidth={2} />
+  </ServiceCardFooterButton>
+);
+
+const FinishedVariant: React.FC = () => (
+  <ServiceCardFooterButton
+    variant={"finished"}
+    className="rounded-b-[8px] pr-12 flex items-center justify-end gap-2"
+  >
+    <p className="text-white uppercase font-bold tracking-widest">Finalizado</p>
+    <Check className="text-white" strokeWidth={3} />
   </ServiceCardFooterButton>
 );
 
@@ -76,6 +96,9 @@ const ServiceCardFooterButtons = ({
       break;
     case "processing":
       VariantComponent = ProcessingVariant;
+      break;
+    case "finished":
+      VariantComponent = FinishedVariant;
       break;
   }
 
