@@ -1,53 +1,53 @@
-'use client'
+"use client";
 
-import * as Separator from '@radix-ui/react-separator'
-import * as Tabs from '@radix-ui/react-tabs'
-import React, { useState } from 'react'
+import * as Separator from "@radix-ui/react-separator";
+import * as Tabs from "@radix-ui/react-tabs";
+import React, { useState } from "react";
 
-import Input from '@/components/Input'
+import Input from "@/components/Input";
 
-import SearchIcon from './assets/SearchIcon'
+import SearchIcon from "./assets/SearchIcon";
 
 // Change this after.
 type Cards = {
-  id: number
-}
+  id: number;
+};
 
 type tab = {
-  name: string
-  color: string
-  data: Cards[]
-}
+  name: string;
+  color: string;
+  data: Cards[];
+};
 
 const Home = () => {
-  const [activeTab, setActiveTab] = useState('Solicitações')
-  const [search, setSearch] = useState('')
-  const [tabData] = useState<Map<string, Cards[]>>(new Map()) // FIX: Insert setTabData, removed because of esLint problems in build.
+  const [activeTab, setActiveTab] = useState("Solicitações");
+  const [search, setSearch] = useState("");
+  const [tabData] = useState<Map<string, Cards[]>>(new Map()); // FIX: Insert setTabData, removed because of esLint problems in build.
 
   // TODO: Make logic to each tab data here.
   const tabs: tab[] = [
     {
-      name: 'Solicitações',
-      color: 'bg-handle-green',
-      data: tabData.get('Solicitações') || [],
+      name: "Solicitações",
+      color: "bg-handle-green",
+      data: tabData.get("Solicitações") || [],
     },
     {
-      name: 'Em aberto',
-      color: 'bg-handle-blue',
-      data: tabData.get('Em aberto') || [],
+      name: "Em aberto",
+      color: "bg-handle-blue",
+      data: tabData.get("Em aberto") || [],
     },
     {
-      name: 'Finalizados',
-      color: 'bg-handle-red',
-      data: tabData.get('Finalizados') || [],
+      name: "Finalizados",
+      color: "bg-handle-red",
+      data: tabData.get("Finalizados") || [],
     },
-  ]
+  ];
 
-  type TabCircleProps = { color: string; className?: string }
+  type TabCircleProps = { color: string; className?: string };
 
   const TabCircle = ({ color, className }: TabCircleProps) => {
-    return <div className={`h-4 w-4 rounded-full ${color} ${className}`} />
-  }
+    return <div className={`h-4 w-4 rounded-full ${color} ${className}`} />;
+  };
 
   const makeTabTriggerClassName = (tab: tab) => {
     return (
@@ -55,8 +55,8 @@ const Home = () => {
       (activeTab === tab.name
         ? `${tab.color} text-white shadow-md`
         : `bg-handle-gray-home text-handle-gray-icons hover:shadow`)
-    )
-  }
+    );
+  };
 
   return (
     <div>
@@ -64,17 +64,15 @@ const Home = () => {
         {
           // TODO: After enter the new PR of Input bugfix then resolve font size of 'Pesquisar'
         }
-        <Input
-          className="border-r-white"
-          inputClassName="border-handle-gray-icons border-r-handle-gray border-r-0 rounded-r-none"
-          placeholder="pesquisar"
-          customBgColor="bg-handle-background-intern"
+        <input
+          className="bg-handle-background-intern p-2 border-handle-gray-icons border-1.5 border-r-0 rounded-md rounded-r-none"
+          placeholder="Pesquisar"
           onChange={(e) => setSearch(e.target.value)}
           value={search}
         />
         <div className="flex border-y-handle-gray border-y-1.5 gap-2 border-r-handle-gray border-r-1.5 rounded-r-md pt-1">
           <Separator.Root className="h-8 w-[0.5px] bg-handle-gray mr-1" />
-          <SearchIcon width={16} height={16} className="mt-1.5 ml-1" />
+          <SearchIcon width={16} height={16} className="mt-1 ml-1" />
         </div>
       </div>
       <Tabs.Root defaultValue="Solicitações">
@@ -98,7 +96,7 @@ const Home = () => {
         }
       </Tabs.Root>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
