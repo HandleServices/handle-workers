@@ -22,14 +22,18 @@ type tab = {
 const Home = () => {
   const [activeTab, setActiveTab] = useState("Solicitações");
   const [search, setSearch] = useState("");
-  const [tabData] = useState<Map<string, Cards[]>>(new Map()); // FIX: Insert setTabData, removed because of esLint problems in build.
+  const [tabData] = useState<Map<string, Cards[]>>(new Map()); // FIX: Insert setTabData
 
   // TODO: Make logic to each tab data here.
   const tabs: tab[] = [
     {
       name: "Solicitações",
       color: "bg-handle-green",
-      data: tabData.get("Solicitações") || [],
+      data: tabData.get("Solicitações") || [
+        {
+          id: 1,
+        },
+      ],
     },
     {
       name: "Em aberto",
@@ -60,23 +64,20 @@ const Home = () => {
 
   return (
     <div>
-      <div className="grid grid-cols-[0.97fr_0.03fr] mr-12 mb-12">
-        {
-          // TODO: After enter the new PR of Input bugfix then resolve font size of 'Pesquisar'
-        }
+      <div className="grid grid-cols-[0.95fr_0.05fr] w-[97.7%] mr-12 mb-12">
         <input
           className="bg-handle-background-intern p-2 border-handle-gray-icons border-1.5 border-r-0 rounded-md rounded-r-none"
           placeholder="Pesquisar"
           onChange={(e) => setSearch(e.target.value)}
           value={search}
         />
-        <div className="flex border-y-handle-gray border-y-1.5 gap-2 border-r-handle-gray border-r-1.5 rounded-r-md pt-1">
-          <Separator.Root className="h-8 w-[0.5px] bg-handle-gray mr-1" />
-          <SearchIcon width={16} height={16} className="mt-1 ml-1" />
+        <div className="flex border-y-handle-gray border-y-1.5 gap-2 border-r-handle-gray border-r-1.5 rounded-r-md p-2 items-center justify-center">
+          <Separator.Root className="h-8 w-[0.5px] bg-handle-gray" />
+          <SearchIcon width={16} height={16} className="ml-2" />
         </div>
       </div>
       <Tabs.Root defaultValue="Solicitações">
-        <Tabs.List className="border-handle-gray-home border-2 rounded-sm h-8 mr-12 bg-handle-gray-home grid grid-cols-3 grid-rows-1 items-center justify-center">
+        <Tabs.List className="border-2 rounded-sm h-8 mr-12 bg-handle-gray-home grid grid-cols-3 grid-rows-1 items-center justify-center">
           {tabs.map((tab) => (
             <Tabs.Trigger
               key={tab.name}

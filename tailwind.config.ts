@@ -1,129 +1,130 @@
-import type { Config } from 'tailwindcss'
-import colors from 'tailwindcss/colors'
+import type { Config } from "tailwindcss";
+import colors from "tailwindcss/colors";
 
-export type DefaultColors = typeof colors
+export type DefaultColors = typeof colors;
 
 function handleTheme() {
   return {
     handle: {
       background: {
-        DEFAULT: '#E1E1E6',
-        blue: '#D1E3FA',
-        intern: '#F4F5F8',
+        DEFAULT: "#E1E1E6",
+        blue: "#D1E3FA",
+        intern: "#F4F5F8",
       },
-      white: '#F7F8F4',
+      white: "#F7F8F4",
       blue: {
-        DEFAULT: '#1A73E8',
+        DEFAULT: "#1A73E8",
       },
       hover: {
-        blue: '#4285F4',
+        blue: "#4285F4",
       },
       gray: {
-        DEFAULT: '#7C828D',
-        '300': '#323238',
-        icons: '#7887A4',
+        DEFAULT: "#7C828D",
+        "300": "#323238",
+        icons: "#7887A4",
+        home: "#C5CCD9",
       },
       red: {
-        DEFAULT: '#FF5252',
-        600: '#FF3636',
+        DEFAULT: "#FF5252",
+        600: "#FF3636",
       },
       green: {
-        DEFAULT: '#4ECB71',
+        DEFAULT: "#4ECB71",
       },
     },
-    'custom-gray': {
-      '800': '#FFFFFF',
-      '700': '#E1E1E6',
-      '600': '#C4C4CC',
-      '500': '#8D8D99',
-      '400': '#7C7C8A',
-      '300': '#323238',
-      '200': '#202024',
-      '100': '#121214',
+    "custom-gray": {
+      "800": "#FFFFFF",
+      "700": "#E1E1E6",
+      "600": "#C4C4CC",
+      "500": "#8D8D99",
+      "400": "#7C7C8A",
+      "300": "#323238",
+      "200": "#202024",
+      "100": "#121214",
     },
-  }
+  };
 }
 
 const config: Config = {
-  mode: 'jit',
-  darkMode: ['class'],
+  mode: "jit",
+  darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
   ],
-  prefix: '',
+  prefix: "",
   ...handleTheme(), // to import handle color as tailwind config.
   theme: {
     container: {
       center: true,
-      padding: '2rem',
+      padding: "2rem",
       screens: {
-        '2xl': '1400px',
+        "2xl": "1400px",
       },
     },
     extend: {
       borderWidth: {
-        '1.5': '0.094rem',
+        "1.5": "0.094rem",
       },
       spacing: {
-        'button-extra': '26.25rem',
+        "button-extra": "26.25rem",
       },
       colors: {
         ...handleTheme(),
-        border: 'hsl(var(--border))',
-        input: 'hsl(var(--input))',
-        ring: 'hsl(var(--ring))',
-        background: 'hsl(var(--background))',
-        foreground: 'hsl(var(--foreground))',
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: 'hsl(var(--primary))',
-          foreground: 'hsl(var(--primary-foreground))',
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
-          DEFAULT: 'hsl(var(--secondary))',
-          foreground: 'hsl(var(--secondary-foreground))',
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
         },
         destructive: {
-          DEFAULT: 'hsl(var(--destructive))',
-          foreground: 'hsl(var(--destructive-foreground))',
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
         },
         muted: {
-          DEFAULT: 'hsl(var(--muted))',
-          foreground: 'hsl(var(--muted-foreground))',
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
         },
         accent: {
-          DEFAULT: 'hsl(var(--accent))',
-          foreground: 'hsl(var(--accent-foreground))',
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
         },
         popover: {
-          DEFAULT: 'hsl(var(--popover))',
-          foreground: 'hsl(var(--popover-foreground))',
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
         },
         card: {
-          DEFAULT: 'hsl(var(--card))',
-          foreground: 'hsl(var(--card-foreground))',
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
         },
       },
       borderRadius: {
-        lg: 'var(--radius)',
-        md: 'calc(var(--radius) - 2px)',
-        sm: 'calc(var(--radius) - 4px)',
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
       },
       keyframes: {
-        'accordion-down': {
-          from: { height: '0' },
-          to: { height: 'var(--radix-accordion-content-height)' },
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
-        'accordion-up': {
-          from: { height: 'var(--radix-accordion-content-height)' },
-          to: { height: '0' },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
         },
       },
       animation: {
-        'accordion-down': 'accordion-down 0.2s ease-out',
-        'accordion-up': 'accordion-up 0.2s ease-out',
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
       },
       backgroundImage: {
         iconsOverlay: `
@@ -133,9 +134,9 @@ const config: Config = {
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
-} satisfies Config
+  plugins: [require("tailwindcss-animate")],
+} satisfies Config;
 
-export type Colors = typeof colors
+export type Colors = typeof colors;
 
-export default config
+export default config;
