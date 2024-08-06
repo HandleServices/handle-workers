@@ -17,3 +17,13 @@ input[type=number]::-webkit-outer-spin-button {
 input:not(:focus-visible):placeholder-shown + .absolute {
   top: 50%;
 }
+
+input:not(:placeholder-shown) + .absolute {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+input:focus + .absolute {
+  font-size: 0.75rem; 
+  line-height: 1rem;
+}
