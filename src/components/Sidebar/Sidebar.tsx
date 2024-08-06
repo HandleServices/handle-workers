@@ -17,6 +17,7 @@ export interface SidebarProps {
 
 export interface ISidebarItem {
   name: string
+  title: string
   icon: React.ElementType
   path: string
 }
@@ -24,21 +25,25 @@ export interface ISidebarItem {
 export const TopMenus: ISidebarItem[] = [
   {
     name: 'Início',
+    title: 'Menu Principal',
     icon: HomeIcon,
     path: 'home',
   },
   {
     name: 'Agenda',
+    title: 'Minha Agenda',
     icon: CalendarIcon,
     path: 'calendar',
   },
   {
     name: 'Meus Serviços',
+    title: 'Meus Serviços',
     icon: ServicesIcon,
     path: 'services',
   },
   {
     name: 'Carteira',
+    title: 'Rerlatório Mensal',
     icon: WalletIcon,
     path: 'wallet',
   },
@@ -47,16 +52,18 @@ export const TopMenus: ISidebarItem[] = [
 export const BottomMenus: ISidebarItem[] = [
   {
     name: 'Configurações',
+    title: 'Configurações',
     icon: SettingsIcon,
     path: 'settings',
   },
   {
     name: 'Sobre',
+    title: 'Sobre',
     icon: AboutIcon,
     path: 'about',
   },
 ]
-const Sidebar = ({ children }: SidebarProps) => {
+const Sidebar = () => {
   const [open, setOpen] = useState(true)
 
   return (

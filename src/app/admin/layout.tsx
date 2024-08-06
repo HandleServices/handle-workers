@@ -16,11 +16,11 @@ export default function AdminLayout({
   const pathName = usePathname().split('/')[2]
   return (
     <div className="bg-handle-background-intern h-full grid grid-cols-[auto_1fr]">
-      <Sidebar>{children}</Sidebar>
+      <Sidebar />
       <div className="grid grid-rows-[75px_1fr]">
         <div className="grid grid-cols-[300px_1fr]">
           <div className="grid justify-start ml-12 mt-8 text-2xl font-bold text-handle-blue">
-            {menuNames.find((e) => e.path === pathName)?.name}
+            {menuNames.find((e) => e.path === pathName)?.title}
           </div>
           <div className="flex flex-col pr-8">
             <div className="flex flex-row items-end justify-end justify-self-end self-end w-[50%]">

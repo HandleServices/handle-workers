@@ -13,7 +13,7 @@ export default function Bell({
   ...props
 }: BellComponentProps) {
   return (
-    <div className="self-center">
+    <div className="self-center cursor-pointer">
       <BellIcon
         width={width}
         height={height}
