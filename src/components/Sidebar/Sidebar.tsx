@@ -43,7 +43,7 @@ export const TopMenus: ISidebarItem[] = [
   },
   {
     name: 'Carteira',
-    title: 'Rerlatório Mensal',
+    title: 'Relatório Mensal',
     icon: WalletIcon,
     path: 'wallet',
   },
