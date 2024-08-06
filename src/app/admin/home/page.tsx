@@ -1,57 +1,57 @@
-"use client";
+'use client'
 
-import * as Separator from "@radix-ui/react-separator";
-import * as Tabs from "@radix-ui/react-tabs";
-import React, { useState } from "react";
+import * as Separator from '@radix-ui/react-separator'
+import * as Tabs from '@radix-ui/react-tabs'
+import React, { useState } from 'react'
 
-import Input from "@/components/Input";
+import Input from '@/components/Input'
 
-import SearchIcon from "./assets/SearchIcon";
+import SearchIcon from './assets/SearchIcon'
 
 // Change this after.
 type Cards = {
-  id: number;
-};
+  id: number
+}
 
 type tab = {
-  name: string;
-  color: string;
-  data: Cards[];
-};
+  name: string
+  color: string
+  data: Cards[]
+}
 
 const Home = () => {
-  const [activeTab, setActiveTab] = useState("Solicitações");
-  const [search, setSearch] = useState("");
-  const [tabData] = useState<Map<string, Cards[]>>(new Map()); // FIX: Insert setTabData
+  const [activeTab, setActiveTab] = useState('Solicitações')
+  const [search, setSearch] = useState('')
+  const [tabData] = useState<Map<string, Cards[]>>(new Map()) // FIX: Insert setTabData
 
   // TODO: Make logic to each tab data here.
   const tabs: tab[] = [
     {
-      name: "Solicitações",
-      color: "bg-handle-green",
-      data: tabData.get("Solicitações") || [
+      name: 'Solicitações',
+      color: 'bg-handle-green',
+      data: tabData.get('Solicitações') || [
         {
           id: 1,
         },
       ],
     },
     {
-      name: "Em aberto",
-      color: "bg-handle-blue",
-      data: tabData.get("Em aberto") || [],
+      name: 'Em aberto',
+      color: 'bg-handle-blue',
+      data: tabData.get('Em aberto') || [],
     },
     {
-      name: "Finalizados",
-      color: "bg-handle-red",
-      data: tabData.get("Finalizados") || [],
+      name: 'Finalizados',
+      color: 'bg-handle-red',
+      data: tabData.get('Finalizados') || [],
     },
-  ];
+  ]
 
-  type TabCircleProps = { color: string; className?: string };
+  type TabCircleProps = { color: string; className?: string }
 
   const TabCircle = ({ color, className }: TabCircleProps) => {
-    return <div className={`h-4 w-4 rounded-full ${color} ${className}`} />;
-  };
+    return <div className={`h-4 w-4 rounded-full ${color} ${className}`} />
+  }
 
   const makeTabTriggerClassName = (tab: tab) => {
     return (
@@ -59,8 +59,8 @@ const Home = () => {
       (activeTab === tab.name
         ? `${tab.color} text-white shadow-md`
         : `bg-handle-gray-home text-handle-gray-icons hover:shadow`)
-    );
-  };
+    )
+  }
 
   return (
     <div>
@@ -97,7 +97,7 @@ const Home = () => {
         }
       </Tabs.Root>
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home
