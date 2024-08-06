@@ -88,10 +88,9 @@ export default function CompleteRegister() {
               error={!!errors.name}
               placeholder="Nome do seu negócio"
               customBgColor="bg-handle-background"
-              sz="large"
+              sz="medium"
               height={56}
               className="w-full"
-              labelClassName="text-base"
             />
 
             <LabelError errors={errors} name="name" />
