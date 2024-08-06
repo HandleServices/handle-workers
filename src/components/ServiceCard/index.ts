@@ -1,8 +1,8 @@
-import ServiceCardContainer from "./ServiceCardContainer";
-import ServiceCardContent from "./ServiceCardContent";
-import ServiceCardFooter from "./ServiceCardFooter";
-import ServiceCardFooterButton from "./ServiceCardFooterButton";
-import ServiceCardHeader from "./ServiceCardHeader";
+import ServiceCardContainer from './ServiceCardContainer'
+import ServiceCardContent from './ServiceCardContent'
+import ServiceCardFooter from './ServiceCardFooter'
+import ServiceCardFooterButton from './ServiceCardFooterButton'
+import ServiceCardHeader from './ServiceCardHeader'
 
 export const ServiceCard = {
   FooterButton: ServiceCardFooterButton,
@@ -10,4 +10,4 @@ export const ServiceCard = {
   Content: ServiceCardContent,
   Header: ServiceCardHeader,
   Footer: ServiceCardFooter,
-};
+}

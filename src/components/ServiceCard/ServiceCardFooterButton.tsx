@@ -1,24 +1,26 @@
-import { cn } from "@/lib/utils";
-import { cva } from "class-variance-authority";
-import { forwardRef } from "react";
-import { ServiceCardVariants } from "./types";
+import { cva } from 'class-variance-authority'
+import { forwardRef } from 'react'
+
+import { cn } from '@/lib/utils'
+
+import { ServiceCardVariants } from './types'
 
 export interface ServiceCardFooterButtonProps {
-  variant: ServiceCardVariants;
-  children: React.ReactNode;
-  className?: HTMLDivElement["className"];
+  variant: ServiceCardVariants
+  children: React.ReactNode
+  className?: HTMLDivElement['className']
 }
 
 const variants = cva([], {
   variants: {
     variant: {
-      pending: "bg-[#4ECB71] w-1/2",
-      processing: "bg-[#1A73E8D4] w-2/3",
-      canceled: "bg-[#FF5252] w-1/5",
-      finished: "bg-[#FF5252] w-full"
+      pending: 'bg-[#4ECB71] w-1/2',
+      processing: 'bg-[#1A73E8D4] w-2/3',
+      canceled: 'bg-[#FF5252] w-1/5',
+      finished: 'bg-[#FF5252] w-full',
     },
   },
-});
+})
 
 const ServiceCardFooterButton = forwardRef<
   HTMLButtonElement,
@@ -49,13 +51,17 @@ const ServiceCardFooterButton = forwardRef<
     <button
       ref={ref}
       type="button"
-      className={cn("h-full m-0 p-0 hover:opacity-75", variants({ variant }), className)}
+      className={cn(
+        'h-full m-0 p-0 hover:opacity-75',
+        variants({ variant }),
+        className,
+      )}
     >
       {children}
     </button>
-  );
-});
+  )
+})
 
-ServiceCardFooterButton.displayName = "ServiceCardFooterButton";
+ServiceCardFooterButton.displayName = 'ServiceCardFooterButton'
 
-export default ServiceCardFooterButton;
+export default ServiceCardFooterButton

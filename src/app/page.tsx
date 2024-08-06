@@ -1,20 +1,21 @@
-"use client";
+'use client'
 
-import { ServiceCard } from "@/components/ServiceCard";
-import { useState } from "react";
+import { useState } from 'react'
+
+import { ServiceCard } from '@/components/ServiceCard'
 
 export default function App() {
-  const [value, setValue] = useState(100.0);
+  const [value, setValue] = useState(100.0)
 
   return (
     <div className="w-screen h-screen pt-40 px-24 flex flex-col gap-8">
-      <ServiceCard.Container key={0} variant={"pending"}>
+      <ServiceCard.Container key={0} variant={'pending'}>
         <ServiceCard.Header
-          variant={"pending"}
+          variant={'pending'}
           data={{
             customer: {
-              name: "Lucas Rabelo",
-              address: "Av. Diógenes Ribeiro 74 -  Alto da Lapa",
+              name: 'Lucas Rabelo',
+              address: 'Av. Diógenes Ribeiro 74 -  Alto da Lapa',
             },
             dateTime: new Date(),
           }}
@@ -22,22 +23,22 @@ export default function App() {
           setValue={setValue}
         />
 
-        <ServiceCard.Content variant={"pending"}>
+        <ServiceCard.Content variant={'pending'}>
           <p className="text-[16px] font-light">
-            {"Manutenção de Ar Condicionado - 10h"}
+            {'Manutenção de Ar Condicionado - 10h'}
           </p>
         </ServiceCard.Content>
 
-        <ServiceCard.Footer variant={"pending"} />
+        <ServiceCard.Footer variant={'pending'} />
       </ServiceCard.Container>
 
-      <ServiceCard.Container key={1} variant={"processing"}>
+      <ServiceCard.Container key={1} variant={'processing'}>
         <ServiceCard.Header
-          variant={"processing"}
+          variant={'processing'}
           data={{
             customer: {
-              name: "Lucas Rabelo",
-              address: "Av. Diógenes Ribeiro 74 -  Alto da Lapa",
+              name: 'Lucas Rabelo',
+              address: 'Av. Diógenes Ribeiro 74 -  Alto da Lapa',
             },
             dateTime: new Date(),
           }}
@@ -45,22 +46,22 @@ export default function App() {
           setValue={setValue}
         />
 
-        <ServiceCard.Content variant={"processing"}>
+        <ServiceCard.Content variant={'processing'}>
           <p className="text-[16px] font-light">
-            {"Manutenção de Ar Condicionado - 10h"}
+            {'Manutenção de Ar Condicionado - 10h'}
           </p>
         </ServiceCard.Content>
 
-        <ServiceCard.Footer variant={"processing"} />
+        <ServiceCard.Footer variant={'processing'} />
       </ServiceCard.Container>
 
-      <ServiceCard.Container key={2} variant={"canceled"}>
+      <ServiceCard.Container key={2} variant={'canceled'}>
         <ServiceCard.Header
-          variant={"canceled"}
+          variant={'canceled'}
           data={{
             customer: {
-              name: "Lucas Rabelo",
-              address: "Av. Diógenes Ribeiro 74 -  Alto da Lapa",
+              name: 'Lucas Rabelo',
+              address: 'Av. Diógenes Ribeiro 74 -  Alto da Lapa',
             },
             dateTime: new Date(),
           }}
@@ -68,22 +69,22 @@ export default function App() {
           setValue={setValue}
         />
 
-        <ServiceCard.Content variant={"canceled"}>
+        <ServiceCard.Content variant={'canceled'}>
           <p className="text-[16px] font-light">
-            {"Manutenção de Ar Condicionado - 10h"}
+            {'Manutenção de Ar Condicionado - 10h'}
           </p>
         </ServiceCard.Content>
 
-        <ServiceCard.Footer variant={"canceled"} />
+        <ServiceCard.Footer variant={'canceled'} />
       </ServiceCard.Container>
 
-      <ServiceCard.Container key={2} variant={"finished"}>
+      <ServiceCard.Container key={2} variant={'finished'}>
         <ServiceCard.Header
-          variant={"finished"}
+          variant={'finished'}
           data={{
             customer: {
-              name: "Lucas Rabelo",
-              address: "Av. Diógenes Ribeiro 74 -  Alto da Lapa",
+              name: 'Lucas Rabelo',
+              address: 'Av. Diógenes Ribeiro 74 -  Alto da Lapa',
             },
             dateTime: new Date(),
           }}
@@ -91,14 +92,14 @@ export default function App() {
           setValue={setValue}
         />
 
-        <ServiceCard.Content variant={"finished"}>
+        <ServiceCard.Content variant={'finished'}>
           <p className="text-[16px] font-light">
-            {"Manutenção de Ar Condicionado - 10h"}
+            {'Manutenção de Ar Condicionado - 10h'}
           </p>
         </ServiceCard.Content>
 
-        <ServiceCard.Footer variant={"finished"} />
+        <ServiceCard.Footer variant={'finished'} />
       </ServiceCard.Container>
     </div>
-  );
+  )
 }
