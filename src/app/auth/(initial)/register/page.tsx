@@ -136,7 +136,6 @@ export default function Register() {
               className="w-full"
               placeholder="Nome"
               customBgColor="bg-handle-background"
-              sz="large"
             />
 
             <LabelError errors={errors} name="name" />
@@ -245,7 +244,7 @@ export default function Register() {
                 </a>
               </p>
               <Button
-                size={isBelowSm ? 'mediumlg' : 'large'}
+                size={isBelowSm ? 'mediumlg' : 'extra'}
                 variant="primary"
                 className="mt-2"
               >

@@ -116,7 +116,7 @@ export default function CompleteRegister() {
               error={!!errors.businessName}
               placeholder="Nome do seu negócio"
               customBgColor="bg-handle-background"
-              sz="large"
+              sz="medium"
               height={56}
               className="w-full"
             />
@@ -135,7 +135,7 @@ export default function CompleteRegister() {
                 >
                   <SelectTrigger
                     error={!!errors.selectedRole}
-                    className="bg-transparent h-14"
+                    className="bg-transparent h-16"
                   >
                     <SelectValue placeholder={'Selecione sua profissão'} />
                   </SelectTrigger>

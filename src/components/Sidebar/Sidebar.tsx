@@ -17,48 +17,54 @@ export interface SidebarProps {
 
 export interface ISidebarItem {
   name: string
+  title: string
   icon: React.ElementType
   path: string
 }
 
-const Sidebar = ({ children }: SidebarProps) => {
+export const TopMenus: ISidebarItem[] = [
+  {
+    name: 'Início',
+    title: 'Menu Principal',
+    icon: HomeIcon,
+    path: 'home',
+  },
+  {
+    name: 'Agenda',
+    title: 'Minha Agenda',
+    icon: CalendarIcon,
+    path: 'calendar',
+  },
+  {
+    name: 'Meus Serviços',
+    title: 'Meus Serviços',
+    icon: ServicesIcon,
+    path: 'services',
+  },
+  {
+    name: 'Carteira',
+    title: 'Relatório Mensal',
+    icon: WalletIcon,
+    path: 'wallet',
+  },
+]
+
+export const BottomMenus: ISidebarItem[] = [
+  {
+    name: 'Configurações',
+    title: 'Configurações',
+    icon: SettingsIcon,
+    path: 'settings',
+  },
+  {
+    name: 'Sobre',
+    title: 'Sobre',
+    icon: AboutIcon,
+    path: 'about',
+  },
+]
+const Sidebar = () => {
   const [open, setOpen] = useState(true)
-
-  const TopMenus: ISidebarItem[] = [
-    {
-      name: 'Início',
-      icon: HomeIcon,
-      path: 'home',
-    },
-    {
-      name: 'Agenda',
-      icon: CalendarIcon,
-      path: 'calendar',
-    },
-    {
-      name: 'Meus Serviços',
-      icon: ServicesIcon,
-      path: 'services',
-    },
-    {
-      name: 'Carteira',
-      icon: WalletIcon,
-      path: 'wallet',
-    },
-  ]
-
-  const BottomMenus: ISidebarItem[] = [
-    {
-      name: 'Configurações',
-      icon: SettingsIcon,
-      path: 'settings',
-    },
-    {
-      name: 'Sobre',
-      icon: AboutIcon,
-      path: 'about',
-    },
-  ]
 
   return (
     <aside className="flex z-50">
@@ -100,8 +106,6 @@ const Sidebar = ({ children }: SidebarProps) => {
           </ul>
         </div>
       </div>
-
-      <div className="flex-1 h-screen ml-12 py-8">{children}</div>
     </aside>
   )
 }

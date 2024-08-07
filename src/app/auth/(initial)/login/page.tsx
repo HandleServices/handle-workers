@@ -102,7 +102,7 @@ export default function Login() {
             </p>
             <Button
               type="submit"
-              size={isBelowMd ? 'mediumlg' : 'large'}
+              size={isBelowMd ? 'mediumlg' : 'extra'}
               action={() => ({})}
               variant="primary"
               className="self-center"
@@ -130,7 +130,7 @@ export default function Login() {
           <div>
             <Button
               type="button"
-              size="extra"
+              size={isBelowMd ? 'mediumlg' : 'extra'}
               icon={<SvgComponent />}
               action={() => ({})}
               variant="secondary"
