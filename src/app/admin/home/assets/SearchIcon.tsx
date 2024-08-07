@@ -5,6 +5,7 @@ const SearchIcon: React.ElementType = ({
   className,
   height,
   width,
+  onClick,
   ...props
 }: React.SVGProps<SVGSVGElement>) => (
   <svg
@@ -13,6 +14,7 @@ const SearchIcon: React.ElementType = ({
     height={height}
     fill={fill}
     className={className}
+    onClick={onClick}
     {...props}
   >
     <g clipPath="url(#a)">

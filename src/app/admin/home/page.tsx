@@ -64,16 +64,16 @@ const Home = () => {
 
   return (
     <div>
-      <div className="grid grid-cols-[0.95fr_0.05fr] w-[97.7%] mr-12 mb-12">
+      <div className="grid grid-cols-[0.95fr_0.05fr] w-[97.7%] mr-12 mb-10">
         <input
-          className="bg-handle-background-intern p-2 border-handle-gray-icons border-1.5 border-r-0 rounded-md rounded-r-none"
+          className="bg-handle-background-intern p-2 h-8 border-handle-gray-icons border-1.5 border-r-0 rounded-md rounded-r-none font-thin focus:outline-none"
           placeholder="Pesquisar"
           onChange={(e) => setSearch(e.target.value)}
           value={search}
         />
-        <div className="flex border-y-handle-gray border-y-1.5 gap-2 border-r-handle-gray border-r-1.5 rounded-r-md p-2 items-center justify-center">
-          <Separator.Root className="h-8 w-[0.5px] bg-handle-gray" />
-          <SearchIcon width={16} height={16} className="ml-2" />
+        <div className="flex border-y-handle-gray-icons border-y-1.5 gap-2 border-r-handle-gray-icons border-r-1.5 rounded-r-md p-2 items-center justify-center h-8">
+          <Separator.Root className="h-5 w-[0.5px] bg-handle-gray-icons" />
+          <SearchIcon width={16} height={16} className="ml-2 cursor-pointer" />
         </div>
       </div>
       <Tabs.Root defaultValue="Solicitações">
