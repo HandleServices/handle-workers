@@ -1,15 +1,21 @@
 'use client'
-
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as Separator from '@radix-ui/react-separator'
 import { useRouter } from 'next/navigation'
+import { useContext } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
 import { z } from 'zod'
 
 import { Button } from '@/components/Button'
 import Input from '@/components/Input'
 import { LabelError } from '@/components/LabelError'
-import { useBreakpoint } from '@/hooks/useBreakpoints'
+import { AuthContext } from '@/contexts/AuthContext'
+import authService from '@/services/auth/auth.service'
+import { LoginDto } from '@/types/dtos/auth/LoginDto'
+import { handleErrorMessage } from '@/utils/functions/errors-type-guards'
+import { hashPassword } from '@/utils/functions/hash-password'
+import { useBreakpoint } from '@/utils/hooks/useBreakpoints'
 
 import SvgComponent from '../assets/google'
 
@@ -31,14 +37,23 @@ export default function Login() {
   })
 
   const router = useRouter()
+  const { signIn } = useContext(AuthContext)
 
-  const onSubmit: SubmitHandler<LoginType> = (data) => {
-    console.log(data)
-    router.push('/admin/home')
+  const onSubmit: SubmitHandler<LoginType> = async (data: LoginDto) => {
+    try {
+      data.password = await hashPassword(data.password)
+      const response = await authService.signin(data)
+      signIn(response)
+      toast.success('Login realizado com sucesso ;)')
+      router.push('/admin/home')
+    } catch (error) {
+      const errorMessage = handleErrorMessage(error)
+      toast.error(errorMessage)
+    }
   }
 
   const openRegister = () => {
-    router.push('register')
+    router.push('/auth/register')
   }
 
   return (

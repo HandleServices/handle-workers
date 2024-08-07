@@ -3,7 +3,9 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as Separator from '@radix-ui/react-separator'
 import { useRouter } from 'next/navigation'
+import { useContext } from 'react'
 import { Controller, SubmitHandler } from 'react-hook-form'
+import { toast } from 'react-hot-toast'
 import { z } from 'zod'
 
 import { Button } from '@/components/Button'
@@ -11,12 +13,17 @@ import { CustomCheckbox } from '@/components/Checkbox'
 import Input from '@/components/Input'
 import { LabelError } from '@/components/LabelError'
 import { generalErrorSchemaKey } from '@/components/LabelError/LabelError'
-import { useBreakpoint } from '@/hooks/useBreakpoints'
-import { useFormattedForm } from '@/hooks/useFormattedForm'
-import { checkCpfCnpj, cpfCnpjMask } from '@/utils/mask-cpf-cnpj'
-import { checkPhoneMask, phoneMask } from '@/utils/mask-phone'
+import { RegisterFormContext } from '@/contexts/RegisterFormContext'
+import { ValidateRegisterDto } from '@/types/dtos/auth/ValidateRegisterDto'
+import { handleErrorMessage } from '@/utils/functions/errors-type-guards'
+import { hashPassword } from '@/utils/functions/hash-password'
+import { useBreakpoint } from '@/utils/hooks/useBreakpoints'
+import { useFormattedForm } from '@/utils/hooks/useFormattedForm'
+import { checkCpfCnpj, cpfCnpjMask } from '@/utils/masks/mask-cpf-cnpj'
+import { checkPhoneMask, phoneMask } from '@/utils/masks/mask-phone'
 
 import SvgComponent from '../assets/google'
+import useRegisterHook from './register.hook'
 
 const registerSchema = z
   .object({
@@ -79,9 +86,39 @@ export default function Register() {
     ],
   )
 
-  const onSubmit: SubmitHandler<RegisterType> = (data) => {
-    console.log(data)
-    router.push('complete_register')
+  const { updateFormData } = useContext(RegisterFormContext)
+  const { validateRegister } = useRegisterHook()
+
+  const onSubmit: SubmitHandler<RegisterType> = async (data) => {
+    try {
+      data.password = await hashPassword(data.password)
+      const { name, email, phoneNumber, identificationNumber, password } = data
+
+      const passData = {
+        name,
+        email,
+        phoneNumber,
+        identificationNumber,
+        password,
+      }
+
+      const validateData: ValidateRegisterDto = {
+        email,
+        identificationNumber,
+        phoneNumber,
+      }
+
+      await validateRegister(validateData)
+      updateFormData(passData)
+      router.push('complete_register')
+    } catch (error) {
+      const errorMessage = handleErrorMessage(error)
+      toast.error(errorMessage)
+    }
+  }
+
+  const openLogin = () => {
+    router.push('/auth/login')
   }
 
   return (
@@ -198,15 +235,23 @@ export default function Register() {
             />
 
             <LabelError errors={errors} name="agree" />
-            <Button
-              size={isBelowSm ? 'mediumlg' : 'extra'}
-              variant="primary"
-              className="mt-5"
-            >
-              <span className="text-handle-background max-[770px]:text-[0.9rem] text-lg">
-                Cadastrar
-              </span>
-            </Button>
+            <div className="flex flex-col justify-center items-center mt-5">
+              <p className="">
+                Já possui uma conta?{' '}
+                <a onClick={openLogin} className="font-bold cursor-pointer">
+                  Entrar
+                </a>
+              </p>
+              <Button
+                size={isBelowSm ? 'mediumlg' : 'extra'}
+                variant="primary"
+                className="mt-2"
+              >
+                <span className="text-handle-background max-[770px]:text-[0.9rem] text-lg">
+                  {'Cadastrar'}
+                </span>
+              </Button>
+            </div>
           </div>
 
           <div className="w-full gap-4 flex flex-row items-center">

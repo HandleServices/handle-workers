@@ -1,6 +1,6 @@
 'use client'
 import { cva } from 'class-variance-authority'
-import React, { forwardRef, useState } from 'react'
+import React, { forwardRef } from 'react'
 import { twMerge } from 'tailwind-merge'
 
 const variants = cva(
@@ -36,20 +36,6 @@ const variants = cva(
   },
 )
 
-interface loadingProps {
-  type: string
-}
-
-function Loading({ type }: loadingProps): JSX.Element {
-  return (
-    <div className="flex flex-row align-center justify-center content-center">
-      <div
-        className={`w-4 h-4 rounded-full border-2 border-b-transparent animate-spin ${type === 'secondary' ? 'border-handle-blue' : ''} `}
-      />
-    </div>
-  )
-}
-
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   size: 'small' | 'medium' | 'mediumlg' | 'large' | 'extra'
   variant: 'primary' | 'secondary' | 'neutral'
@@ -61,7 +47,6 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ icon, className, children, size, variant, action, ...rest }, ref) => {
-    const [loading, setLoading] = useState(false)
     return (
       <div
         className={twMerge(variants({ variant, size, className }), [
@@ -76,22 +61,18 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           className={twMerge(variants({ variant, size }))}
           {...rest}
           onClick={async (e) => {
-            if (loading || !action) return
-            setLoading(true)
+            if (!action) return
             await action(e)
-            setLoading(false)
           }}
-          disabled={loading}
         >
-          {(loading && <Loading type={variant} />) ||
-            (icon && (
-              <div className="grid grid-cols-12 w-full h-full align-center items-center content-center">
-                <div className="flex flex-row align-center items-center justify-center col-span-2">
-                  {icon}
-                </div>
-                <p className="col-span-10 text-center pr-2 m-0">{children}</p>
+          {(icon && (
+            <div className="grid grid-cols-12 w-full h-full align-center items-center content-center">
+              <div className="flex flex-row align-center items-center justify-center col-span-2">
+                {icon}
               </div>
-            )) ||
+              <p className="col-span-10 text-center pr-2 m-0">{children}</p>
+            </div>
+          )) ||
             children}
         </button>
       </div>

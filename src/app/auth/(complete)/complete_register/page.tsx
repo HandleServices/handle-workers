@@ -2,7 +2,10 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import clsx from 'clsx'
 import { useRouter } from 'next/navigation'
+import { parseCookies } from 'nookies'
+import { useContext, useLayoutEffect } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import { toast } from 'react-hot-toast'
 import { z } from 'zod'
 
 import { Button } from '@/components/Button'
@@ -18,12 +21,19 @@ import {
   SelectValue,
 } from '@/components/Select/Select'
 import TimePicker from '@/components/TimePicker'
+import { RegisterFormContext } from '@/contexts/RegisterFormContext'
+import authService from '@/services/auth/auth.service'
+import { handleErrorMessage } from '@/utils/functions/errors-type-guards'
+
+import useCompleteRegisterHook from './complete-register.hook'
 
 const registerSchema = z.object({
   image: z.any().refine((file) => file && file.length > 0, {
     message: 'selecione uma imagem!',
   }),
-  name: z.string().min(2, { message: 'Nome deve ter ao menos 2 caracteres.' }),
+  businessName: z
+    .string()
+    .min(2, { message: 'Nome deve ter ao menos 2 caracteres.' }),
   selectedRole: z.string().min(1, { message: 'Selecione uma profissão' }),
   workingDays: z.array(z.string()).refine(
     (arg) => {
@@ -52,17 +62,35 @@ export default function CompleteRegister() {
     },
   })
 
+  const { formData, updateFormData } = useContext(RegisterFormContext)
+  const { setupRequest } = useCompleteRegisterHook()
+
+  useLayoutEffect(() => {
+    const cookies = parseCookies()
+    const isFirstRegisterComplete =
+      cookies['handleworkers.isFirstRegisterComplete']
+
+    if (!isFirstRegisterComplete) {
+      router.push('/auth/register')
+    }
+  }, [router])
+
   const onSubmit: SubmitHandler<RegisterType> = async (data) => {
     try {
-      console.log(data)
-      router.push('/admin/home')
+      const combinedData = { ...formData, ...data }
+      updateFormData(combinedData)
+      // TODO: Deal with the photo
+      // TODO: Deal with gender
+      // TODO: Deal with job-id (lets create the others option)
+      const sendData = setupRequest(combinedData)
+      await authService.signup(sendData)
+      toast.success('Cadastro feito com sucesso. Seja bem-vindo!')
+      router.push('/auth/login')
     } catch (error) {
-      console.error(error)
-      console.log(data)
+      const errorMessage = handleErrorMessage(error)
+      toast.error(errorMessage)
     }
   }
-
-  console.log(errors.selectedRole)
 
   return (
     <form
@@ -84,8 +112,8 @@ export default function CompleteRegister() {
         <div className="flex flex-col justify-evenly gap-[28px] w-full items-center">
           <div className="w-11/12 sm:w-full flex flex-col gap-1">
             <Input
-              {...register('name')}
-              error={!!errors.name}
+              {...register('businessName')}
+              error={!!errors.businessName}
               placeholder="Nome do seu negócio"
               customBgColor="bg-handle-background"
               sz="medium"
@@ -93,7 +121,7 @@ export default function CompleteRegister() {
               className="w-full"
             />
 
-            <LabelError errors={errors} name="name" />
+            <LabelError errors={errors} name="businessName" />
           </div>
 
           <div className="w-11/12 sm:w-full flex flex-col gap-1">
@@ -199,7 +227,7 @@ export default function CompleteRegister() {
           variant={'primary'}
           className="text-lg"
         >
-          Finalizar
+          {'Finalizar'}
         </Button>
       </div>
     </form>
