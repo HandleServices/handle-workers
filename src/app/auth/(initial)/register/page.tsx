@@ -98,7 +98,6 @@ export default function Register() {
               className="w-full"
               placeholder="Nome"
               customBgColor="bg-handle-background"
-              sz="large"
             />
 
             <LabelError errors={errors} name="name" />
