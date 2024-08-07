@@ -77,6 +77,15 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       return show ? 'text' : 'password'
     }, [show, type])
 
+    const labelTextSizeClass = useMemo(() => {
+      const sizeVariants = {
+        small: 'text-sm',
+        medium: 'text-base',
+        large: 'text-lg',
+      }
+      return sizeVariants[sz]
+    }, [sz])
+
     return (
       <div className={twMerge('relative bg-inherit grid', className)}>
         <input
@@ -96,6 +105,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             'absolute top-0 -translate-y-1/2 left-2 px-1 py-0 text-xs transition-all duration-300 ease-in-out pointer-events-none',
             currentTextColor,
             labelBg,
+            labelTextSizeClass,
           )}
         >
           {placeholder}

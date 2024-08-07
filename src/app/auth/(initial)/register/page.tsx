@@ -200,7 +200,7 @@ export default function Register() {
 
             <LabelError errors={errors} name="agree" />
             <Button
-              size={isBelowSm ? 'mediumlg' : 'large'}
+              size={isBelowSm ? 'mediumlg' : 'extra'}
               variant="primary"
               className="mt-5"
             >
