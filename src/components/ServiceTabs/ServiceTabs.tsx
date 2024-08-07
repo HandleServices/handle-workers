@@ -58,7 +58,7 @@ const ServiceTabs = ({ services }: ServiceTabsProps) => {
   }
 
   return (
-    <Tabs.Root defaultValue="Solicitações">
+    <Tabs.Root defaultValue={ServiceStateEnum.PENDING}>
       <Tabs.List className="border-2 rounded-sm h-8 mr-12 bg-handle-gray-home grid grid-cols-3 grid-rows-1 items-center justify-center">
         {tabs.map((tab) => (
           <Tabs.Trigger
