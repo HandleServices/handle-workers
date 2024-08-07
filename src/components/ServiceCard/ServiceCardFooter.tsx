@@ -16,7 +16,7 @@ const variants = cva([], {
   variants: {
     variant: {
       pending: '',
-      processing: '',
+      open: '',
       canceled: '',
       finished: '',
     },
@@ -43,10 +43,10 @@ const PendingVariant: React.FC = () => (
   </div>
 )
 
-const ProcessingVariant: React.FC = () => (
+const OpenVariant: React.FC = () => (
   <div className="w-full h-full flex flex-row gap-0">
     <ServiceCardFooterButton
-      variant={'processing'}
+      variant={'open'}
       className="w-2/3 rounded-bl-[8px] pl-12 flex items-center justify-start gap-2"
     >
       <p className="text-white uppercase font-bold tracking-widest">
@@ -55,31 +55,28 @@ const ProcessingVariant: React.FC = () => (
       <Check className="text-white" strokeWidth={3} />
     </ServiceCardFooterButton>
 
-    <div className="w-1/3 rounded-br-[8px] pr-12 flex items-center justify-end gap-2">
+    <ServiceCardFooterButton
+      variant="cancel"
+      className="rounded-br-[8px] pr-12 flex items-center justify-end gap-2"
+    >
       <p className="text-white uppercase font-bold tracking-widest">Cancelar</p>
       <X className="text-white" strokeWidth={2} />
-    </div>
+    </ServiceCardFooterButton>
   </div>
 )
 
 const CanceledVariant: React.FC = () => (
-  <ServiceCardFooterButton
-    variant={'canceled'}
-    className="rounded-bl-[8px] flex items-center justify-center gap-2"
-  >
+  <div className="bg-[#FF5252] w-1/5 rounded-bl-[8px] flex items-center justify-center gap-2">
     <p className="text-white uppercase font-bold tracking-widest">Cancelado</p>
     <X className="text-white" strokeWidth={2} />
-  </ServiceCardFooterButton>
+  </div>
 )
 
 const FinishedVariant: React.FC = () => (
-  <ServiceCardFooterButton
-    variant={'finished'}
-    className="rounded-b-[8px] pr-12 flex items-center justify-end gap-2"
-  >
+  <div className="bg-[#FF5252] w-full rounded-b-[8px] pr-12 flex items-center justify-end gap-2">
     <p className="text-white uppercase font-bold tracking-widest">Finalizado</p>
     <Check className="text-white" strokeWidth={3} />
-  </ServiceCardFooterButton>
+  </div>
 )
 
 const ServiceCardFooterButtons = ({
@@ -96,8 +93,8 @@ const ServiceCardFooterButtons = ({
     case 'pending':
       VariantComponent = PendingVariant
       break
-    case 'processing':
-      VariantComponent = ProcessingVariant
+    case 'open':
+      VariantComponent = OpenVariant
       break
     case 'finished':
       VariantComponent = FinishedVariant

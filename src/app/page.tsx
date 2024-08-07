@@ -32,9 +32,9 @@ export default function App() {
         <ServiceCard.Footer variant={'pending'} />
       </ServiceCard.Container>
 
-      <ServiceCard.Container key={1} variant={'processing'}>
+      <ServiceCard.Container key={1} variant={'open'}>
         <ServiceCard.Header
-          variant={'processing'}
+          variant={'open'}
           data={{
             customer: {
               name: 'Lucas Rabelo',
@@ -46,13 +46,13 @@ export default function App() {
           setValue={setValue}
         />
 
-        <ServiceCard.Content variant={'processing'}>
+        <ServiceCard.Content variant={'open'}>
           <p className="text-[16px] font-light">
             {'Manutenção de Ar Condicionado - 10h'}
           </p>
         </ServiceCard.Content>
 
-        <ServiceCard.Footer variant={'processing'} />
+        <ServiceCard.Footer variant={'open'} />
       </ServiceCard.Container>
 
       <ServiceCard.Container key={2} variant={'canceled'}>

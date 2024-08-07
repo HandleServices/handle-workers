@@ -14,7 +14,7 @@ const variants = cva([], {
   variants: {
     variant: {
       pending: '',
-      processing: '',
+      open: '',
       canceled: '',
       finished: '',
     },

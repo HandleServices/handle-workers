@@ -39,7 +39,7 @@ const variants = cva([], {
   variants: {
     variant: {
       pending: 'bg-[#4ECB7133]',
-      processing: 'bg-[#D0E3FB]',
+      open: 'bg-[#D0E3FB]',
       canceled: 'bg-[#F2DCDC]',
       finished: 'bg-[#F2DCDC]',
     },
@@ -96,7 +96,7 @@ const ServiceCardHeader = forwardRef<HTMLInputElement, ServiceCardHeaderProps>(
                 'flex flex-row gap-1 items-center hover:opacity-50 active:opacity-100',
                 clsx({
                   'text-[#4ECB71]': variant === 'pending',
-                  'text-[#1A73E8D4]': variant === 'processing',
+                  'text-[#1A73E8D4]': variant === 'open',
                   'text-[#FF5252]': variant === 'canceled',
                 }),
               )}
@@ -115,13 +115,13 @@ const ServiceCardHeader = forwardRef<HTMLInputElement, ServiceCardHeaderProps>(
             'relative flex items-center justify-center px-8 py-2',
             clsx({
               'text-[#4ECB71] fill-[#4ECB71]': variant === 'pending',
-              'text-[#1A73E8D4] fill-[#1A73E8D4]': variant === 'processing',
+              'text-[#1A73E8D4] fill-[#1A73E8D4]': variant === 'open',
               'text-[#FF5252] fill-[#FF5252]':
                 variant === 'canceled' || variant === 'finished',
             }),
           )}
         >
-          {variant === 'processing' && !isEditing && (
+          {variant === 'open' && !isEditing && (
             <button type="button" onClick={toggleEditing}>
               <CommentPen className="absolute left-3 top-0 size-4" />
             </button>

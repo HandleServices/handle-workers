@@ -1,8 +1,4 @@
-export type ServiceCardVariants =
-  | 'pending'
-  | 'processing'
-  | 'canceled'
-  | 'finished'
+export type ServiceCardVariants = 'pending' | 'open' | 'canceled' | 'finished'
 
 export type ServiceCardProps = {
   customer: {
