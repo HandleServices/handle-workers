@@ -1,7 +1,7 @@
 'use client'
 
 import { destroyCookie, setCookie } from 'nookies'
-import { createContext, ReactNode, useEffect, useState } from 'react'
+import { createContext, ReactNode, useState } from 'react'
 
 import { NewUserDto } from '@/types/dtos'
 

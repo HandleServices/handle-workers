@@ -9,7 +9,7 @@ import { Dispatch, forwardRef, SetStateAction, useState } from 'react'
 
 import { cn } from '@/lib/utils'
 import { ServiceStatusEnum } from '@/types/enums/ServiceStatusEnum'
-import { formatCurrency } from '@/utils/numberUtils'
+import { formatCurrency } from '@/utils/functions/numberUtils'
 
 import Input from '../Input'
 import { ServiceCardProps, ServiceCardVariants } from './types'

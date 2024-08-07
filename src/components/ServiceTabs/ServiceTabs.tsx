@@ -25,8 +25,6 @@ const ServiceTabs = ({ services }: ServiceTabsProps) => {
     ServiceStatusEnum.PENDING,
   )
 
-  console.log(services)
-
   const tabs: TabProps[] = [
     {
       name: 'Solicitações',
