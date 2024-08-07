@@ -3,7 +3,7 @@ import { Check, X } from 'lucide-react'
 import React, { forwardRef } from 'react'
 
 import { cn } from '@/lib/utils'
-import { ServiceStateEnum } from '@/types/enums/ServiceStateEnum'
+import { ServiceStatusEnum } from '@/types/enums/ServiceStatusEnum'
 
 import ServiceCardFooterButton from './ServiceCardFooterButton'
 import { ServiceCardVariants } from './types'
@@ -27,7 +27,7 @@ const variants = cva([], {
 const PendingVariant: React.FC = () => (
   <div className="w-full h-full flex flex-row gap-0">
     <ServiceCardFooterButton
-      variant={ServiceStateEnum.PENDING}
+      variant={ServiceStatusEnum.PENDING}
       className="rounded-bl-[8px] flex items-center justify-center gap-2"
     >
       <p className="text-white uppercase font-bold tracking-widest">Aceitar</p>
@@ -35,7 +35,7 @@ const PendingVariant: React.FC = () => (
     </ServiceCardFooterButton>
 
     <ServiceCardFooterButton
-      variant={ServiceStateEnum.PENDING}
+      variant={ServiceStatusEnum.PENDING}
       className="rounded-br-[8px] flex items-center justify-center gap-2"
     >
       <p className="text-white uppercase font-bold tracking-widest">Recusar</p>
@@ -47,7 +47,7 @@ const PendingVariant: React.FC = () => (
 const OpenVariant: React.FC = () => (
   <div className="w-full h-full flex flex-row gap-0">
     <ServiceCardFooterButton
-      variant={ServiceStateEnum.OPEN}
+      variant={ServiceStatusEnum.OPEN}
       className="w-2/3 rounded-bl-[8px] pl-12 flex items-center justify-start gap-2"
     >
       <p className="text-white uppercase font-bold tracking-widest">
@@ -88,16 +88,16 @@ const ServiceCardFooterButtons = ({
   let VariantComponent: React.FC = () => <React.Fragment />
 
   switch (variant) {
-    case ServiceStateEnum.CANCELED.valueOf():
+    case ServiceStatusEnum.CANCELED.valueOf():
       VariantComponent = CanceledVariant
       break
-    case ServiceStateEnum.PENDING.valueOf():
+    case ServiceStatusEnum.PENDING.valueOf():
       VariantComponent = PendingVariant
       break
-    case ServiceStateEnum.OPEN.valueOf():
+    case ServiceStatusEnum.OPEN.valueOf():
       VariantComponent = OpenVariant
       break
-    case ServiceStateEnum.FINISHED.valueOf():
+    case ServiceStatusEnum.FINISHED.valueOf():
       VariantComponent = FinishedVariant
       break
   }

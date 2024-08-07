@@ -1,50 +1,53 @@
 import * as Tabs from '@radix-ui/react-tabs'
 import React, { useState } from 'react'
 
-import { ServiceStateEnum } from '@/types/enums/ServiceStateEnum'
+import { ServiceStatusEnum } from '@/types/enums/ServiceStatusEnum'
+import { Service } from '@/types/models/Service'
 
+import { ServiceCard } from '../ServiceCard'
 import TabCircle from './components/TabCircle'
-
-type Cards = {
-  id: number
-}
 
 type TabProps = {
   name: string
-  value: ServiceStateEnum
+  value: ServiceStatusEnum
   color: string
-  data: Cards[]
+  data: Service[]
 }
 
 export interface ServiceTabsProps {
-  services?: Map<ServiceStateEnum, Cards[]>
+  services?: Map<ServiceStatusEnum, Service[]>
   filter?: string | null
 }
 
 // TO-DO: makes the filter logic
 const ServiceTabs = ({ services }: ServiceTabsProps) => {
-  const [activeTab, setActiveTab] = useState<ServiceStateEnum>(
-    ServiceStateEnum.PENDING,
+  const [activeTab, setActiveTab] = useState<ServiceStatusEnum>(
+    ServiceStatusEnum.PENDING,
   )
+
+  console.log(services)
 
   const tabs: TabProps[] = [
     {
       name: 'Solicitações',
-      value: ServiceStateEnum.PENDING,
+      value: ServiceStatusEnum.PENDING,
       color: 'bg-handle-green',
-      data: services?.get(ServiceStateEnum.PENDING) || [{ id: 1 }, { id: 2 }],
+      data: services?.get(ServiceStatusEnum.PENDING) || [],
     },
     {
       name: 'Em aberto',
-      value: ServiceStateEnum.OPEN,
+      value: ServiceStatusEnum.OPEN,
       color: 'bg-handle-blue',
-      data: services?.get(ServiceStateEnum.OPEN) || [{ id: 3 }, { id: 4 }],
+      data: services?.get(ServiceStatusEnum.OPEN) || [],
     },
     {
       name: 'Finalizados',
-      value: ServiceStateEnum.CLOSED,
+      value: ServiceStatusEnum.FINISHED,
       color: 'bg-handle-red',
-      data: services?.get(ServiceStateEnum.CLOSED) || [{ id: 5 }, { id: 6 }],
+      data: [
+        ...(services?.get(ServiceStatusEnum.FINISHED) || []),
+        ...(services?.get(ServiceStatusEnum.CANCELED) || []),
+      ],
     },
   ]
 
@@ -57,8 +60,15 @@ const ServiceTabs = ({ services }: ServiceTabsProps) => {
     )
   }
 
+  const [value, setValue] = useState(100.0) // TO-DO: make change value logic
+
+  const formatServiceDetails = (name: string, dateTime: Date): string => {
+    const hours = Math.floor(dateTime.getTime() / (1000 * 60 * 60)) % 24
+    return `${name} - ${hours}h`
+  }
+
   return (
-    <Tabs.Root defaultValue={ServiceStateEnum.PENDING}>
+    <Tabs.Root defaultValue={ServiceStatusEnum.PENDING}>
       <Tabs.List className="border-2 rounded-sm h-8 mr-12 bg-handle-gray-home grid grid-cols-3 grid-rows-1 items-center justify-center">
         {tabs.map((tab) => (
           <Tabs.Trigger
@@ -76,9 +86,35 @@ const ServiceTabs = ({ services }: ServiceTabsProps) => {
       </Tabs.List>
       {tabs.map((tab) => (
         <Tabs.Content key={tab.value} value={tab.value}>
-          {tab.data.map((card) => (
-            <div key={card.id}>{card.id}</div> // TO-DO: Render cards here
-          ))}
+          <div
+            key={tab.value}
+            className="pt-8 flex flex-col gap-4 items-center mr-14"
+          >
+            {tab.data.map((service) => (
+              <ServiceCard.Container key={service.id} variant={service.status}>
+                <ServiceCard.Header
+                  variant={service.status}
+                  data={{
+                    customer: {
+                      name: `${service.customer?.name}`,
+                      address: `${service.customer?.address}`,
+                    },
+                    dateTime: service.dateTime,
+                  }}
+                  value={service.value}
+                  setValue={setValue}
+                />
+
+                <ServiceCard.Content variant={service.status}>
+                  <p className="text-[16px] font-light">
+                    {formatServiceDetails(service.name, service.dateTime)}
+                  </p>
+                </ServiceCard.Content>
+
+                <ServiceCard.Footer variant={service.status} />
+              </ServiceCard.Container>
+            ))}
+          </div>
         </Tabs.Content>
       ))}
     </Tabs.Root>

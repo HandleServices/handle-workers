@@ -4,11 +4,19 @@ import React from 'react'
 
 import Search from '@/components/Search'
 import ServiceTabs from '@/components/ServiceTabs'
+import { ServiceStatusEnum } from '@/types/enums/ServiceStatusEnum'
+import { Service } from '@/types/models/Service'
+
+import { CardsMock } from './utils/cards-mock'
 
 const Home = () => {
   const search = (value: string) => {
     console.log(value)
   }
+
+  const servicesMap = new Map<ServiceStatusEnum, Service[]>(
+    Object.entries(CardsMock) as [ServiceStatusEnum, Service[]][],
+  )
 
   return (
     <div>
@@ -17,7 +25,7 @@ const Home = () => {
         placeholder="Pesquisar"
         className="w-[97.7%] mr-12 mb-10"
       />
-      <ServiceTabs />
+      <ServiceTabs services={servicesMap} />
     </div>
   )
 }

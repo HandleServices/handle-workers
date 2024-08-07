@@ -29,7 +29,7 @@ const ServiceCardContent = forwardRef<
     <div
       ref={ref}
       className={cn(
-        'relative w-[1100px] h-[64px] bg-white flex items-center pl-8',
+        'relative w-full h-[64px] bg-white flex items-center pl-8',
         variants({ variant }),
       )}
     >
