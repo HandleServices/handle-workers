@@ -1,5 +1,6 @@
 export enum ServiceStateEnum {
   PENDING = 'pending',
   OPEN = 'open',
-  CLOSED = 'closed',
+  FINISHED = 'finished',
+  CANCELED = 'canceled',
 }

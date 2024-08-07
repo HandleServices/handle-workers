@@ -8,6 +8,7 @@ import { MapPin } from 'lucide-react'
 import { Dispatch, forwardRef, SetStateAction, useState } from 'react'
 
 import { cn } from '@/lib/utils'
+import { ServiceStateEnum } from '@/types/enums/ServiceStateEnum'
 import { formatCurrency } from '@/utils/numberUtils'
 
 import Input from '../Input'
@@ -95,9 +96,12 @@ const ServiceCardHeader = forwardRef<HTMLInputElement, ServiceCardHeaderProps>(
               className={cn(
                 'flex flex-row gap-1 items-center hover:opacity-50 active:opacity-100',
                 clsx({
-                  'text-[#4ECB71]': variant === 'pending',
-                  'text-[#1A73E8D4]': variant === 'open',
-                  'text-[#FF5252]': variant === 'canceled',
+                  'text-[#4ECB71]':
+                    variant === ServiceStateEnum.PENDING.valueOf(),
+                  'text-[#1A73E8D4]':
+                    variant === ServiceStateEnum.OPEN.valueOf(),
+                  'text-[#FF5252]':
+                    variant === ServiceStateEnum.CANCELED.valueOf(),
                 }),
               )}
             >
@@ -114,10 +118,13 @@ const ServiceCardHeader = forwardRef<HTMLInputElement, ServiceCardHeaderProps>(
           className={cn(
             'relative flex items-center justify-center px-8 py-2',
             clsx({
-              'text-[#4ECB71] fill-[#4ECB71]': variant === 'pending',
-              'text-[#1A73E8D4] fill-[#1A73E8D4]': variant === 'open',
+              'text-[#4ECB71] fill-[#4ECB71]':
+                variant === ServiceStateEnum.PENDING.valueOf(),
+              'text-[#1A73E8D4] fill-[#1A73E8D4]':
+                variant === ServiceStateEnum.OPEN.valueOf(),
               'text-[#FF5252] fill-[#FF5252]':
-                variant === 'canceled' || variant === 'finished',
+                variant === ServiceStateEnum.CANCELED.valueOf() ||
+                variant === ServiceStateEnum.FINISHED.valueOf(),
             }),
           )}
         >

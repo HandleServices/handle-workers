@@ -3,6 +3,7 @@ import { Check, X } from 'lucide-react'
 import React, { forwardRef } from 'react'
 
 import { cn } from '@/lib/utils'
+import { ServiceStateEnum } from '@/types/enums/ServiceStateEnum'
 
 import ServiceCardFooterButton from './ServiceCardFooterButton'
 import { ServiceCardVariants } from './types'
@@ -26,7 +27,7 @@ const variants = cva([], {
 const PendingVariant: React.FC = () => (
   <div className="w-full h-full flex flex-row gap-0">
     <ServiceCardFooterButton
-      variant={'pending'}
+      variant={ServiceStateEnum.PENDING}
       className="rounded-bl-[8px] flex items-center justify-center gap-2"
     >
       <p className="text-white uppercase font-bold tracking-widest">Aceitar</p>
@@ -34,7 +35,7 @@ const PendingVariant: React.FC = () => (
     </ServiceCardFooterButton>
 
     <ServiceCardFooterButton
-      variant={'pending'}
+      variant={ServiceStateEnum.PENDING}
       className="rounded-br-[8px] flex items-center justify-center gap-2"
     >
       <p className="text-white uppercase font-bold tracking-widest">Recusar</p>
@@ -46,7 +47,7 @@ const PendingVariant: React.FC = () => (
 const OpenVariant: React.FC = () => (
   <div className="w-full h-full flex flex-row gap-0">
     <ServiceCardFooterButton
-      variant={'open'}
+      variant={ServiceStateEnum.OPEN}
       className="w-2/3 rounded-bl-[8px] pl-12 flex items-center justify-start gap-2"
     >
       <p className="text-white uppercase font-bold tracking-widest">
@@ -87,16 +88,16 @@ const ServiceCardFooterButtons = ({
   let VariantComponent: React.FC = () => <React.Fragment />
 
   switch (variant) {
-    case 'canceled':
+    case ServiceStateEnum.CANCELED.valueOf():
       VariantComponent = CanceledVariant
       break
-    case 'pending':
+    case ServiceStateEnum.PENDING.valueOf():
       VariantComponent = PendingVariant
       break
-    case 'open':
+    case ServiceStateEnum.OPEN.valueOf():
       VariantComponent = OpenVariant
       break
-    case 'finished':
+    case ServiceStateEnum.FINISHED.valueOf():
       VariantComponent = FinishedVariant
       break
   }
