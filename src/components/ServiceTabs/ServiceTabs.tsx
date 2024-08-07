@@ -2,7 +2,7 @@ import * as Tabs from '@radix-ui/react-tabs'
 import React, { useState } from 'react'
 
 import { ServiceStatusEnum } from '@/types/enums/ServiceStatusEnum'
-import { Service } from '@/types/models/Service'
+import { Service } from '@/types/models/Service.model'
 
 import { ServiceCard } from '../ServiceCard'
 import TabCircle from './components/TabCircle'

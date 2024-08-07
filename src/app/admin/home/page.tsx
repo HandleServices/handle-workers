@@ -5,7 +5,7 @@ import React from 'react'
 import Search from '@/components/Search'
 import ServiceTabs from '@/components/ServiceTabs'
 import { ServiceStatusEnum } from '@/types/enums/ServiceStatusEnum'
-import { Service } from '@/types/models/Service'
+import { Service } from '@/types/models/Service.model'
 
 import { CardsMock } from './utils/cards-mock'
 

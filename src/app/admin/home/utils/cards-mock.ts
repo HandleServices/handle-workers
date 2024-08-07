@@ -1,5 +1,5 @@
 import { ServiceStatusEnum } from '@/types/enums/ServiceStatusEnum'
-import { Service } from '@/types/models/Service'
+import { Service } from '@/types/models/Service.model'
 
 export const CardsMock: { [key in ServiceStatusEnum]: Service[] } = {
   pending: [
