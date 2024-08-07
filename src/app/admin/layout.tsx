@@ -34,7 +34,7 @@ export default function AdminLayout({
             </div>
           </div>
         </div>
-        <div className="pl-12">{children}</div>
+        <div className="pl-12 mt-5">{children}</div>
       </div>
     </div>
   )
