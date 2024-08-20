@@ -1,8 +1,8 @@
 'use client'
 
-import { format } from 'date-fns'
+import { addMonths, format, subMonths } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { ChevronLeft, ChevronRight, X } from 'lucide-react'
 import * as React from 'react'
 import { DateFormatter, DayPicker } from 'react-day-picker'
 
@@ -17,25 +17,59 @@ function Calendar({
   showOutsideDays = true,
   ...props
 }: CalendarProps) {
+  const [month, setMonth] = React.useState(new Date().getMonth())
+  const [year, setYear] = React.useState(new Date().getFullYear())
+  const selectedDate = new Date(year, month, 0)
+
+  function weekCount(year: number, monthNumber: number) {
+    // month_number is in the range 1..12
+
+    const firstOfMonth = new Date(year, monthNumber - 1, 1)
+    const lastOfMonth = new Date(year, monthNumber, 0)
+
+    const used = firstOfMonth.getDay() + lastOfMonth.getDate()
+
+    return Math.ceil(used / 7)
+  }
+
+  const handlePrevMonth = () => {
+    setMonth(month - 1)
+  }
+
+  const handleNextMonth = () => {
+    setMonth(month + 1)
+  }
+
+  const handlePrevYear = () => {
+    setYear(year - 1)
+  }
+
+  const handleNextYear = () => {
+    setYear(year + 1)
+  }
+
+  const numberOfWeeks = weekCount(year, month)
   const formatWeekdayName: DateFormatter = (day) => {
     return format(day, 'ccccc', { locale: ptBR })
   }
+
   return (
     <DayPicker
       locale={ptBR}
       formatters={{
         formatWeekdayName,
       }}
+      month={new Date(year, month, 0)}
       showOutsideDays={showOutsideDays}
       className={cn(
-        'w-[377px] h-[217px] border-1.5 rounded-md shadow-sm shadow-black m-2',
+        'w-[377px] h-[217px] border-1.5 rounded-md shadow-sm shadow-black m-2 p-2',
         className,
       )}
       classNames={{
         months:
           'flex flex-col sm:flex-row space-y-4 w-full h-full sm:space-x-20 sm:space-y-0',
         month: 'w-full space-y-4',
-        caption: 'flex justify-center pt-1 relative items-center',
+        caption: 'flex justify-center relative items-center',
         caption_label: 'text-sm font-medium',
         nav: 'space-x-1 flex items-center',
         nav_button: cn(
@@ -44,15 +78,15 @@ function Calendar({
         ),
         nav_button_previous: 'absolute left-1',
         nav_button_next: 'absolute right-1',
-        table: 'w-full border-collapse space-y-1',
-        head_row: 'flex justify-evenly gap-1 mb-1',
+        table: 'w-full h-[60%] border-collapse space-y-1',
+        head_row: 'flex justify-evenly gap-4 w-full mb-1',
         head_cell:
           'text-handle-blue font-medium text-[0.875] border-handle-blue border-1.5 p-0 h-5 w-5 rounded-full flex justify-center items-center',
         row: 'flex justify-evenly w-full',
-        cell: 'h-6 w-7 text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20',
+        cell: `h-${numberOfWeeks === 6 ? 5 : 6} overflow-auto w-full text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20`,
         day: cn(
           buttonVariants({ variant: 'ghost' }),
-          'h-full w-full p-0 font-normal aria-selected:opacity-100',
+          'h-full w-3/4 p-0 font-[0.875rem] aria-selected:opacity-100 hover:cursor-pointer',
         ),
         day_range_end: 'day-range-end',
         day_selected:
@@ -67,11 +101,35 @@ function Calendar({
         ...classNames,
       }}
       components={{
-        IconLeft: ({ ...props }) => (
-          <ChevronLeft {...props} className="h-4 w-4" />
-        ),
-        IconRight: ({ ...props }) => (
-          <ChevronRight {...props} className="h-4 w-4" />
+        Caption: ({ ...props }) => (
+          <div className="relative" {...props}>
+            <div className="w-full h-8 pl-3 pt-3 flex flex-row items-center">
+              <button onClick={handlePrevMonth} className={'p-0'}>
+                <ChevronLeft strokeWidth={1} className="h-4 font-thin" />
+              </button>
+              <span className="text-handle-blue text-3xl font-bold tracking-widest">
+                {format(selectedDate, 'MMMM', { locale: ptBR })
+                  .charAt(0)
+                  .toUpperCase() +
+                  format(selectedDate, 'MMMM', { locale: ptBR }).slice(1)}
+              </span>
+              <button onClick={handleNextMonth} className={'p-0'}>
+                <ChevronRight strokeWidth={1} className="h-4" />
+              </button>
+              <button onClick={handlePrevYear} className={'p-0'}>
+                <ChevronLeft strokeWidth={1} className="h-4" />
+              </button>
+              <span className="text-md font-medium text-handle-blue tracking-widest">
+                {year}
+              </span>
+              <button onClick={handleNextYear} className={'p-0'}>
+                <ChevronRight strokeWidth={1} className="h-4" />
+              </button>
+            </div>
+            <button className="absolute right-0 top-0 text-handle-gray-300 p-1 ">
+              <X strokeWidth={1} />
+            </button>
+          </div>
         ),
       }}
       {...props}
