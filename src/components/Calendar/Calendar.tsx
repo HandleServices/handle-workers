@@ -1,6 +1,6 @@
 'use client'
 
-import { addMonths, format, subMonths } from 'date-fns'
+import { addMonths, addYears, format, subMonths, subYears } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import { ChevronLeft, ChevronRight, X } from 'lucide-react'
 import * as React from 'react'
@@ -17,9 +17,7 @@ function Calendar({
   showOutsideDays = true,
   ...props
 }: CalendarProps) {
-  const [month, setMonth] = React.useState(new Date().getMonth())
-  const [year, setYear] = React.useState(new Date().getFullYear())
-  const selectedDate = new Date(year, month, 0)
+  const [selectedDate, setSelectedDate] = React.useState(new Date())
 
   function weekCount(year: number, monthNumber: number) {
     // month_number is in the range 1..12
@@ -33,22 +31,25 @@ function Calendar({
   }
 
   const handlePrevMonth = () => {
-    setMonth(month - 1)
+    setSelectedDate(subMonths(selectedDate, 1))
   }
 
   const handleNextMonth = () => {
-    setMonth(month + 1)
+    setSelectedDate(addMonths(selectedDate, 1))
   }
 
   const handlePrevYear = () => {
-    setYear(year - 1)
+    setSelectedDate(subYears(selectedDate, 1))
   }
 
   const handleNextYear = () => {
-    setYear(year + 1)
+    setSelectedDate(addYears(selectedDate, 1))
   }
 
-  const numberOfWeeks = weekCount(year, month)
+  const numberOfWeeks = weekCount(
+    selectedDate.getFullYear(),
+    selectedDate.getMonth() + 1,
+  )
   const formatWeekdayName: DateFormatter = (day) => {
     return format(day, 'ccccc', { locale: ptBR })
   }
@@ -59,7 +60,7 @@ function Calendar({
       formatters={{
         formatWeekdayName,
       }}
-      month={new Date(year, month, 0)}
+      month={selectedDate}
       showOutsideDays={showOutsideDays}
       className={cn(
         'w-[377px] h-[217px] border-1.5 rounded-md shadow-sm shadow-black m-2 p-2',
@@ -103,11 +104,11 @@ function Calendar({
       components={{
         Caption: ({ ...props }) => (
           <div className="relative" {...props}>
-            <div className="w-full h-8 pl-3 pt-3 flex flex-row items-center">
+            <div className="w-full h-8 pl-1 pt-3 flex flex-row items-center">
               <button onClick={handlePrevMonth} className={'p-0'}>
                 <ChevronLeft strokeWidth={1} className="h-4 font-thin" />
               </button>
-              <span className="text-handle-blue text-3xl font-bold tracking-widest">
+              <span className="text-handle-blue text-3xl font-bold tracking-widest w-44 text-center">
                 {format(selectedDate, 'MMMM', { locale: ptBR })
                   .charAt(0)
                   .toUpperCase() +
@@ -120,13 +121,13 @@ function Calendar({
                 <ChevronLeft strokeWidth={1} className="h-4" />
               </button>
               <span className="text-md font-medium text-handle-blue tracking-widest">
-                {year}
+                {selectedDate.getFullYear()}
               </span>
               <button onClick={handleNextYear} className={'p-0'}>
                 <ChevronRight strokeWidth={1} className="h-4" />
               </button>
             </div>
-            <button className="absolute right-0 top-0 text-handle-gray-300 p-1 ">
+            <button className="absolute right-0 top-0 text-handle-gray-300 p-1 py-2 ">
               <X strokeWidth={1} />
             </button>
           </div>
