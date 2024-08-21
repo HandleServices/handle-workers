@@ -148,7 +148,7 @@ function Calendar({
             head_cell:
               'text-handle-blue font-medium text-[0.875] border-handle-blue border-1.5 p-0 h-5 w-5 rounded-full flex justify-center items-center',
             row: 'flex justify-evenly w-full',
-            cell: `h-${numberOfWeeks === 6 ? 5 : 6} overflow-auto w-full text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-accent/50 [&:has([aria-selected])]:bg-accent first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20`,
+            cell: `h-${numberOfWeeks === 6 ? 5 : 6} overflow-auto w-full text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md focus-within:relative focus-within:z-20`,
             day: cn(
               buttonVariants({ variant: 'ghost' }),
               'h-full w-3/4 p-0 font-[0.875rem] aria-selected:opacity-100 hover:cursor-pointer',
@@ -195,7 +195,7 @@ function Calendar({
                 </div>
                 <button
                   onClick={() => setIsOpen(!isOpen)}
-                  className="absolute right-0 top-0 text-handle-gray-300 p-1 py-2 "
+                  className="absolute right-0 top-0 text-handle-gray-300 p-1 py-2 hover:bg-handle-red-600 hover:text-white transition-transform duration-1000 rounded-md"
                 >
                   <X strokeWidth={1} />
                 </button>
