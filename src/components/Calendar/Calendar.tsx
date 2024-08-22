@@ -156,7 +156,7 @@ function Calendar({
             day_range_end: 'day-range-end',
             day_selected:
               'bg-handle-blue text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground',
-            day_today: 'bg-accent text-black',
+            day_today: 'bg-accent text-gray-700',
             day_outside:
               'day-outside text-muted-foreground opacity-50 aria-selected:bg-accent/50 aria-selected:text-muted-foreground aria-selected:opacity-30',
             day_disabled: 'text-muted-foreground opacity-50',
@@ -195,7 +195,7 @@ function Calendar({
                 </div>
                 <button
                   onClick={() => setIsOpen(!isOpen)}
-                  className="absolute right-0 top-0 text-handle-gray-300 p-1 py-2 hover:bg-handle-red-600 hover:text-white transition-transform duration-1000 rounded-md"
+                  className="absolute right-0 top-0 text-handle-gray-300 p-1 mt-1 mr-2 hover:bg-handle-red-600 hover:text-white transition-transform duration-1000 rounded-md"
                 >
                   <X strokeWidth={1} />
                 </button>
