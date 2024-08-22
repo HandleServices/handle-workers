@@ -1,7 +1,6 @@
-import { DialogTrigger } from '@radix-ui/react-dialog'
 import React, { ReactNode, useEffect, useState, useTransition } from 'react'
 
-import { Dialog, DialogContent } from '../ui/dialog'
+import { Dialog, DialogContent, DialogTrigger } from '../ui/dialog'
 
 export interface TodoButtonProps extends React.HTMLProps<HTMLButtonElement> {
   children: ReactNode
