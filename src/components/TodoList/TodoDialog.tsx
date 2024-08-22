@@ -57,6 +57,7 @@ const TodoDialog = () => {
       </DialogTitle>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
         <div className="w-11/12 sm:w-full flex flex-col gap-1">
+          {/* FIX: We have to resolve a problem that Input can't receive custom colors to Border and Text color for example, because of clsx usage. */}
           <Input
             customBgColor="bg-white"
             type="text"
@@ -64,7 +65,7 @@ const TodoDialog = () => {
             height={32}
             placeholder="Nome do cliente"
             labelClassName="text-base tracking-widest"
-            inputClassName="border-handle-gray"
+            // inputClassName="border-handle-gray"
             className="text-handle-gray"
             {...register('name')}
             error={!!errors.name}
