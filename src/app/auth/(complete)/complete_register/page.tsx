@@ -10,6 +10,7 @@ import { z } from 'zod'
 
 import { Button } from '@/components/Button'
 import { DaysOfWeekPicker } from '@/components/DaysOfWeekPicker'
+import InOutTimePicker from '@/components/InOutTimePicker'
 import Input from '@/components/Input'
 import { InputImage } from '@/components/InputImage'
 import { LabelError } from '@/components/LabelError'
@@ -20,7 +21,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/Select/Select'
-import TimePicker from '@/components/TimePicker'
 import { RegisterFormContext } from '@/contexts/RegisterFormContext'
 import authService from '@/services/auth/auth.service'
 import { handleErrorMessage } from '@/utils/functions/errors-type-guards'
@@ -211,7 +211,7 @@ export default function CompleteRegister() {
             control={control}
             defaultValue={['00:00', '00:00']}
             render={({ field }) => (
-              <TimePicker
+              <InOutTimePicker
                 className=""
                 value={field.value}
                 onChange={field.onChange}

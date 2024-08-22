@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { DialogTitle } from '@radix-ui/react-dialog'
-import { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { useState } from 'react'
+import { Controller, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 import Input from '../Input'
@@ -11,6 +11,7 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
+  SelectValue,
 } from '../Select/Select'
 import TimePicker from '../TimePicker'
 
@@ -20,30 +21,29 @@ const TodoDialog = () => {
     'Service 2',
     'Service 3',
   ])
+  const [hour, setHour] = useState('00:00')
 
   const TodoSchema = z.object({
-    name: z.string(),
-    service: z.string(),
+    name: z.string().min(1, 'Precisa identificar a tarefa!'),
+    service: z.string().min(1, 'Necessário selecionar um tipo de serviço!'),
+    hour: z.string(),
   })
 
   const {
+    control,
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(TodoSchema),
+    defaultValues: {
+      name: '',
+      service: '',
+      hour: '00:00',
+    },
   })
 
-  const onSubmit = (data: any) => console.log(data)
-
-  // useEffect(() => {
-  //   const fetchServices = async () => {
-  //     // const response = await fetch('https://api.example.com/services')
-  //     // const data = await response.json()
-  //     // setServices(data)
-  //   }
-  // }, [services])
-  //
+  const onSubmit = (data: any) => console.log('Submitted data:', data)
 
   return (
     <>
@@ -62,32 +62,74 @@ const TodoDialog = () => {
             type="text"
             id="name"
             height={32}
-            placeholder="Nome"
-            className="text-base tracking-widest text-handle-gray"
+            placeholder="Nome do cliente"
+            labelClassName="text-base tracking-widest"
             inputClassName="border-handle-gray"
-            {...register('name', { required: true })}
+            className="text-handle-gray"
+            {...register('name')}
             error={!!errors.name}
           />
           <LabelError errors={errors} name="name" />
         </div>
         <div className="flex flex-col gap-1">
-          <Select {...(register('service'), { required: true })}>
-            <SelectTrigger className="h-8 border-handle-gray text-handle-gray">
-              Serviço Prestado
-            </SelectTrigger>
-            <SelectContent>
-              {services.map((service) => (
-                <SelectItem key={service} value={service}>
-                  {service}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <Controller
+            name="service"
+            control={control}
+            render={({ field }) => (
+              <Select
+                onValueChange={(value) => field.onChange(value)}
+                {...field}
+              >
+                <SelectTrigger
+                  className="h-8 border-handle-gray text-handle-gray"
+                  error={!!errors.service}
+                >
+                  <SelectValue
+                    defaultValue={services}
+                    placeholder="Serviço prestado"
+                  />
+                </SelectTrigger>
+                <SelectContent>
+                  {services.map((service) => (
+                    <SelectItem
+                      className="bg-white h-8"
+                      key={service}
+                      value={service}
+                    >
+                      {service}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
+          />
           <LabelError errors={errors} name="service" />
+        </div>
+        <div>
+          <span className="text-handle-gray">Horário</span>
+          <div className="flex flex-row">
+            <Controller
+              name="hour"
+              control={control}
+              defaultValue={hour}
+              render={({ field }) => (
+                <TimePicker
+                  hour={field.value}
+                  setHour={field.onChange}
+                  className="border-handle-gray bg-white"
+                  height={32}
+                  style={{ fontSize: '1.75rem' }}
+                />
+              )}
+            />
+            <span className="self-end ml-1 text-handle-gray text-sm">
+              horas/min
+            </span>
+          </div>
         </div>
         <button
           type="submit"
-          className="bg-handle-blue text-white w-2/5 self-center tracking-widest rounded-md p-2"
+          className="bg-handle-blue text-white w-28 self-center tracking-widest rounded-md p-2"
         >
           Salvar
         </button>

@@ -16,6 +16,8 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   sz?: 'small' | 'medium' | 'large'
   customBgColor?: string | undefined
   inputClassName?: string | undefined
+  labelClassName?: string | undefined
+  labelTextColor?: string | undefined
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
@@ -31,6 +33,8 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       sz = 'medium',
       type,
       inputClassName,
+      labelClassName,
+      labelTextColor,
       ...props
     },
     ref,
@@ -106,6 +110,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             currentTextColor,
             labelBg,
             labelTextSizeClass,
+            labelClassName,
           )}
         >
           {placeholder}
