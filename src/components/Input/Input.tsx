@@ -3,7 +3,7 @@
 import './input.styles.css'
 
 import { cva } from 'class-variance-authority'
-import { ClassValue, clsx } from 'clsx'
+import { clsx } from 'clsx'
 import { forwardRef, InputHTMLAttributes, useMemo, useState } from 'react'
 import { twMerge } from 'tailwind-merge'
 

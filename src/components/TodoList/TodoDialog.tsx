@@ -24,6 +24,12 @@ const TodoDialog = () => {
   ])
   const [hour] = useState('00:00')
 
+  type TodoDataType = {
+    name: string
+    service: string
+    hour: string
+  }
+
   const TodoSchema = z.object({
     name: z.string().min(1, 'Precisa identificar a tarefa!'),
     service: z.string().min(1, 'Necessário selecionar um tipo de serviço!'),
@@ -44,7 +50,10 @@ const TodoDialog = () => {
     },
   })
 
-  const onSubmit = (data: any) => console.log('Submitted data:', data)
+  // TODO: Make a request to get services from the server
+
+  // TODO: Manipulate data and make logic here.
+  const onSubmit = (data: TodoDataType) => console.log('Submitted data:', data)
 
   return (
     <>

@@ -10,8 +10,8 @@ const TodoButton = ({ children, ...props }: TodoButtonProps) => {
   const [isPending, startTransition] = useTransition()
   const [isLoadingChildren, setIsLoadingChildren] = useState(false) // Track children loading state
 
-  // Assuming your children have a method to trigger loading
-  const childrenRef = React.createRef<any>() // Reference to children component
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const childrenRef = React.createRef<any>()
 
   useEffect(() => {
     // Handle potential loading triggered within children (replace with actual logic)
