@@ -26,7 +26,7 @@ const TodoList = ({ todos, height, width }: TodoListProps) => {
       </div>
       <div
         className="p-4 pb-1 pr-2 gap-1 overflow-auto"
-        style={{ height: `${height}px` }}
+        style={{ minHeight: '600px', height: `${height}px` }}
       >
         {todos.map((todo, index) => (
           <div key={index}>

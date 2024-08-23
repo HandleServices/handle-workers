@@ -99,7 +99,7 @@ const TodoDialog = ({ setIsSendingData }: TodoDialogProps) => {
           />
           <LabelError errors={errors} name="name" />
         </div>
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-1 select-none">
           <Controller
             name="service"
             control={control}
