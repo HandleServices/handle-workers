@@ -19,7 +19,7 @@ export interface TodoListProps {
 const TodoList = ({ todos, cardsToShow, width }: TodoListProps) => {
   return (
     <div
-      className="flex flex-col p-2 bg-white rounded-sm"
+      className="flex flex-col p-2 pb-10 bg-white rounded-sm"
       style={{ width: `${width}px` }}
     >
       <div className="p-2 self-end">
@@ -29,13 +29,13 @@ const TodoList = ({ todos, cardsToShow, width }: TodoListProps) => {
       </div>
       <div
         className="p-4 pb-1 pr-2 gap-1 overflow-auto"
-        style={{ height: `${8 + cardsToShow * 66}px` }}
+        style={{ height: `${cardsToShow * 82}px` }}
       >
         {todos.map((todo, index) => (
-          <>
-            <TodoCard key={index} {...todo} />
+          <div key={index}>
+            <TodoCard {...todo} />
             <hr />
-          </>
+          </div>
         ))}
       </div>
     </div>
@@ -43,5 +43,3 @@ const TodoList = ({ todos, cardsToShow, width }: TodoListProps) => {
 }
 
 export default TodoList
-
-// style={{ height: `${8 + cardsToShow * 55}px` }}

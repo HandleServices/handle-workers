@@ -27,7 +27,7 @@ const TodoButton = ({ children, ...props }: TodoButtonProps) => {
 
   return (
     <Dialog {...props}>
-      <DialogTrigger className="text-handle-blue tracking-widest">
+      <DialogTrigger className="text-handle-blue tracking-widest font-semibold">
         + Adicionar Tarefa
       </DialogTrigger>
       {isPending ? (
