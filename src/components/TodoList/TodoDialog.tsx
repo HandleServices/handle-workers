@@ -17,7 +17,11 @@ import {
 } from '../Select/Select'
 import TimePicker from '../TimePicker'
 
-const TodoDialog = () => {
+export interface TodoDialogProps {
+  setIsSendingData: (isSendingData: boolean) => void
+}
+
+const TodoDialog = ({ setIsSendingData }: TodoDialogProps) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [services, setServices] = useState<string[]>([
     'Service 1',
@@ -25,6 +29,7 @@ const TodoDialog = () => {
     'Service 3',
   ])
   const [hour] = useState('00:00')
+  const [loading, setLoading] = useState(false)
 
   type TodoDataType = {
     name: string
@@ -55,29 +60,40 @@ const TodoDialog = () => {
   // TODO: Make a request to get services from the server
 
   // TODO: Manipulate data and make logic here.
-  const onSubmit = (data: TodoDataType) => console.log('Submitted data:', data)
+  const onSubmit = async (
+    data: TodoDataType,
+  ): Promise<TodoDataType | undefined> => {
+    setIsSendingData(true)
+    setLoading(true)
+    await new Promise((resolve) => setTimeout(resolve, 10000)).then(() =>
+      console.log(data),
+    )
+    setLoading(false)
+    setIsSendingData(false)
+    return undefined
+  }
 
   return (
     <>
       <DialogTitle>
-        <p className="text-handle-blue text-2xl font-medium">
+        <p className="text-handle-blue text-2xl font-medium select-none">
           Cadastrando uma nova tarefa...
         </p>
-        <p className="text-handle-blue text-base font-light">
+        <p className="text-handle-blue text-base font-light select-none">
           por favor preencha os campos necessários
         </p>
       </DialogTitle>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-        <div className="w-11/12 sm:w-full flex flex-col gap-1">
+        <div className="w-11/12 sm:w-full flex flex-col gap-1 select-none">
           <Input
             customBgColor="bg-white"
             type="text"
             id="name"
             height={32}
             placeholder="Nome do cliente"
-            labelClassName="text-base tracking-widest text-handle-gray"
-            inputClassName="border-handle-gray h-8"
-            className="text-handle-gray"
+            labelClassName="text-base tracking-widest text-handle-gray select-none"
+            inputClassName="border-handle-gray h-8 select-none"
+            className="text-handle-gray select-none"
             {...register('name')}
             error={!!errors.name}
           />
@@ -93,7 +109,7 @@ const TodoDialog = () => {
                 {...field}
               >
                 <SelectTrigger
-                  className="h-8 border-handle-gray text-handle-gray"
+                  className="h-8 select-none border-handle-gray text-handle-gray"
                   error={!!errors.service}
                 >
                   <SelectValue
@@ -104,7 +120,7 @@ const TodoDialog = () => {
                 <SelectContent>
                   {services.map((service) => (
                     <SelectItem
-                      className="bg-white h-8"
+                      className="bg-white h-8 select-none"
                       key={service}
                       value={service}
                     >
@@ -118,7 +134,7 @@ const TodoDialog = () => {
           <LabelError errors={errors} name="service" />
         </div>
         <div>
-          <span className="text-handle-gray">Horário</span>
+          <span className="text-handle-gray select-none">Horário</span>
           <div className="flex flex-row">
             <Controller
               name="hour"
@@ -128,23 +144,27 @@ const TodoDialog = () => {
                 <TimePicker
                   hour={field.value}
                   setHour={field.onChange}
-                  className="border-handle-gray bg-white"
+                  className="border-handle-gray select-none bg-white"
                   height={32}
                   style={{ fontSize: '1.75rem' }}
                 />
               )}
             />
-            <span className="self-end ml-1 text-handle-gray text-sm">
+            <span className="self-end ml-1 text-handle-gray text-sm select-none">
               horas/min
             </span>
           </div>
         </div>
-        <button
-          type="submit"
-          className="bg-handle-blue text-white w-28 self-center tracking-widest rounded-md p-2"
-        >
-          Salvar
-        </button>
+        {!loading ? (
+          <button
+            type="submit"
+            className="bg-handle-blue text-white w-28 self-center tracking-widest rounded-md p-2 select-none"
+          >
+            Salvar
+          </button>
+        ) : (
+          <div>Carregando</div>
+        )}
       </form>
     </>
   )

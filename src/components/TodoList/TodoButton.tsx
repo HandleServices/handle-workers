@@ -1,42 +1,24 @@
-import React, { ReactNode, useEffect, useState, useTransition } from 'react'
+import React from 'react'
 
 import { Dialog, DialogContent, DialogTrigger } from '../ui/dialog'
+import TodoDialog from './TodoDialog'
 
-export interface TodoButtonProps extends React.HTMLProps<HTMLButtonElement> {
-  children: ReactNode
-}
-
-const TodoButton = ({ children, ...props }: TodoButtonProps) => {
-  const [isPending, startTransition] = useTransition()
-  const [isLoadingChildren, setIsLoadingChildren] = useState(false) // Track children loading state
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const childrenRef = React.createRef<any>()
-
-  useEffect(() => {
-    // Handle potential loading triggered within children (replace with actual logic)
-    if (childrenRef.current && childrenRef.current.triggerLoading) {
-      childrenRef.current.triggerLoading(() => {
-        setIsLoadingChildren(true)
-        startTransition(() => {
-          setIsLoadingChildren(false)
-        })
-      })
-    }
-  }, [childrenRef])
+const TodoButton = ({ ...props }) => {
+  const [isSendingData, setIsSendingData] = React.useState(false)
 
   return (
     <Dialog {...props}>
-      <DialogTrigger className="text-handle-blue tracking-widest font-semibold">
+      <DialogTrigger className="select-none text-handle-blue tracking-widest font-semibold">
         + Adicionar Tarefa
       </DialogTrigger>
-      {isPending ? (
-        <DialogContent>Loading...</DialogContent>
-      ) : (
-        <DialogContent ref={childrenRef}>
-          {isLoadingChildren ? 'Loading children...' : children}
-        </DialogContent>
-      )}
+      <DialogContent
+        aria-describedby={undefined}
+        onInteractOutside={(e) => isSendingData && e.preventDefault()}
+        onPointerDownOutside={(e) => isSendingData && e.preventDefault()}
+        onEscapeKeyDown={(e) => isSendingData && e.preventDefault()}
+      >
+        <TodoDialog setIsSendingData={setIsSendingData} />
+      </DialogContent>
     </Dialog>
   )
 }

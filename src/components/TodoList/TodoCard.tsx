@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 import { CustomCheckbox } from '../Checkbox'
 
@@ -25,18 +25,18 @@ const TodoCard = ({ type, client, hour }: TodoCardProps) => {
         />
         <div>
           <h3
-            className={`text-handle-gray-300 font-semibold text-base tracking-widest ${checked ? 'line-through' : ''}`}
+            className={`text-handle-gray-300 select-none font-semibold text-base tracking-widest ${checked ? 'line-through' : ''}`}
           >
             {type}
           </h3>
           <p
-            className={`text-handle-gray text-sm tracking-widest ${checked ? 'line-through' : ''}`}
+            className={`text-handle-gray select-none text-sm tracking-widest ${checked ? 'line-through' : ''}`}
           >
             {client}
           </p>
         </div>
         <p
-          className={`text-handle-blue font-bold text-sm self-center text-center w-[72px] bg-handle-background-blue rounded-sm tracking-widest ${checked ? 'line-through' : ''}`}
+          className={`text-handle-blue font-bold text-sm select-none self-center text-center w-[72px] bg-handle-background-blue rounded-sm tracking-widest ${checked ? 'line-through' : ''}`}
         >
           {hour}
         </p>
