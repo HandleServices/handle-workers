@@ -25,7 +25,7 @@ const SelectTrigger = React.forwardRef<
       className={cn(
         'box-border flex h-12 w-full items-center tracking-widest justify-between rounded-md bg-background outline-none border-1.5 px-3 py-2 text-base disabled:cursor-not-allowed disabled:opacity-50 [&>svg]:data-[state=open]:rotate-180 data-[state=close]:delay-100',
         error
-          ? 'border-handle-red text-handle-red data-[state=open]:border-handle-red data-[state=open]:text-handle-red'
+          ? `${className} border-handle-red text-handle-red data-[state=open]:border-handle-red data-[state=open]:text-handle-red`
           : ` border-handle-gray-300 text-handle-gray-300 data-[state=open]:border-handle-blue data-[state=open]:text-handle-blue ${className}`,
       )}
       {...props}

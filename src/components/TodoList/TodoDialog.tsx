@@ -16,12 +16,13 @@ import {
 import TimePicker from '../TimePicker'
 
 const TodoDialog = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [services, setServices] = useState<string[]>([
     'Service 1',
     'Service 2',
     'Service 3',
   ])
-  const [hour, setHour] = useState('00:00')
+  const [hour] = useState('00:00')
 
   const TodoSchema = z.object({
     name: z.string().min(1, 'Precisa identificar a tarefa!'),
@@ -57,15 +58,14 @@ const TodoDialog = () => {
       </DialogTitle>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
         <div className="w-11/12 sm:w-full flex flex-col gap-1">
-          {/* FIX: We have to resolve a problem that Input can't receive custom colors to Border and Text color for example, because of clsx usage. */}
           <Input
             customBgColor="bg-white"
             type="text"
             id="name"
             height={32}
             placeholder="Nome do cliente"
-            labelClassName="text-base tracking-widest"
-            // inputClassName="border-handle-gray"
+            labelClassName="text-base tracking-widest text-handle-gray"
+            inputClassName="border-handle-gray h-8"
             className="text-handle-gray"
             {...register('name')}
             error={!!errors.name}
