@@ -1,7 +1,7 @@
 import './TodoDialog.css'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { DialogContent, DialogTitle } from '@radix-ui/react-dialog'
+import { DialogTitle } from '@radix-ui/react-dialog'
 import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { z } from 'zod'
