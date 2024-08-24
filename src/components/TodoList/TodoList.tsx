@@ -13,9 +13,10 @@ export interface TodoListProps {
   todos: Todo[]
   height: number
   width: number
+  minHeight: number
 }
 
-const TodoList = ({ todos, height, width }: TodoListProps) => {
+const TodoList = ({ todos, minHeight, height, width }: TodoListProps) => {
   return (
     <div
       className="flex flex-col p-2 pb-10 bg-white rounded-sm"
@@ -26,7 +27,7 @@ const TodoList = ({ todos, height, width }: TodoListProps) => {
       </div>
       <div
         className="p-4 pb-1 pr-2 gap-1 overflow-auto"
-        style={{ minHeight: '600px', height: `${height}px` }}
+        style={{ minHeight: `${minHeight}px`, height: `${height}px` }}
       >
         {todos.map((todo, index) => (
           <div key={index}>

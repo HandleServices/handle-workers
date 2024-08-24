@@ -1,7 +1,7 @@
 import './TodoDialog.css'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { DialogTitle } from '@radix-ui/react-dialog'
+import { DialogContent, DialogTitle } from '@radix-ui/react-dialog'
 import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -16,6 +16,7 @@ import {
   SelectValue,
 } from '../Select/Select'
 import TimePicker from '../TimePicker'
+import { DialogHeader } from '../ui/dialog'
 
 export interface TodoDialogProps {
   setIsSendingData: (isSendingData: boolean) => void
@@ -75,14 +76,17 @@ const TodoDialog = ({ setIsSendingData }: TodoDialogProps) => {
 
   return (
     <>
-      <DialogTitle>
-        <p className="text-handle-blue text-2xl font-medium select-none">
-          Cadastrando uma nova tarefa...
-        </p>
-        <p className="text-handle-blue text-base font-light select-none">
-          por favor preencha os campos necessários
-        </p>
-      </DialogTitle>
+      <DialogHeader>
+        <DialogTitle>
+          <p className="text-handle-blue text-2xl font-medium select-none">
+            Cadastrando uma nova tarefa...
+          </p>
+          <p className="text-handle-blue text-base font-light select-none">
+            por favor preencha os campos necessários
+          </p>
+        </DialogTitle>
+      </DialogHeader>
+
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
         <div className="w-11/12 sm:w-full flex flex-col gap-1 select-none">
           <Input

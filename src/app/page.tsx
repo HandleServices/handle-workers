@@ -14,7 +14,7 @@ export default function App() {
 
   return (
     <div className="bg-handle-blue min-h-screen">
-      <TodoList height={600} todos={todos} width={472} />
+      <TodoList height={400} minHeight={400} todos={todos} width={472} />
     </div>
   )
 }
