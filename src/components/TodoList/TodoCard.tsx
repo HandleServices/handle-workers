@@ -11,10 +11,15 @@ export interface TodoCardProps {
 const TodoCard = ({ type, client, hour }: TodoCardProps) => {
   const [checked, setChecked] = useState<boolean>(false)
 
+  const handleClick = () => {
+    setChecked((prevChecked) => !prevChecked)
+  }
+
   return (
-    <div className="bg-white h-20 w-full">
+    <div className="bg-white h-20 w-full cursor-pointer" onClick={handleClick}>
       <div className="grid grid-cols-[30px_1fr_80px] h-full items-center">
         <CustomCheckbox
+          id="card-check-box"
           label=""
           checkboxId="0"
           checked={checked === true}
