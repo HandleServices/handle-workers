@@ -12,22 +12,29 @@ const TodoCard = ({ type, client, hour }: TodoCardProps) => {
   const [checked, setChecked] = useState<boolean>(false)
 
   const handleClick = () => {
-    setChecked((prevChecked) => !prevChecked)
+    setChecked(!checked)
   }
 
   return (
-    <div className="bg-white h-20 w-full cursor-pointer" onClick={handleClick}>
-      <div className="grid grid-cols-[30px_1fr_80px] h-full items-center">
-        <CustomCheckbox
-          id="card-check-box"
-          label=""
-          checkboxId="0"
-          checked={checked === true}
-          onCheckedChange={(checked) => {
-            const isChecked = checked === 'indeterminate' ? true : checked
-            setChecked(isChecked)
-          }}
-        />
+    <div className="bg-white h-20 w-full cursor-auto">
+      <div className="grid grid-cols-[40px_1fr_80px] h-full items-center">
+        <div
+          className="p-1 h-20 cursor-pointer flex justify-center items-center"
+          onClick={handleClick}
+        >
+          <CustomCheckbox
+            id="card-check-box"
+            className="cursor-pointer "
+            label=""
+            checkboxId="0"
+            checked={checked === true}
+            onCheckedChange={(checked) => {
+              const isChecked = checked === 'indeterminate' ? true : checked
+              setChecked(isChecked)
+            }}
+          />
+        </div>
+
         <div>
           <h3
             className={`text-handle-gray-300 select-none font-semibold text-base tracking-widest ${checked ? 'line-through' : ''}`}
