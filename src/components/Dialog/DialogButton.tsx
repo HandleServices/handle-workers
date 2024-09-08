@@ -1,26 +1,32 @@
 import React from 'react'
 
 import { Dialog, DialogContent, DialogTrigger } from '../ui/dialog'
-import TodoDialog from './TodoDialog'
 
-const TodoButton = ({ ...props }) => {
-  const [isSendingData, setIsSendingData] = React.useState(false)
+interface DialogButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
+  title: string
+  children: React.ReactNode
+  isSendingData: boolean
+}
 
+const DialogButton = ({
+  title,
+  children,
+  isSendingData,
+}: DialogButtonProps) => {
   return (
-    <Dialog {...props}>
+    <Dialog>
       <DialogTrigger className="select-none text-handle-blue tracking-widest font-semibold">
-        + Adicionar Tarefa
+        {title}
       </DialogTrigger>
       <DialogContent
-        aria-describedby={undefined}
         onInteractOutside={(e) => isSendingData && e.preventDefault()}
         onPointerDownOutside={(e) => isSendingData && e.preventDefault()}
         onEscapeKeyDown={(e) => isSendingData && e.preventDefault()}
       >
-        <TodoDialog setIsSendingData={setIsSendingData} />
+        {children}
       </DialogContent>
     </Dialog>
   )
 }
 
-export default TodoButton
+export default DialogButton

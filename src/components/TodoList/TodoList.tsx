@@ -1,6 +1,7 @@
 import './TodoList.css'
 
-import TodoButton from './TodoButton'
+import { useCallback, useState } from 'react'
+
 import TodoCard from './TodoCard'
 
 export type Todo = {
@@ -10,21 +11,24 @@ export type Todo = {
 }
 
 export interface TodoListProps {
-  todos: Todo[]
   height: number
   width: number
   minHeight: number
+  className?: string
 }
 
-const TodoList = ({ todos, minHeight, height, width }: TodoListProps) => {
+const TodoList = ({ minHeight, height, width, className }: TodoListProps) => {
+  const [todos, setTodos] = useState<Todo[]>([])
+
+  useCallback(async () => {
+    // setTodos(await api.get(/todos'))
+  }, [])
+
   return (
     <div
-      className="flex flex-col p-2 pb-10 bg-white rounded-sm"
+      className={`flex flex-col p-2 pb-10 bg-white rounded-sm ${className}`}
       style={{ width: `${width}px` }}
     >
-      <div className="p-2 self-end">
-        <TodoButton />
-      </div>
       <div
         className="p-4 pb-1 pr-2 gap-1 overflow-auto"
         style={{ minHeight: `${minHeight}px`, height: `${height}px` }}
