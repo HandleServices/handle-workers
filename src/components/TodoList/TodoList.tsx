@@ -21,7 +21,7 @@ const TodoList = ({ minHeight, height, width, className }: TodoListProps) => {
   const [todos, setTodos] = useState<Todo[]>([])
 
   useCallback(async () => {
-    // setTodos(await api.get(/todos'))
+    setTodos(await new Promise((resolve) => setTimeout(resolve, 10000, [])))
   }, [])
 
   return (

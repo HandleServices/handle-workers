@@ -1,7 +1,7 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { DialogContent, DialogTitle } from '@radix-ui/react-dialog'
+import { DialogTitle } from '@radix-ui/react-dialog'
 import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -88,7 +88,7 @@ export default function App() {
             onSubmit={handleSubmit(onSubmit)}
             className="flex flex-col gap-4"
           >
-            <div className="w-11/12 sm:w-full flex flex-col gap-1 select-none">
+            <div className="sm:w-full flex flex-col gap-1 select-none">
               <Input
                 customBgColor="bg-white"
                 type="text"
