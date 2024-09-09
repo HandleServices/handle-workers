@@ -6,16 +6,20 @@ interface DialogButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   title: string
   children: React.ReactNode
   isSendingData: boolean
+  className?: string
 }
 
 const DialogButton = ({
   title,
   children,
   isSendingData,
+  className,
 }: DialogButtonProps) => {
   return (
     <Dialog>
-      <DialogTrigger className="select-none text-handle-blue tracking-widest font-semibold">
+      <DialogTrigger
+        className={`select-none text-handle-blue tracking-widest font-semibold ${className}`}
+      >
         {title}
       </DialogTrigger>
       <DialogContent
