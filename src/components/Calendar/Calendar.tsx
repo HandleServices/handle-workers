@@ -2,15 +2,20 @@
 
 import { addMonths, addYears, format, subMonths, subYears } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
-import { ChevronLeft, ChevronRight, PencilIcon, X } from 'lucide-react'
+import { ChevronLeft, ChevronRight, X } from 'lucide-react'
 import * as React from 'react'
 import { DateFormatter, DayPicker } from 'react-day-picker'
 
 import { buttonVariants } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+import upperCaseMonth from '@/utils/functions/upperCaseMonth'
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker> & {
   mode?: 'single' | 'multiple' | 'range'
+  setSelectedDate: React.Dispatch<React.SetStateAction<Date | Date[]>>
+  selectedDate: Date | Date[]
+  isOpen: boolean
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 function Calendar({
@@ -18,30 +23,18 @@ function Calendar({
   classNames,
   showOutsideDays = true,
   mode = 'single',
+  selectedDate,
+  isOpen,
+  setSelectedDate,
+  setIsOpen,
   ...props
 }: CalendarProps) {
-  const [selectedDate, setSelectedDate] = React.useState<
-    Date | Date[] | undefined
-  >(mode === 'multiple' ? [] : new Date())
-  const [isOpen, setIsOpen] = React.useState(false)
-
   function weekCount(year: number, monthNumber: number) {
     // month_number is in the range 1..12
     const firstOfMonth = new Date(year, monthNumber - 1, 1)
     const lastOfMonth = new Date(year, monthNumber, 0)
     const used = firstOfMonth.getDay() + lastOfMonth.getDate()
     return Math.ceil(used / 7)
-  }
-
-  /**
-   * @param date - Entry date to be converted.
-   * @returns string - A month with first char as upper case.
-   */
-  function upperCaseMonth(date: Date): string {
-    return (
-      format(date, 'MMMM', { locale: ptBR }).charAt(0).toUpperCase() +
-      format(date, 'MMMM', { locale: ptBR }).slice(1)
-    )
   }
 
   const handlePrevMonth = () => {
@@ -85,35 +78,6 @@ function Calendar({
 
   return (
     <>
-      {!isOpen && (
-        <div
-          className="relative group hover:underline underline-offset-auto text-handle-blue cursor-pointer flex flex-row"
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          <div>
-            <span className="text-handle-blue tracking-widest select-none text-2xl font-medium">
-              {format(
-                selectedDate instanceof Date ? selectedDate : new Date(),
-                'dd',
-                { locale: ptBR },
-              ) +
-                ' de ' +
-                upperCaseMonth(
-                  selectedDate instanceof Date ? selectedDate : new Date(),
-                )}
-            </span>
-            <span className="text-handle-blue tracking-widest select-none ">
-              {', ' +
-                format(
-                  selectedDate instanceof Date ? selectedDate : new Date(),
-                  'cccc',
-                  { locale: ptBR },
-                )}
-            </span>
-          </div>
-          <PencilIcon className="text-handle-gray group-hover:text-handle-blue h-3 w-3" />
-        </div>
-      )}
       {isOpen && (
         <DayPicker
           selected={
