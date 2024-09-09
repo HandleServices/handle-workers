@@ -5,7 +5,7 @@ import { cva } from 'class-variance-authority'
 import clsx from 'clsx'
 import dayjs from 'dayjs'
 import { MapPin } from 'lucide-react'
-import { Dispatch, forwardRef, SetStateAction, useState } from 'react'
+import { forwardRef, useState } from 'react'
 
 import { cn } from '@/lib/utils'
 import { ServiceStatusEnum } from '@/types/enums/ServiceStatusEnum'
@@ -33,7 +33,8 @@ export type ServiceCardHeaderProps = {
   data: ServiceCardProps
   variant: ServiceCardVariants
   value: number
-  setValue: Dispatch<SetStateAction<number>>
+  // setValue: Dispatch<SetStateAction<number>>
+  setValue: (num: number) => void
 }
 
 const variants = cva([], {

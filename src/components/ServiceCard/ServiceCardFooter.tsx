@@ -67,14 +67,14 @@ const OpenVariant: React.FC = () => (
 )
 
 const CanceledVariant: React.FC = () => (
-  <div className="bg-[#FF5252] w-1/5 rounded-bl-[8px] flex items-center justify-center gap-2">
+  <div className="bg-handle-red w-1/5 rounded-bl-[8px] flex items-center justify-center gap-2">
     <p className="text-white uppercase font-bold tracking-widest">Cancelado</p>
     <X className="text-white" strokeWidth={2} />
   </div>
 )
 
 const FinishedVariant: React.FC = () => (
-  <div className="bg-[#FF5252] w-full rounded-b-[8px] pr-12 flex items-center justify-end gap-2">
+  <div className="bg-handle-red w-full rounded-b-[8px] pr-12 flex items-center justify-end gap-2">
     <p className="text-white uppercase font-bold tracking-widest">Finalizado</p>
     <Check className="text-white" strokeWidth={3} />
   </div>

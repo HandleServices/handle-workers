@@ -1,8 +1,12 @@
 import { ServiceStatusEnum } from '@/types/enums/ServiceStatusEnum'
 import { Service } from '@/types/models/Service.model'
 
-export const CardsMock: { [key in ServiceStatusEnum]: Service[] } = {
-  pending: [
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+
+export const fetchServices = async (): Promise<Service[]> => {
+  await delay(1000)
+
+  return [
     {
       id: 1,
       name: 'Manutenção de Ar Condicionado',
@@ -25,8 +29,6 @@ export const CardsMock: { [key in ServiceStatusEnum]: Service[] } = {
       value: 100.0,
       status: ServiceStatusEnum.PENDING,
     },
-  ],
-  open: [
     {
       id: 3,
       name: 'Manutenção de Ar Condicionado',
@@ -49,8 +51,6 @@ export const CardsMock: { [key in ServiceStatusEnum]: Service[] } = {
       value: 100.0,
       status: ServiceStatusEnum.OPEN,
     },
-  ],
-  finished: [
     {
       id: 5,
       name: 'Manutenção de Ar Condicionado',
@@ -62,8 +62,6 @@ export const CardsMock: { [key in ServiceStatusEnum]: Service[] } = {
       value: 100.0,
       status: ServiceStatusEnum.FINISHED,
     },
-  ],
-  canceled: [
     {
       id: 6,
       name: 'Manutenção de Ar Condicionado',
@@ -75,5 +73,5 @@ export const CardsMock: { [key in ServiceStatusEnum]: Service[] } = {
       value: 100.0,
       status: ServiceStatusEnum.CANCELED,
     },
-  ],
+  ]
 }

@@ -1,3 +1,3 @@
-import { ServiceTabs } from './ServiceTabs'
+import ServiceTabsFetcher from './components/ServiceTabsFetcher'
 
-export default ServiceTabs
+export default ServiceTabsFetcher

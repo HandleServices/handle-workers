@@ -1,4 +1,4 @@
-import { checkPhoneMask, phoneMask } from './mask/mask-phone'
+import { checkPhoneMask, phoneMask } from '../masks/mask-phone'
 
 describe('Phone Mask', () => {
   it('should be able to accept a valid phone number', () => {
