@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-import { CustomCheckbox } from '../Checkbox'
+import { CustomCheckbox } from '../../Checkbox'
 
 export interface TodoCardProps {
   type: string

@@ -2,7 +2,7 @@ import './TodoList.css'
 
 import { useCallback, useState } from 'react'
 
-import TodoCard from './TodoCard'
+import TodoCard from './components/TodoCard'
 
 export type Todo = {
   type: string

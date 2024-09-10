@@ -1,4 +1,4 @@
-import './inputTimePicker.styles.css'
+import './timePicker.styles.css'
 
 import Input from '../Input'
 
