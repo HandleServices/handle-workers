@@ -92,7 +92,7 @@ function Calendar({
           month={selectedDate instanceof Date ? selectedDate : undefined}
           showOutsideDays={showOutsideDays}
           className={cn(
-            'w-[377px] h-[217px] border-1.5 rounded-md shadow-sm shadow-black p-2 mt-4 -translate-x-10',
+            'w-[377px] h-[217px] rounded-md p-2 mt-4 -translate-x-10',
             className,
           )}
           classNames={{
@@ -108,7 +108,7 @@ function Calendar({
             ),
             nav_button_previous: 'absolute left-1',
             nav_button_next: 'absolute right-1',
-            table: 'w-full h-[80%] border-collapse space-y-1',
+            table: 'w-full h-[80%] space-y-1',
             head_row: 'flex justify-evenly gap-4 w-full mb-1',
             head_cell:
               'text-handle-blue font-medium text-[0.875] border-handle-blue border-1.5 p-0 h-5 w-5 rounded-full flex justify-center items-center',
