@@ -16,6 +16,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   sz?: 'small' | 'medium' | 'large'
   customBgColor?: string | undefined
   inputClassName?: string | undefined
+  labelClassName?: string | undefined
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
@@ -31,6 +32,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       sz = 'medium',
       type,
       inputClassName,
+      labelClassName,
       ...props
     },
     ref,
@@ -41,9 +43,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
 
     const variants = cva(
       clsx({
-        'w-full rounded-md bg-transparent box-border outline-none transition-all duration-300 ease-in-out focus-visible:text-handle-blue border-1.5 border-handle-gray-300 focus-visible:border-handle-blue peer':
+        [`w-full rounded-md bg-transparent box-border outline-none transition-all duration-300 ease-in-out focus-visible:text-handle-blue border-1.5 border-handle-gray-300 focus-visible:border-handle-blue peer ${inputClassName}`]:
           true,
-        'text-handle-red border-handle-red focus-visible:text-handle-red focus-visible:border-handle-red':
+        [`${inputClassName} text-handle-red border-handle-red focus-visible:text-handle-red focus-visible:border-handle-red`]:
           error,
       }),
       {
@@ -63,10 +65,11 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     const currentTextColor = useMemo(
       () =>
         clsx({
-          'text-handle-red': error,
-          'text-handle-gray-300 peer-focus-visible:text-handle-blue': !error,
+          [`${labelClassName} text-handle-red`]: error,
+          [`text-handle-gray-300 peer-focus-visible:text-handle-blue ${labelClassName}`]:
+            !error,
         }),
-      [error],
+      [error, labelClassName],
     )
 
     const currentType = useMemo(() => {
@@ -93,7 +96,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           id={name}
           name={name}
           style={{ width, height }}
-          className={twMerge(variants({ sz }), inputClassName)}
+          className={twMerge(variants({ sz }))}
           {...props}
           type={currentType}
           placeholder=" "
