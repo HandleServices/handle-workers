@@ -5,7 +5,7 @@ import React, { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import DialogButton from '@/components/Dialog/DialogButton'
+import DialogButton from '@/components/Dialog/components/DialogButton'
 import Input from '@/components/Input'
 import { LabelError } from '@/components/LabelError'
 import {
