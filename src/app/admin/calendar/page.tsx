@@ -14,6 +14,7 @@ const CalendarPage = () => {
   return (
     <div>
       <CalendarTrigger
+        type="text"
         selectedDate={selectedDate}
         setIsOpen={setIsOpen}
         isOpen={isOpen}
@@ -23,8 +24,14 @@ const CalendarPage = () => {
         setIsOpen={setIsOpen}
         isOpen={isOpen}
         setSelectedDate={setSelectedDate}
-        className="bg-white"
+        className={`bg-white ${isOpen ? '' : 'h-0'}`}
       />
+
+      <div>
+        <h1 className={`text-3xl font-bold ${isOpen ? 'mt-4' : ''}`}>
+          Tarefas diárias
+        </h1>
+      </div>
     </div>
   )
 }
