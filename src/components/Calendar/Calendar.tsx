@@ -6,9 +6,10 @@ import { ChevronLeft, ChevronRight, X } from 'lucide-react'
 import * as React from 'react'
 import { DateFormatter, DayPicker } from 'react-day-picker'
 
-import { buttonVariants } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import upperCaseMonth from '@/utils/functions/upperCaseMonth'
+
+import { buttonVariants } from './components/button'
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker> & {
   mode?: 'single' | 'multiple' | 'range'
@@ -29,6 +30,7 @@ function Calendar({
   setIsOpen,
   ...props
 }: CalendarProps) {
+  const [isHover, setIsHover] = React.useState<boolean>(false)
   function weekCount(year: number, monthNumber: number) {
     // month_number is in the range 1..12
     const firstOfMonth = new Date(year, monthNumber - 1, 1)
@@ -71,7 +73,6 @@ function Calendar({
         : [day]
       setSelectedDate(newSelection)
     } else {
-      setIsOpen(false)
       setSelectedDate(day)
     }
   }
@@ -91,13 +92,13 @@ function Calendar({
           month={selectedDate instanceof Date ? selectedDate : undefined}
           showOutsideDays={showOutsideDays}
           className={cn(
-            'w-[377px] h-[217px] border-1.5 rounded-md shadow-sm shadow-black p-2',
+            'w-[377px] h-[217px] border-1.5 rounded-md shadow-sm shadow-black p-2 mt-4 -translate-x-10',
             className,
           )}
           classNames={{
             months:
               'flex flex-col sm:flex-row space-y-4 w-full h-full sm:space-x-20 sm:space-y-0',
-            month: 'w-full space-y-4',
+            month: 'w-full space-y-4 mt-4',
             caption: 'flex justify-center relative items-center',
             caption_label: 'text-sm font-medium',
             nav: 'space-x-1 flex items-center',
@@ -107,7 +108,7 @@ function Calendar({
             ),
             nav_button_previous: 'absolute left-1',
             nav_button_next: 'absolute right-1',
-            table: 'w-full h-[60%] border-collapse space-y-1',
+            table: 'w-full h-[80%] border-collapse space-y-1',
             head_row: 'flex justify-evenly gap-4 w-full mb-1',
             head_cell:
               'text-handle-blue font-medium text-[0.875] border-handle-blue border-1.5 p-0 h-5 w-5 rounded-full flex justify-center items-center',
@@ -115,11 +116,11 @@ function Calendar({
             cell: `h-${numberOfWeeks === 6 ? 5 : 6} overflow-auto w-full text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md focus-within:relative focus-within:z-20`,
             day: cn(
               buttonVariants({ variant: 'ghost' }),
-              'h-full w-3/4 p-0 font-[0.875rem] aria-selected:opacity-100 hover:cursor-pointer',
+              'h-full w-3/4 p-0 font-[0.875rem] aria-selected:opacity-100 hover:cursor-pointer hover:bg-handle-blue hover:text-white',
             ),
             day_range_end: 'day-range-end',
             day_selected:
-              'bg-handle-blue text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground',
+              'bg-handle-blue text-white hover:bg-handle-blue focus:bg-handle-blue hover:focus:text-white',
             day_today: 'bg-accent text-gray-700',
             day_outside:
               'day-outside text-muted-foreground opacity-50 aria-selected:bg-accent/50 aria-selected:text-muted-foreground aria-selected:opacity-30',
@@ -159,9 +160,13 @@ function Calendar({
                 </div>
                 <button
                   onClick={() => setIsOpen(!isOpen)}
-                  className="absolute right-0 top-0 text-handle-gray-300 p-1 mt-1 mr-2 hover:bg-handle-red-600 hover:text-white transition-transform duration-1000 rounded-md"
+                  className="absolute right-0 top-0 text-handle-gray-300 p-1 mt-1 mr-2 transition-transform duration-1000 rounded-md"
                 >
-                  <X strokeWidth={1} />
+                  <X
+                    onMouseOver={() => setIsHover(true)}
+                    onMouseLeave={() => setIsHover(false)}
+                    strokeWidth={isHover ? 2 : 1}
+                  />
                 </button>
               </div>
             ),
