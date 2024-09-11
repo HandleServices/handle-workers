@@ -80,8 +80,8 @@ const CalendarPage = () => {
   }
 
   return (
-    <div className="grid grid-cols-2 gap-16 w-[86%] h-[97%] overflow-hidden">
-      <div className="h-auto">
+    <div className="grid grid-cols-2 gap-16 w-[85%] h-[95%] self-center overflow-none">
+      <div>
         <CalendarTrigger
           type="text"
           selectedDate={selectedDate}
@@ -102,7 +102,7 @@ const CalendarPage = () => {
           </h1>
         </div>
         <div
-          className={`bg-white w-full overflow-hidden rounded-lg ${isOpen ? 'h-[55%]' : 'h-5/6'}`}
+          className={`bg-white w-full rounded-lg ${isOpen ? 'h-[55%]' : 'h-5/6'}`}
         >
           <DialogButton
             className="p-4 text-end select-none rounded-md"
@@ -208,13 +208,12 @@ const CalendarPage = () => {
             </form>
           </DialogButton>
           <TodoList
-            minHeight={400}
-            width={800}
-            className={`transition-all duration-1000 h-full`}
+            minHeight={360}
+            className={`transition-all duration-1000`}
           />
         </div>
       </div>
-      <div className="transition-all duration-1000">
+      <div className="transition-all duration-1000 h-[90%]">
         <h1 className={`text-xl font-bold mb-4 ${isOpen ? 'mt-10' : ''}`}>
           Calendário
         </h1>
