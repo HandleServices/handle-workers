@@ -17,7 +17,7 @@ export interface TodoListProps {
   className?: string
 }
 
-const TodoList = ({ minHeight, height, width, className }: TodoListProps) => {
+const TodoList = ({ minHeight, className }: TodoListProps) => {
   const [todos, setTodos] = useState<Todo[]>([])
 
   useCallback(async () => {
