@@ -1,16 +1,14 @@
 'use client'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Dialog, DialogTitle } from '@radix-ui/react-dialog'
+import { DialogTitle } from '@radix-ui/react-dialog'
 import React, { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
+import SvgComponent from '@/app/auth/(initial)/assets/google'
 import { Calendar } from '@/components/Calendar/Calendar'
-import {
-  DialogClose,
-  DialogFooter,
-} from '@/components/Dialog/components/dialog'
 import DialogButton from '@/components/Dialog/components/DialogButton'
+import { DialogFooter } from '@/components/Dialog/Dialog'
 import Input from '@/components/Input'
 import { LabelError } from '@/components/LabelError'
 import {
@@ -82,7 +80,7 @@ const CalendarPage = () => {
   }
 
   return (
-    <div className="grid grid-cols-2 gap-20 w-4/5 h-full overflow-hidden">
+    <div className="grid grid-cols-2 gap-16 w-[86%] h-full overflow-hidden">
       <div className="h-auto">
         <CalendarTrigger
           type="text"
@@ -104,7 +102,7 @@ const CalendarPage = () => {
           </h1>
         </div>
         <div
-          className={`bg-white w-full overflow-hidden ${isOpen ? 'h-[55%]' : 'h-5/6'}`}
+          className={`bg-white w-full overflow-hidden rounded-lg ${isOpen ? 'h-[55%]' : 'h-5/6'}`}
         >
           <DialogButton
             className="p-4 text-end select-none rounded-md"
@@ -216,7 +214,17 @@ const CalendarPage = () => {
           />
         </div>
       </div>
-      <div>google calendar</div>
+      <div className="transition-all duration-1000">
+        <h1 className={`text-xl font-bold mb-4 ${isOpen ? 'mt-10' : ''}`}>
+          Calendário
+        </h1>
+        <div className="h-5/6 w-full bg-white flex flex-row items-center justify-center rounded-lg gap-4">
+          <SvgComponent />
+          <span className="text-2xl text-handle-blue">
+            Sincronizar conta Google
+          </span>
+        </div>
+      </div>
     </div>
   )
 }

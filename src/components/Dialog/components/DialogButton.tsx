@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Dialog, DialogContent, DialogTrigger } from './dialog'
+import { Dialog, DialogContent, DialogTrigger } from '../Dialog'
 
 interface DialogButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   title: string

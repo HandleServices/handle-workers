@@ -95,8 +95,8 @@ function Calendar({
         )}
         classNames={{
           months:
-            'flex flex-col sm:flex-row space-y-4 w-full h-full sm:space-x-20 sm:space-y-0',
-          month: 'w-full space-y-4 mt-4',
+            'flex flex-col sm:flex-row space-y-2 w-full h-full sm:space-x-20 sm:space-y-0',
+          month: 'w-full self-center',
           caption: 'flex justify-center relative items-center',
           caption_label: 'text-sm font-medium',
           nav: 'space-x-1 flex items-center',
@@ -106,7 +106,7 @@ function Calendar({
           ),
           nav_button_previous: 'absolute left-1',
           nav_button_next: 'absolute right-1',
-          table: 'w-full h-[80%] space-y-1',
+          table: 'w-full h-[80%] space-y-1 mt-4',
           head_row: 'flex justify-evenly gap-4 w-full mb-1',
           head_cell:
             'text-handle-blue font-medium text-[0.875] border-handle-blue border-1.5 p-0 h-5 w-5 rounded-full flex justify-center items-center',
