@@ -11,9 +11,9 @@ export type Todo = {
 }
 
 export interface TodoListProps {
-  height: number
-  width: number
-  minHeight: number
+  height?: number
+  width?: number
+  minHeight?: number
   className?: string
 }
 
@@ -26,12 +26,11 @@ const TodoList = ({ minHeight, height, width, className }: TodoListProps) => {
 
   return (
     <div
-      className={`flex flex-col p-2 pb-10 bg-white rounded-sm ${className}`}
-      style={{ width: `${width}px` }}
+      className={`flex flex-col p-2 pb-6 bg-white rounded-sm w-full ${className}`}
     >
       <div
-        className="p-4 pb-1 pr-2 gap-1 overflow-auto"
-        style={{ minHeight: `${minHeight}px`, height: `${height}px` }}
+        className="p-4 pb-1 pr-2 gap-1 overflow-auto h-full"
+        style={{ minHeight: `${minHeight}px` }}
       >
         {todos.map((todo, index) => (
           <div key={index}>
