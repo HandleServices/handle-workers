@@ -80,7 +80,7 @@ const CalendarPage = () => {
   }
 
   return (
-    <div className="grid grid-cols-2 gap-16 w-[86%] h-full overflow-hidden">
+    <div className="grid grid-cols-2 gap-16 w-[86%] h-[97%] overflow-hidden">
       <div className="h-auto">
         <CalendarTrigger
           type="text"
