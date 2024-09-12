@@ -65,7 +65,6 @@ const CalendarPage = () => {
   const {
     control,
     register,
-    reset,
     handleSubmit,
     formState: { errors },
   } = useForm({
@@ -85,12 +84,6 @@ const CalendarPage = () => {
     setLoading(true)
     await new Promise((resolve) => setTimeout(resolve, 3000)).then(() => {
       console.log(data)
-    })
-    console.log(document.querySelector('dialog'))
-    reset({
-      hour: '00:00',
-      name: '',
-      service: services[0],
     })
     setLoading(false)
     setIsSendingData(false)
@@ -209,6 +202,7 @@ const CalendarPage = () => {
                           labelClassName="left-[20%] -top-1 px-1 h-5 text-handle-gray text-lg font-semibold group-active:text-blue"
                         >
                           <TimePicker
+                            {...register('hour')}
                             hour={field.value}
                             setHour={field.onChange}
                             width={100}
@@ -244,7 +238,6 @@ const CalendarPage = () => {
                         selectedDate={dialogSelectedDate}
                       />
                       <input
-                        {...register('date')}
                         onClick={() => setDialogCalendarIsOpen(true)}
                         type="date"
                         value={formatedDate}

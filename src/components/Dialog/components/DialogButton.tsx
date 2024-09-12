@@ -33,6 +33,7 @@ const DialogButton = ({
           onInteractOutside={(e) => isSendingData && e.preventDefault()}
           onPointerDownOutside={(e) => isSendingData && e.preventDefault()}
           onEscapeKeyDown={(e) => isSendingData && e.preventDefault()}
+          aria-describedby="a"
         >
           {children}
         </DialogContent>
