@@ -22,10 +22,16 @@ import TimePicker from '@/components/TimePicker'
 import TodoList from '@/components/TodoList'
 
 import CalendarTrigger from './components/CalendarTrigger'
+import { Input as CalendarInput } from './components/Input'
 
 const CalendarPage = () => {
   const [isOpen, setIsOpen] = React.useState(false)
+  const [dialogCalendarIsOpen, setDialogCalendarIsOpen] =
+    React.useState<boolean>(false)
   const [dialogIsOpen, setDialogIsOpen] = React.useState(false)
+  const [dialogSelectedDate, setDialogSelectedDate] = React.useState<
+    Date | Date[]
+  >(new Date())
   const [selectedDate, setSelectedDate] = React.useState<Date | Date[]>(
     new Date(),
   )
@@ -36,6 +42,9 @@ const CalendarPage = () => {
     'Service 3',
   ])
 
+  const dateValue = dialogSelectedDate.toLocaleString().split(',')[0].split('/')
+  const formatedDate = dateValue[2] + '-' + dateValue[1] + '-' + dateValue[0]
+
   const [hour] = useState('00:00')
   const [loading, setLoading] = useState(false)
 
@@ -43,17 +52,20 @@ const CalendarPage = () => {
     name: string
     service: string
     hour: string
+    date: Date
   }
 
   const TodoSchema = z.object({
     name: z.string().min(1, 'Precisa identificar a tarefa!'),
     service: z.string().min(1, 'Necessário selecionar um tipo de serviço!'),
     hour: z.string(),
+    date: z.date(),
   })
 
   const {
     control,
     register,
+    reset,
     handleSubmit,
     formState: { errors },
   } = useForm({
@@ -62,6 +74,7 @@ const CalendarPage = () => {
       name: '',
       service: '',
       hour: '00:00',
+      date: new Date(),
     },
   })
 
@@ -74,6 +87,11 @@ const CalendarPage = () => {
       console.log(data)
     })
     console.log(document.querySelector('dialog'))
+    reset({
+      hour: '00:00',
+      name: '',
+      service: services[0],
+    })
     setLoading(false)
     setIsSendingData(false)
     setDialogIsOpen(false)
@@ -107,8 +125,8 @@ const CalendarPage = () => {
           <DialogButton
             className="p-4 text-end select-none rounded-md"
             isSendingData={isSendingData}
-            title="+ clique aqui"
-            buttonClassName="w-32 p-1"
+            title="+ Adicionar Tarefa"
+            buttonClassName="w-48 p-1"
             isOpen={dialogIsOpen}
             setIsOpen={setDialogIsOpen}
           >
@@ -174,28 +192,76 @@ const CalendarPage = () => {
                 <LabelError errors={errors} name="service" />
               </div>
               <div>
-                <span className="text-handle-gray select-none">Horário</span>
-                <div className="flex flex-row">
-                  <Controller
-                    name="hour"
-                    control={control}
-                    defaultValue={hour}
-                    render={({ field }) => (
-                      <TimePicker
-                        hour={field.value}
-                        setHour={field.onChange}
-                        className="border-handle-gray select-none bg-white"
-                        height={32}
-                        style={{ fontSize: '1.75rem' }}
+                <div className="flex flex-row justify-evenly mt-4">
+                  <div className="flex flex-row ">
+                    <Controller
+                      name="hour"
+                      control={control}
+                      defaultValue={hour}
+                      render={({ field }) => (
+                        <CalendarInput
+                          placeholder="Horário"
+                          customBgColor="bg-white"
+                          textSize={12}
+                          width={150}
+                          height={30}
+                          className="border-none group p-0"
+                          labelClassName="left-[20%] -top-1 px-1 h-5 text-handle-gray text-lg font-semibold group-active:text-blue"
+                        >
+                          <TimePicker
+                            hour={field.value}
+                            setHour={field.onChange}
+                            width={100}
+                            height={30}
+                            className="border-handle-gray select-none bg-white w-30 h-full"
+                            style={{
+                              fontSize: '1.5rem',
+                              padding: 0,
+                              height: 'auto',
+                            }}
+                          />
+                        </CalendarInput>
+                      )}
+                    />
+                    <span className="self-end ml-1 text-handle-gray text-[8px] font-semibold select-none">
+                      horas/min
+                    </span>
+                  </div>
+                  <div className="group">
+                    <CalendarInput
+                      placeholder="Data"
+                      customBgColor="bg-white"
+                      width={150}
+                      height={30}
+                      textSize={12}
+                      className="border-none w-30 h-9 group"
+                      labelClassName="left-[20%] top-1 text-handle-gray text-lg font-semibold group-active:text-blue"
+                    >
+                      <CalendarTrigger
+                        type="inputText"
+                        isOpen={dialogCalendarIsOpen}
+                        setIsOpen={setDialogCalendarIsOpen}
+                        selectedDate={dialogSelectedDate}
                       />
-                    )}
-                  />
-                  <span className="self-end ml-1 text-handle-gray text-sm select-none">
-                    horas/min
-                  </span>
+                      <input
+                        {...register('date')}
+                        onClick={() => setDialogCalendarIsOpen(true)}
+                        type="date"
+                        value={formatedDate}
+                        className="text-handle-gray outline-none text-center w-full h-full border-1.5 border-handle-gray group-focus:border-handle-blue rounded-md"
+                      />
+                    </CalendarInput>
+                    <Calendar
+                      selectedDate={dialogSelectedDate}
+                      setIsOpen={setDialogCalendarIsOpen}
+                      isOpen={dialogCalendarIsOpen}
+                      setSelectedDate={setDialogSelectedDate}
+                      className={`bg-white ${dialogCalendarIsOpen ? 'absolute shadow-black shadow-md' : 'absolute h-0 w-0 p-0 overflow-hidden'}`}
+                    />
+                  </div>
                 </div>
               </div>
-              <DialogFooter>
+              <DialogFooter className="sm:justify-center sm:items-center mt-4">
                 <button
                   type="submit"
                   aria-label="close"
