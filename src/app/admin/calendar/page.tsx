@@ -1,6 +1,7 @@
 'use client'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { DialogTitle } from '@radix-ui/react-dialog'
+import { addDays } from 'date-fns'
 import React, { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -29,9 +30,6 @@ const CalendarPage = () => {
   const [dialogCalendarIsOpen, setDialogCalendarIsOpen] =
     React.useState<boolean>(false)
   const [dialogIsOpen, setDialogIsOpen] = React.useState(false)
-  const [dialogSelectedDate, setDialogSelectedDate] = React.useState<
-    Date | Date[]
-  >(new Date())
   const [selectedDate, setSelectedDate] = React.useState<Date | Date[]>(
     new Date(),
   )
@@ -42,9 +40,6 @@ const CalendarPage = () => {
     'Service 3',
   ])
 
-  const dateValue = dialogSelectedDate.toLocaleString().split(',')[0].split('/')
-  const formatedDate = dateValue[2] + '-' + dateValue[1] + '-' + dateValue[0]
-
   const [hour] = useState('00:00')
   const [loading, setLoading] = useState(false)
 
@@ -52,14 +47,14 @@ const CalendarPage = () => {
     name: string
     service: string
     hour: string
-    date: Date
+    date: string
   }
 
   const TodoSchema = z.object({
     name: z.string().min(1, 'Precisa identificar a tarefa!'),
     service: z.string().min(1, 'Necessário selecionar um tipo de serviço!'),
     hour: z.string(),
-    date: z.date(),
+    date: z.string(),
   })
 
   const {
@@ -73,7 +68,7 @@ const CalendarPage = () => {
       name: '',
       service: '',
       hour: '00:00',
-      date: new Date(),
+      date: new Date().toISOString().substring(0, 10),
     },
   })
 
@@ -222,34 +217,50 @@ const CalendarPage = () => {
                     </span>
                   </div>
                   <div className="group">
-                    <CalendarInput
-                      placeholder="Data"
-                      customBgColor="bg-white"
-                      width={150}
-                      height={30}
-                      textSize={12}
-                      className="border-none w-30 h-9 group"
-                      labelClassName="left-[20%] top-1 text-handle-gray text-lg font-semibold group-active:text-blue"
-                    >
-                      <CalendarTrigger
-                        type="inputText"
-                        isOpen={dialogCalendarIsOpen}
-                        setIsOpen={setDialogCalendarIsOpen}
-                        selectedDate={dialogSelectedDate}
-                      />
-                      <input
-                        onClick={() => setDialogCalendarIsOpen(true)}
-                        type="date"
-                        value={formatedDate}
-                        className="text-handle-gray outline-none text-center w-full h-full border-1.5 border-handle-gray group-focus:border-handle-blue rounded-md"
-                      />
-                    </CalendarInput>
-                    <Calendar
-                      selectedDate={dialogSelectedDate}
-                      setIsOpen={setDialogCalendarIsOpen}
-                      isOpen={dialogCalendarIsOpen}
-                      setSelectedDate={setDialogSelectedDate}
-                      className={`bg-white ${dialogCalendarIsOpen ? 'absolute shadow-black shadow-md' : 'absolute h-0 w-0 p-0 overflow-hidden'}`}
+                    <Controller
+                      name="date"
+                      control={control}
+                      defaultValue={new Date().toISOString().substring(0, 10)}
+                      render={({ field }) => (
+                        <CalendarInput
+                          placeholder="Data"
+                          customBgColor="bg-white"
+                          width={150}
+                          height={30}
+                          textSize={12}
+                          className="border-none w-30 h-9 group"
+                          labelClassName="left-[20%] top-1 px-2 h-4 flex flex-col justify-center text-handle-gray text-lg font-semibold group-active:text-blue"
+                        >
+                          <CalendarTrigger
+                            type="inputText"
+                            isOpen={dialogCalendarIsOpen}
+                            setIsOpen={setDialogCalendarIsOpen}
+                          />
+                          <input
+                            key={'dialogDate'}
+                            {...register('date')}
+                            value={field.value}
+                            onClick={() => setDialogCalendarIsOpen(true)}
+                            type="date"
+                            className="text-handle-gray outline-none text-center w-full h-full border-1.5 border-handle-gray group-focus:border-handle-blue rounded-md"
+                          />
+                          <Calendar
+                            selectedDate={addDays(new Date(field.value), 1)}
+                            setIsOpen={setDialogCalendarIsOpen}
+                            isOpen={dialogCalendarIsOpen}
+                            setSelectedDate={(e) => {
+                              const date = e
+                                .toLocaleString()
+                                .split(',')[0]
+                                .split('/')
+                              const formatedDate =
+                                date[2] + '-' + date[1] + '-' + date[0]
+                              field.onChange(formatedDate)
+                            }}
+                            className={`bg-white ${dialogCalendarIsOpen ? 'absolute shadow-black shadow-md top-8' : 'absolute h-0 w-0 p-0 overflow-hidden'}`}
+                          />
+                        </CalendarInput>
+                      )}
                     />
                   </div>
                 </div>

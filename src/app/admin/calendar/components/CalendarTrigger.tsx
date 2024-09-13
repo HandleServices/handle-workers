@@ -7,7 +7,7 @@ import upperCaseMonth from '@/utils/functions/upperCaseMonth'
 interface CalendarTriggerProps {
   isOpen: boolean
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
-  selectedDate: Date | Date[]
+  selectedDate?: Date | Date[]
   type: 'text' | 'inputText'
 }
 
