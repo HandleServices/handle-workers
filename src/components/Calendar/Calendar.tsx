@@ -17,6 +17,7 @@ export type CalendarProps = React.ComponentProps<typeof DayPicker> & {
   selectedDate: Date | Date[]
   isOpen: boolean
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
+  closeOnSelectDay?: boolean
 }
 
 function Calendar({
@@ -26,6 +27,7 @@ function Calendar({
   mode = 'single',
   selectedDate,
   isOpen,
+  closeOnSelectDay,
   setSelectedDate,
   setIsOpen,
   ...props
@@ -73,6 +75,7 @@ function Calendar({
       setSelectedDate(newSelection)
     } else {
       setSelectedDate(day)
+      if (closeOnSelectDay) setIsOpen(false)
     }
   }
 

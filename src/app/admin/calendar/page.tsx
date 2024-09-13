@@ -21,12 +21,14 @@ import {
 } from '@/components/Select/Select'
 import TimePicker from '@/components/TimePicker'
 import TodoList from '@/components/TodoList'
+import { Todo } from '@/components/TodoList/TodoList'
 
 import CalendarTrigger from './components/CalendarTrigger'
 import { Input as CalendarInput } from './components/Input'
 
 const CalendarPage = () => {
   const [isOpen, setIsOpen] = React.useState(false)
+  const [todos, setTodos] = React.useState<Todo[]>([])
   const [dialogCalendarIsOpen, setDialogCalendarIsOpen] =
     React.useState<boolean>(false)
   const [dialogIsOpen, setDialogIsOpen] = React.useState(false)
@@ -43,15 +45,8 @@ const CalendarPage = () => {
   const [hour] = useState('00:00')
   const [loading, setLoading] = useState(false)
 
-  type TodoDataType = {
-    name: string
-    service: string
-    hour: string
-    date: string
-  }
-
   const TodoSchema = z.object({
-    name: z.string().min(1, 'Precisa identificar a tarefa!'),
+    client: z.string().min(1, 'Precisa identificar a tarefa!'),
     service: z.string().min(1, 'Necessário selecionar um tipo de serviço!'),
     hour: z.string(),
     date: z.string(),
@@ -61,11 +56,12 @@ const CalendarPage = () => {
     control,
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(TodoSchema),
     defaultValues: {
-      name: '',
+      client: '',
       service: '',
       hour: '00:00',
       date: new Date().toISOString().substring(0, 10),
@@ -74,15 +70,18 @@ const CalendarPage = () => {
 
   // TODO: Make a request to get services from the server
   // TODO: Manipulate data and make logic here.
-  const onSubmit = async (data: TodoDataType): Promise<void> => {
+  const onSubmit = async (data: Todo): Promise<void> => {
     setIsSendingData(true)
     setLoading(true)
     await new Promise((resolve) => setTimeout(resolve, 3000)).then(() => {
+      setTodos([...todos, data])
       console.log(data)
     })
     setLoading(false)
+    reset()
     setIsSendingData(false)
     setDialogIsOpen(false)
+    setDialogCalendarIsOpen(false)
   }
 
   return (
@@ -134,16 +133,16 @@ const CalendarPage = () => {
                 <Input
                   customBgColor="bg-white"
                   type="text"
-                  id="name"
+                  id="client"
                   height={32}
                   placeholder="Nome do cliente"
                   labelClassName="text-base tracking-widest text-handle-gray select-none"
                   inputClassName="border-handle-gray h-8 select-none"
                   className="text-handle-gray select-none"
-                  {...register('name')}
-                  error={!!errors.name}
+                  {...register('client')}
+                  error={!!errors.client}
                 />
-                <LabelError errors={errors} name="name" />
+                <LabelError errors={errors} name="client" />
               </div>
               <div className="flex flex-col gap-1 select-none">
                 {/*  TODO: This select are not getting blue when tab selected */}
@@ -250,6 +249,7 @@ const CalendarPage = () => {
                             selectedDate={addDays(new Date(field.value), 1)}
                             setIsOpen={setDialogCalendarIsOpen}
                             isOpen={dialogCalendarIsOpen}
+                            closeOnSelectDay={true}
                             setSelectedDate={(e) => {
                               const date = e
                                 .toLocaleString()
@@ -280,6 +280,7 @@ const CalendarPage = () => {
             </form>
           </DialogButton>
           <TodoList
+            todos={todos}
             minHeight={360}
             className={`transition-all duration-1000`}
           />
@@ -291,9 +292,9 @@ const CalendarPage = () => {
         </h1>
         <div className="h-5/6 w-full bg-white flex flex-row items-center justify-center rounded-lg gap-4">
           <SvgComponent />
-          <span className="text-2xl text-handle-blue">
+          <a href="#" className="text-2xl text-handle-blue">
             Sincronizar conta Google
-          </span>
+          </a>
         </div>
       </div>
     </div>

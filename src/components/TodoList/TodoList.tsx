@@ -1,13 +1,12 @@
 import './TodoList.css'
 
-import { useCallback, useState } from 'react'
-
 import TodoCard from './components/TodoCard'
 
 export type Todo = {
-  type: string
+  service: string
   client: string
   hour: string
+  date: string
 }
 
 export interface TodoListProps {
@@ -15,15 +14,10 @@ export interface TodoListProps {
   width?: number
   minHeight?: number
   className?: string
+  todos: Todo[]
 }
 
-const TodoList = ({ width, minHeight, className }: TodoListProps) => {
-  const [todos, setTodos] = useState<Todo[]>([])
-
-  useCallback(async () => {
-    setTodos(await new Promise((resolve) => setTimeout(resolve, 10000, [])))
-  }, [])
-
+const TodoList = ({ width, minHeight, className, todos }: TodoListProps) => {
   return (
     <div
       className={`flex flex-col p-2 pb-6 bg-white rounded-sm w-full ${className}`}
