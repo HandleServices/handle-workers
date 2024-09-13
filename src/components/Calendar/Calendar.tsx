@@ -13,8 +13,8 @@ import { buttonVariants } from './components/button'
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker> & {
   mode?: 'single' | 'multiple' | 'range'
-  setSelectedDate: React.Dispatch<React.SetStateAction<Date | Date[]>>
-  selectedDate: Date | Date[]
+  setSelectedDate: React.Dispatch<React.SetStateAction<Date>>
+  selectedDate: Date
   isOpen: boolean
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
   closeOnSelectDay?: boolean
@@ -66,17 +66,8 @@ function Calendar({
   }
 
   const handleDayClick = (day: Date) => {
-    if (mode === 'multiple') {
-      const newSelection = Array.isArray(selectedDate)
-        ? selectedDate.includes(day)
-          ? selectedDate.filter((date) => date.getTime() === day.getTime())
-          : [...selectedDate, day]
-        : [day]
-      setSelectedDate(newSelection)
-    } else {
-      setSelectedDate(day)
-      if (closeOnSelectDay) setIsOpen(false)
-    }
+    setSelectedDate(day)
+    if (closeOnSelectDay) setIsOpen(false)
   }
 
   return (
@@ -93,7 +84,7 @@ function Calendar({
         month={selectedDate instanceof Date ? selectedDate : undefined}
         showOutsideDays={showOutsideDays}
         className={cn(
-          `w-[377px] h-[217px] rounded-md p-2 mt-4 transition-all duration-300 ease-in-out ${isOpen ? 'opacity-100' : 'opacity-0'}`,
+          `w-[377px] h-[217px] rounded-md select-none p-2 mt-4 transition-all duration-300 ease-in-out ${isOpen ? 'opacity-100' : 'opacity-0'}`,
           className,
         )}
         classNames={{

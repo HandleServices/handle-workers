@@ -1,7 +1,7 @@
 'use client'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { DialogTitle } from '@radix-ui/react-dialog'
-import { addDays } from 'date-fns'
+import { addDays, compareAsc, differenceInDays } from 'date-fns'
 import React, { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -32,9 +32,7 @@ const CalendarPage = () => {
   const [dialogCalendarIsOpen, setDialogCalendarIsOpen] =
     React.useState<boolean>(false)
   const [dialogIsOpen, setDialogIsOpen] = React.useState(false)
-  const [selectedDate, setSelectedDate] = React.useState<Date | Date[]>(
-    new Date(),
-  )
+  const [selectedDate, setSelectedDate] = React.useState<Date>(new Date())
   const [isSendingData, setIsSendingData] = useState(false)
   const [services, setServices] = useState<string[]>([
     'Service 1',
@@ -280,7 +278,16 @@ const CalendarPage = () => {
             </form>
           </DialogButton>
           <TodoList
-            todos={todos}
+            todos={todos.filter((todo) => {
+              return (
+                differenceInDays(
+                  addDays(new Date(todo.date), 1),
+                  selectedDate,
+                ) === 0 &&
+                addDays(new Date(todo.date), 1).getDay() ===
+                  selectedDate.getDay()
+              )
+            })}
             minHeight={360}
             className={`transition-all duration-1000`}
           />
