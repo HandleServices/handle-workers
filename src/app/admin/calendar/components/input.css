@@ -6,6 +6,27 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 
 input[type=date] {
   text-transform: uppercase;
+}
 
+/* Common styles for input[type="date"] */
+input[type="date"] {
+  cursor: pointer;
+  height: auto;
+  width: auto;
+  color: #323238;
+  background: transparent;
+}
 
+/* Removing default date input buttons */
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
+/* Styling focus for date input fields */
+input[type="date"]::-webkit-datetime-edit-year-field:focus,
+input[type="date"]::-webkit-datetime-edit-month-field:focus,
+input[type="date"]::-webkit-datetime-edit-day-field:focus {
+  color: #0062E3;
+  background: transparent;
 }

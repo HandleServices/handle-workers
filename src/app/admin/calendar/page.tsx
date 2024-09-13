@@ -146,6 +146,7 @@ const CalendarPage = () => {
                 <LabelError errors={errors} name="name" />
               </div>
               <div className="flex flex-col gap-1 select-none">
+                {/*  TODO: This select are not getting blue when tab selected */}
                 <Controller
                   name="service"
                   control={control}
@@ -202,11 +203,12 @@ const CalendarPage = () => {
                             setHour={field.onChange}
                             width={100}
                             height={30}
-                            className="border-handle-gray select-none bg-white w-30 h-full"
+                            className="border-handle-gray select-none bg-white w-30 h-full text-handle-gray"
                             style={{
                               fontSize: '1.5rem',
                               padding: 0,
                               height: 'auto',
+                              fontWeight: '300',
                             }}
                           />
                         </CalendarInput>
