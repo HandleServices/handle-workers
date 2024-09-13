@@ -1,5 +1,3 @@
-import Dialog from './Dialog'
-
-export type { DialogProps } from './Dialog'
+import * as Dialog from './Dialog'
 
 export default Dialog

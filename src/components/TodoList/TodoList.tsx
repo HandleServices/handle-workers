@@ -1,45 +1,34 @@
 import './TodoList.css'
 
-import { useCallback, useState } from 'react'
-
 import TodoCard from './components/TodoCard'
 
 export type Todo = {
-  type: string
+  service: string
   client: string
   hour: string
+  date: string
 }
 
 export interface TodoListProps {
-  height: number
-  width: number
-  minHeight: number
+  height?: number
+  width?: number
+  minHeight?: number
   className?: string
+  todos: Todo[]
 }
 
-const TodoList = ({ minHeight, height, width, className }: TodoListProps) => {
-  const [todos, setTodos] = useState<Todo[]>([])
-
-  useCallback(async () => {
-    setTodos(await new Promise((resolve) => setTimeout(resolve, 10000, [])))
-  }, [])
-
+const TodoList = ({ width, minHeight, className, todos }: TodoListProps) => {
   return (
     <div
-      className={`flex flex-col p-2 pb-10 bg-white rounded-sm ${className}`}
-      style={{ width: `${width}px` }}
+      className={`flex flex-col p-2 pb-6 bg-white rounded-sm w-full ${className}`}
+      style={{ minHeight: `${minHeight}px`, width: `${width}px` }}
     >
-      <div
-        className="p-4 pb-1 pr-2 gap-1 overflow-auto"
-        style={{ minHeight: `${minHeight}px`, height: `${height}px` }}
-      >
-        {todos.map((todo, index) => (
-          <div key={index}>
-            <TodoCard {...todo} />
-            <hr />
-          </div>
-        ))}
-      </div>
+      {todos.map((todo, index) => (
+        <div key={index}>
+          <TodoCard {...todo} />
+          <hr />
+        </div>
+      ))}
     </div>
   )
 }

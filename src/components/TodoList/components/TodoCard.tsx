@@ -3,12 +3,12 @@ import React, { useState } from 'react'
 import { CustomCheckbox } from '../../Checkbox'
 
 export interface TodoCardProps {
-  type: string
+  service: string
   client: string
   hour: string
 }
 
-const TodoCard = ({ type, client, hour }: TodoCardProps) => {
+const TodoCard = ({ service, client, hour }: TodoCardProps) => {
   const [checked, setChecked] = useState<boolean>(false)
 
   const handleClick = () => {
@@ -39,7 +39,7 @@ const TodoCard = ({ type, client, hour }: TodoCardProps) => {
           <h3
             className={`text-handle-gray-300 select-none font-semibold text-base tracking-widest ${checked ? 'line-through' : ''}`}
           >
-            {type}
+            {service}
           </h3>
           <p
             className={`text-handle-gray select-none text-sm tracking-widest ${checked ? 'line-through' : ''}`}
