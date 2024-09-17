@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 
+// FIX: Removes comments.
 export async function middleware(req: NextRequest) {
   // const token = req.cookies.get('handleworkers.token')?.value
   // const isFirstRegisterComplete = req.cookies.get(

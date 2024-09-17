@@ -110,7 +110,7 @@ const CalendarPage = () => {
           <DialogButton
             className="p-4 text-end select-none rounded-md"
             isSendingData={isSendingData}
-            title="+ Adicionar Tarefa"
+            buttonTitle="+ Adicionar Tarefa"
             buttonClassName="w-48 p-1"
             isOpen={dialogIsOpen}
             setIsOpen={setDialogIsOpen}

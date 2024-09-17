@@ -3,7 +3,7 @@ import React from 'react'
 import { Dialog, DialogContent, DialogTrigger } from '../Dialog'
 
 interface DialogButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
-  title: string
+  buttonTitle: string | React.ReactNode
   children: React.ReactNode
   isSendingData: boolean
   buttonClassName?: string
@@ -13,7 +13,7 @@ interface DialogButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
 }
 
 const DialogButton = ({
-  title,
+  buttonTitle,
   children,
   isSendingData,
   buttonClassName,
@@ -27,7 +27,7 @@ const DialogButton = ({
         <DialogTrigger
           className={`select-none text-handle-blue tracking-widest font-semibold ${buttonClassName}`}
         >
-          {title}
+          {buttonTitle}
         </DialogTrigger>
         <DialogContent
           onInteractOutside={(e) => isSendingData && e.preventDefault()}
