@@ -12,14 +12,18 @@
 ## 📂 Estrutura do Projeto
 
 ```bash
-.
-└── src
-    ├── app
-    ├── components
-    ├── hooks
-    ├── lib
-    ├── styles
-    └── utils
+src
+├── app
+├── components
+├── constants
+├── contexts
+├── lib
+├── services
+├── styles
+├── types
+└── utils
+
+10 directories
 ```
 
 ## ℹ️ Documentação
