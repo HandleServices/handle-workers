@@ -50,4 +50,4 @@ const CalendarTrigger = ({
   else return <div></div>
 }
 
-export default CalendarTrigger
+export { CalendarTrigger }
