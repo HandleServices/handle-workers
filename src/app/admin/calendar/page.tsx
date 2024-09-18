@@ -244,7 +244,7 @@ const CalendarPage = () => {
                             className="text-handle-gray outline-none text-center w-full h-full border-1.5 border-handle-gray group-focus:border-handle-blue rounded-md"
                           />
                           <Calendar
-                            selectedDate={addDays(new Date(field.value), 0)}
+                            selectedDate={addDays(new Date(field.value), 1)}
                             setIsOpen={setDialogCalendarIsOpen}
                             isOpen={dialogCalendarIsOpen}
                             closeOnSelectDay={true}

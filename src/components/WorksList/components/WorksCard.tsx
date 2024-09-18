@@ -47,7 +47,7 @@ const WorkCard = ({ className, cardInfo, ...props }: WorkCardProps) => {
         <p className="text-handle-gray text-sm">{cardInfo.description}</p>
       </div>
       <div className="flex flex-row justify-between items-center text-handle-blue text-2xl">
-        <text>R$ </text>
+        <text className="mr-2">R$</text>
         <text>{cardInfo.value.toFixed(2).replace('.', ',')}</text>
       </div>
       <div className="flex flex-col justify-center items-center transition-all duration-1000">

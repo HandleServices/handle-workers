@@ -15,9 +15,9 @@ export default function AdminLayout({
 }) {
   const pathName = usePathname().split('/')[2]
   return (
-    <div className="bg-handle-background-intern h-full grid grid-cols-[auto_1fr]">
+    <div className="bg-handle-background-intern h-full grid grid-cols-[auto_1fr] overflow-hidden">
       <Sidebar />
-      <div className="grid grid-rows-[75px_1fr]">
+      <div className="grid grid-rows-[75px_1fr] h-screen">
         <div className="grid grid-cols-[300px_1fr]">
           <div className="grid justify-start ml-12 mt-8 text-2xl font-bold text-handle-blue">
             {menuNames.find((e) => e.path === pathName)?.title}
@@ -34,7 +34,7 @@ export default function AdminLayout({
             </div>
           </div>
         </div>
-        <div className="pl-12 mt-5">{children}</div>
+        <div className="pl-12 mt-5 overflow-y-auto">{children}</div>
       </div>
     </div>
   )
