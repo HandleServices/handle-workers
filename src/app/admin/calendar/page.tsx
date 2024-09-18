@@ -1,7 +1,7 @@
 'use client'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { DialogTitle } from '@radix-ui/react-dialog'
-import { addDays, compareAsc, differenceInDays } from 'date-fns'
+import { addDays, differenceInDays } from 'date-fns'
 import React, { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -244,18 +244,16 @@ const CalendarPage = () => {
                             className="text-handle-gray outline-none text-center w-full h-full border-1.5 border-handle-gray group-focus:border-handle-blue rounded-md"
                           />
                           <Calendar
-                            selectedDate={addDays(new Date(field.value), 1)}
+                            selectedDate={addDays(new Date(field.value), 0)}
                             setIsOpen={setDialogCalendarIsOpen}
                             isOpen={dialogCalendarIsOpen}
                             closeOnSelectDay={true}
                             setSelectedDate={(e) => {
                               const date = e
-                                .toLocaleString()
+                                .toLocaleString('en-CA')
                                 .split(',')[0]
                                 .split('/')
-                              const formatedDate =
-                                date[2] + '-' + date[1] + '-' + date[0]
-                              field.onChange(formatedDate)
+                              field.onChange(date[0])
                             }}
                             className={`bg-white ${dialogCalendarIsOpen ? 'absolute shadow-black shadow-md top-8' : 'absolute h-0 w-0 p-0 overflow-hidden'}`}
                           />
