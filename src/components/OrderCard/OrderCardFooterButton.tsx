@@ -3,7 +3,7 @@ import { forwardRef } from 'react'
 
 import { cn } from '@/lib/utils'
 
-export interface ServiceCardFooterButtonProps {
+export interface OrderCardFooterButtonProps {
   variant: 'pending' | 'open' | 'cancel'
   children: React.ReactNode
   className?: HTMLDivElement['className']
@@ -19,9 +19,9 @@ const variants = cva([], {
   },
 })
 
-const ServiceCardFooterButton = forwardRef<
+const OrderCardFooterButton = forwardRef<
   HTMLButtonElement,
-  ServiceCardFooterButtonProps
+  OrderCardFooterButtonProps
 >(({ variant, children, className }, ref) => {
   return (
     <button
@@ -34,6 +34,6 @@ const ServiceCardFooterButton = forwardRef<
   )
 })
 
-ServiceCardFooterButton.displayName = 'ServiceCardFooterButton'
+OrderCardFooterButton.displayName = 'OrderCardFooterButton'
 
-export default ServiceCardFooterButton
+export default OrderCardFooterButton

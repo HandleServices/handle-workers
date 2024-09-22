@@ -1,16 +1,16 @@
 import { twMerge } from 'tailwind-merge'
 
-import type { WorkService } from '@/types/models/Service.model'
+import type { WorkOrder } from '@/types/models/Order.model'
 
-import WorkCard from './components/WorksCard'
+import WorkCard from './components/WorkCard'
 
-export interface ServiceListProps {
-  worksList: WorkService[]
+export interface WorkListProps {
+  worksList: WorkOrder[]
   minHeight: number
   className?: string
 }
 
-const WorksList = ({ className, worksList, minHeight }: ServiceListProps) => {
+const WorksList = ({ className, worksList, minHeight }: WorkListProps) => {
   return (
     <div
       className={twMerge(

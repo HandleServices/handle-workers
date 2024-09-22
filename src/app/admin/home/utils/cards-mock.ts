@@ -1,9 +1,9 @@
-import { ServiceStatusEnum } from '@/types/enums/ServiceStatusEnum'
-import { Service } from '@/types/models/Service.model'
+import { OrderStatusEnum } from '@/types/enums/OrderStatusEnum'
+import { Order } from '@/types/models/Order.model'
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 
-export const fetchServices = async (): Promise<Service[]> => {
+export const fetchOrders = async (): Promise<Order[]> => {
   await delay(1000)
 
   return [
@@ -16,7 +16,7 @@ export const fetchServices = async (): Promise<Service[]> => {
       },
       dateTime: new Date(),
       value: 100.0,
-      status: ServiceStatusEnum.PENDING,
+      status: OrderStatusEnum.PENDING,
     },
     {
       id: 2,
@@ -27,7 +27,7 @@ export const fetchServices = async (): Promise<Service[]> => {
       },
       dateTime: new Date(),
       value: 100.0,
-      status: ServiceStatusEnum.PENDING,
+      status: OrderStatusEnum.PENDING,
     },
     {
       id: 3,
@@ -38,7 +38,7 @@ export const fetchServices = async (): Promise<Service[]> => {
       },
       dateTime: new Date(),
       value: 100.0,
-      status: ServiceStatusEnum.OPEN,
+      status: OrderStatusEnum.OPEN,
     },
     {
       id: 4,
@@ -49,7 +49,7 @@ export const fetchServices = async (): Promise<Service[]> => {
       },
       dateTime: new Date(),
       value: 100.0,
-      status: ServiceStatusEnum.OPEN,
+      status: OrderStatusEnum.OPEN,
     },
     {
       id: 5,
@@ -60,7 +60,7 @@ export const fetchServices = async (): Promise<Service[]> => {
       },
       dateTime: new Date(),
       value: 100.0,
-      status: ServiceStatusEnum.FINISHED,
+      status: OrderStatusEnum.FINISHED,
     },
     {
       id: 6,
@@ -71,7 +71,7 @@ export const fetchServices = async (): Promise<Service[]> => {
       },
       dateTime: new Date(),
       value: 100.0,
-      status: ServiceStatusEnum.CANCELED,
+      status: OrderStatusEnum.CANCELED,
     },
   ]
 }

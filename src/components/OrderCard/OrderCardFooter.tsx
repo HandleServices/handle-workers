@@ -3,13 +3,13 @@ import { Check, X } from 'lucide-react'
 import React, { forwardRef } from 'react'
 
 import { cn } from '@/lib/utils'
-import { ServiceStatusEnum } from '@/types/enums/ServiceStatusEnum'
+import { OrderStatusEnum } from '@/types/enums/OrderStatusEnum'
 
-import ServiceCardFooterButton from './ServiceCardFooterButton'
-import { ServiceCardVariants } from './types'
+import OrderCardFooterButton from './OrderCardFooterButton'
+import { OrderCardVariants } from './types'
 
-export interface ServiceCardFooterProps {
-  variant: ServiceCardVariants
+export interface OrderCardFooterProps {
+  variant: OrderCardVariants
   children?: React.ReactNode
 }
 
@@ -26,43 +26,43 @@ const variants = cva([], {
 
 const PendingVariant: React.FC = () => (
   <div className="w-full h-full flex flex-row gap-0">
-    <ServiceCardFooterButton
-      variant={ServiceStatusEnum.PENDING}
+    <OrderCardFooterButton
+      variant={OrderStatusEnum.PENDING}
       className="rounded-bl-[8px] flex items-center justify-center gap-2"
     >
       <p className="text-white uppercase font-bold tracking-widest">Aceitar</p>
       <Check className="text-white" strokeWidth={3} />
-    </ServiceCardFooterButton>
+    </OrderCardFooterButton>
 
-    <ServiceCardFooterButton
-      variant={ServiceStatusEnum.PENDING}
+    <OrderCardFooterButton
+      variant={OrderStatusEnum.PENDING}
       className="rounded-br-[8px] flex items-center justify-center gap-2"
     >
       <p className="text-white uppercase font-bold tracking-widest">Recusar</p>
       <X className="text-white" strokeWidth={2} />
-    </ServiceCardFooterButton>
+    </OrderCardFooterButton>
   </div>
 )
 
 const OpenVariant: React.FC = () => (
   <div className="w-full h-full flex flex-row gap-0">
-    <ServiceCardFooterButton
-      variant={ServiceStatusEnum.OPEN}
+    <OrderCardFooterButton
+      variant={OrderStatusEnum.OPEN}
       className="w-2/3 rounded-bl-[8px] pl-12 flex items-center justify-start gap-2"
     >
       <p className="text-white uppercase font-bold tracking-widest">
         Finalizar
       </p>
       <Check className="text-white" strokeWidth={3} />
-    </ServiceCardFooterButton>
+    </OrderCardFooterButton>
 
-    <ServiceCardFooterButton
+    <OrderCardFooterButton
       variant="cancel"
       className="rounded-br-[8px] pr-12 flex items-center justify-end gap-2"
     >
       <p className="text-white uppercase font-bold tracking-widest">Cancelar</p>
       <X className="text-white" strokeWidth={2} />
-    </ServiceCardFooterButton>
+    </OrderCardFooterButton>
   </div>
 )
 
@@ -80,24 +80,24 @@ const FinishedVariant: React.FC = () => (
   </div>
 )
 
-const ServiceCardFooterButtons = ({
+const OrderCardFooterButtons = ({
   variant,
 }: {
-  variant: ServiceCardVariants
+  variant: OrderCardVariants
 }) => {
   let VariantComponent: React.FC = () => <React.Fragment />
 
   switch (variant) {
-    case ServiceStatusEnum.CANCELED.valueOf():
+    case OrderStatusEnum.CANCELED.valueOf():
       VariantComponent = CanceledVariant
       break
-    case ServiceStatusEnum.PENDING.valueOf():
+    case OrderStatusEnum.PENDING.valueOf():
       VariantComponent = PendingVariant
       break
-    case ServiceStatusEnum.OPEN.valueOf():
+    case OrderStatusEnum.OPEN.valueOf():
       VariantComponent = OpenVariant
       break
-    case ServiceStatusEnum.FINISHED.valueOf():
+    case OrderStatusEnum.FINISHED.valueOf():
       VariantComponent = FinishedVariant
       break
   }
@@ -105,7 +105,7 @@ const ServiceCardFooterButtons = ({
   return <VariantComponent />
 }
 
-const ServiceCardFooter = forwardRef<HTMLInputElement, ServiceCardFooterProps>(
+const OrderCardFooter = forwardRef<HTMLInputElement, OrderCardFooterProps>(
   ({ variant }, ref) => {
     return (
       <div
@@ -115,12 +115,12 @@ const ServiceCardFooter = forwardRef<HTMLInputElement, ServiceCardFooterProps>(
           variants({ variant }),
         )}
       >
-        <ServiceCardFooterButtons variant={variant} />
+        <OrderCardFooterButtons variant={variant} />
       </div>
     )
   },
 )
 
-ServiceCardFooter.displayName = 'ServiceCardFooter'
+OrderCardFooter.displayName = 'OrderCardFooter'
 
-export default ServiceCardFooter
+export default OrderCardFooter

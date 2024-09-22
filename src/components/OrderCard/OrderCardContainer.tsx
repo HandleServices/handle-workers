@@ -3,10 +3,10 @@ import { forwardRef } from 'react'
 
 import { cn } from '@/lib/utils'
 
-import { ServiceCardVariants } from './types'
+import { OrderCardVariants } from './types'
 
-export interface ServiceCardContainerProps {
-  variant: ServiceCardVariants
+export interface OrderCardContainerProps {
+  variant: OrderCardVariants
   children: React.ReactNode
 }
 
@@ -21,9 +21,9 @@ const variants = cva([], {
   },
 })
 
-const ServiceCardContainer = forwardRef<
+const OrderCardContainer = forwardRef<
   HTMLInputElement,
-  ServiceCardContainerProps
+  OrderCardContainerProps
 >(({ variant, children }, ref) => {
   return (
     <div
@@ -38,6 +38,6 @@ const ServiceCardContainer = forwardRef<
   )
 })
 
-ServiceCardContainer.displayName = 'ServiceCardContainer'
+OrderCardContainer.displayName = 'OrderCardContainer'
 
-export default ServiceCardContainer
+export default OrderCardContainer

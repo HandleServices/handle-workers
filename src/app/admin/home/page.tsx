@@ -1,7 +1,7 @@
 'use client'
 
+import OrderTabsFetcher from '@/components/OrderTabs/components/OrderTabsFetcher'
 import Search from '@/components/Search'
-import ServiceTabsFetcher from '@/components/ServiceTabs/components/ServiceTabsFetcher'
 
 const Home = () => {
   const search = (value: string) => {
@@ -15,7 +15,7 @@ const Home = () => {
         placeholder="Pesquisar"
         className="w-[97.7%] mr-12 mb-10"
       />
-      <ServiceTabsFetcher />
+      <OrderTabsFetcher />
     </div>
   )
 }

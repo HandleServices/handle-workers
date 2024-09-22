@@ -3,8 +3,8 @@
 import * as Tabs from '@radix-ui/react-tabs'
 import React, { useEffect, useState } from 'react'
 
-import { ServiceStatusEnum } from '@/types/enums/ServiceStatusEnum'
-import { Service } from '@/types/models/Service.model'
+import { OrderStatusEnum } from '@/types/enums/OrderStatusEnum'
+import { Order } from '@/types/models/Order.model'
 
 import TabCircle from '../TabCircle'
 
@@ -17,16 +17,16 @@ const makeTabTriggerClassName = (isActive: boolean, color: string) => {
   )
 }
 
-const ServiceTabsTriggers = ({ services }: { services: Service[] }) => {
-  const [activeTab, setActiveTab] = useState<ServiceStatusEnum>(
-    ServiceStatusEnum.PENDING,
+const OrderTabsTriggers = ({ orders }: { orders: Order[] }) => {
+  const [activeTab, setActiveTab] = useState<OrderStatusEnum>(
+    OrderStatusEnum.PENDING,
   )
   const [notifications, setNotifications] = useState<{
-    [key in ServiceStatusEnum]?: boolean
+    [key in OrderStatusEnum]?: boolean
   }>({
-    [ServiceStatusEnum.PENDING]: false,
-    [ServiceStatusEnum.OPEN]: false,
-    [ServiceStatusEnum.FINISHED]: false,
+    [OrderStatusEnum.PENDING]: false,
+    [OrderStatusEnum.OPEN]: false,
+    [OrderStatusEnum.FINISHED]: false,
   })
 
   useEffect(() => {
@@ -40,12 +40,12 @@ const ServiceTabsTriggers = ({ services }: { services: Service[] }) => {
     localStorage.setItem('notifications', JSON.stringify(notifications))
   }, [notifications])
 
-  const hasNewNotifications = (status: ServiceStatusEnum) => {
-    const hasNew = services.some((service) => service.status === status)
+  const hasNewNotifications = (status: OrderStatusEnum) => {
+    const hasNew = orders.some((order) => order.status === status)
     return hasNew && !notifications[status]
   }
 
-  const handleTabClick = (status: ServiceStatusEnum) => {
+  const handleTabClick = (status: OrderStatusEnum) => {
     setActiveTab(status)
     setNotifications((prev) => ({
       ...prev,
@@ -56,41 +56,41 @@ const ServiceTabsTriggers = ({ services }: { services: Service[] }) => {
   return (
     <>
       <Tabs.Trigger
-        value={ServiceStatusEnum.PENDING}
+        value={OrderStatusEnum.PENDING}
         className={makeTabTriggerClassName(
-          activeTab === ServiceStatusEnum.PENDING,
+          activeTab === OrderStatusEnum.PENDING,
           'bg-handle-green',
         )}
-        onClick={() => handleTabClick(ServiceStatusEnum.PENDING)}
+        onClick={() => handleTabClick(OrderStatusEnum.PENDING)}
       >
         Solicitações
-        {hasNewNotifications(ServiceStatusEnum.PENDING) && (
+        {hasNewNotifications(OrderStatusEnum.PENDING) && (
           <TabCircle color="bg-handle-green" className="ml-8" />
         )}
       </Tabs.Trigger>
       <Tabs.Trigger
-        value={ServiceStatusEnum.OPEN}
+        value={OrderStatusEnum.OPEN}
         className={makeTabTriggerClassName(
-          activeTab === ServiceStatusEnum.OPEN,
+          activeTab === OrderStatusEnum.OPEN,
           'bg-handle-blue',
         )}
-        onClick={() => handleTabClick(ServiceStatusEnum.OPEN)}
+        onClick={() => handleTabClick(OrderStatusEnum.OPEN)}
       >
         Em aberto
-        {hasNewNotifications(ServiceStatusEnum.OPEN) && (
+        {hasNewNotifications(OrderStatusEnum.OPEN) && (
           <TabCircle color="bg-handle-blue" className="ml-8" />
         )}
       </Tabs.Trigger>
       <Tabs.Trigger
-        value={ServiceStatusEnum.FINISHED}
+        value={OrderStatusEnum.FINISHED}
         className={makeTabTriggerClassName(
-          activeTab === ServiceStatusEnum.FINISHED,
+          activeTab === OrderStatusEnum.FINISHED,
           'bg-handle-red',
         )}
-        onClick={() => handleTabClick(ServiceStatusEnum.FINISHED)}
+        onClick={() => handleTabClick(OrderStatusEnum.FINISHED)}
       >
         Finalizados
-        {hasNewNotifications(ServiceStatusEnum.FINISHED) && (
+        {hasNewNotifications(OrderStatusEnum.FINISHED) && (
           <TabCircle color="bg-handle-red" className="ml-8" />
         )}
       </Tabs.Trigger>
@@ -98,4 +98,4 @@ const ServiceTabsTriggers = ({ services }: { services: Service[] }) => {
   )
 }
 
-export { ServiceTabsTriggers }
+export { OrderTabsTriggers }

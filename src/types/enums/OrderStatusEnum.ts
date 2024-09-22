@@ -1,4 +1,4 @@
-export enum ServiceStatusEnum {
+export enum OrderStatusEnum {
   PENDING = 'pending',
   OPEN = 'open',
   FINISHED = 'finished',

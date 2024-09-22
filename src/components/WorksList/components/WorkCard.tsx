@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 
 import DialogButton from '@/components/Dialog/components/DialogButton'
 import { DialogTitle } from '@/components/Dialog/Dialog'
-import { WorkService } from '@/types/models/Service.model'
+import { WorkOrder } from '@/types/models/Order.model'
 
 import PencilIcon from '../assets/PencilIcon'
 import TrashIcon from '../assets/TrashIcon'
@@ -13,7 +13,7 @@ export interface WorkCardProps
     HTMLDivElement
   > {
   className?: string
-  cardInfo: WorkService
+  cardInfo: WorkOrder
 }
 
 const WorkCard = ({ className, cardInfo, ...props }: WorkCardProps) => {

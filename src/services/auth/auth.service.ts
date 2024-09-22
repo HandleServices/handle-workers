@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosResponse } from 'axios'
+import axios, { AxiosResponse } from 'axios'
 
 import { authApi } from '@/lib/axios'
 import { LoginDto } from '@/types/dtos/auth/LoginDto'

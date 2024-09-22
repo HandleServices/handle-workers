@@ -6,7 +6,6 @@ import { AxiosError } from 'axios'
 import { useRouter } from 'next/navigation'
 import { useContext, useMemo, useState } from 'react'
 import { Controller, SubmitHandler } from 'react-hook-form'
-import { toast } from 'react-hot-toast'
 import { z } from 'zod'
 
 import { Button } from '@/components/Button'

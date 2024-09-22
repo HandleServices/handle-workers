@@ -8,11 +8,11 @@ import { MapPin } from 'lucide-react'
 import { forwardRef, useState } from 'react'
 
 import { cn } from '@/lib/utils'
-import { ServiceStatusEnum } from '@/types/enums/ServiceStatusEnum'
+import { OrderStatusEnum } from '@/types/enums/OrderStatusEnum'
 import { formatCurrency } from '@/utils/functions/numberUtils'
 
 import Input from '../Input'
-import { ServiceCardProps, ServiceCardVariants } from './types'
+import { OrderCardProps, OrderCardVariants } from './types'
 
 const CommentPen = ({ className }: { className: SVGElement['className'] }) => {
   return (
@@ -28,10 +28,10 @@ const CommentPen = ({ className }: { className: SVGElement['className'] }) => {
   )
 }
 
-export type ServiceCardHeaderProps = {
+export type OrderCardHeaderProps = {
   children?: React.ReactNode
-  data: ServiceCardProps
-  variant: ServiceCardVariants
+  data: OrderCardProps
+  variant: OrderCardVariants
   value: number
   // setValue: Dispatch<SetStateAction<number>>
   setValue: (num: number) => void
@@ -48,7 +48,7 @@ const variants = cva([], {
   },
 })
 
-const ServiceCardHeader = forwardRef<HTMLInputElement, ServiceCardHeaderProps>(
+const OrderCardHeader = forwardRef<HTMLInputElement, OrderCardHeaderProps>(
   ({ variant, data, value, setValue }, ref) => {
     const [isEditing, setIsEditing] = useState(false)
 
@@ -98,11 +98,11 @@ const ServiceCardHeader = forwardRef<HTMLInputElement, ServiceCardHeaderProps>(
                 'flex flex-row gap-1 items-center hover:opacity-50 active:opacity-100',
                 clsx({
                   'text-[#4ECB71]':
-                    variant === ServiceStatusEnum.PENDING.valueOf(),
+                    variant === OrderStatusEnum.PENDING.valueOf(),
                   'text-[#1A73E8D4]':
-                    variant === ServiceStatusEnum.OPEN.valueOf(),
+                    variant === OrderStatusEnum.OPEN.valueOf(),
                   'text-[#FF5252]':
-                    variant === ServiceStatusEnum.CANCELED.valueOf(),
+                    variant === OrderStatusEnum.CANCELED.valueOf(),
                 }),
               )}
             >
@@ -120,12 +120,12 @@ const ServiceCardHeader = forwardRef<HTMLInputElement, ServiceCardHeaderProps>(
             'relative flex items-center justify-center px-8 py-2',
             clsx({
               'text-[#4ECB71] fill-[#4ECB71]':
-                variant === ServiceStatusEnum.PENDING.valueOf(),
+                variant === OrderStatusEnum.PENDING.valueOf(),
               'text-[#1A73E8D4] fill-[#1A73E8D4]':
-                variant === ServiceStatusEnum.OPEN.valueOf(),
+                variant === OrderStatusEnum.OPEN.valueOf(),
               'text-[#FF5252] fill-[#FF5252]':
-                variant === ServiceStatusEnum.CANCELED.valueOf() ||
-                variant === ServiceStatusEnum.FINISHED.valueOf(),
+                variant === OrderStatusEnum.CANCELED.valueOf() ||
+                variant === OrderStatusEnum.FINISHED.valueOf(),
             }),
           )}
         >
@@ -163,6 +163,6 @@ const ServiceCardHeader = forwardRef<HTMLInputElement, ServiceCardHeaderProps>(
   },
 )
 
-ServiceCardHeader.displayName = 'ServiceCardHeader'
+OrderCardHeader.displayName = 'OrderCardHeader'
 
-export default ServiceCardHeader
+export default OrderCardHeader
