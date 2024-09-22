@@ -68,7 +68,7 @@ const TimePicker = forwardRef<HTMLInputElement, TimePickerProps>(
     }
 
     useEffect(() => {
-      const timeRange = [inHour, outHour]
+      const timeRange: [string, string] = [inHour, outHour]
       if (cb) cb(timeRange)
       if (onChange) onChange([timeRange[0], timeRange[1]])
     }, [inHour, outHour, cb, onChange])

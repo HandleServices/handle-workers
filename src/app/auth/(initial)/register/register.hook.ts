@@ -18,11 +18,19 @@ function useRegisterHook() {
     )
     if (unavailableField) {
       if (unavailableField.field === 'email') {
-        throw new HandleError('Esse Email já foi cadastrado.')
+        throw new HandleError('Esse Email já foi cadastrado.', 700, '/register')
       } else if (unavailableField.field === 'docNum') {
-        throw new HandleError('Esse CPF/CNPJ já foi cadastrado')
+        throw new HandleError(
+          'Esse CPF/CNPJ já foi cadastrado',
+          700,
+          '/register',
+        )
       } else if (unavailableField.field === 'phone') {
-        throw new HandleError('Esse número de telefone já foi cadastrado')
+        throw new HandleError(
+          'Esse número de telefone já foi cadastrado',
+          700,
+          '/register',
+        )
       }
     }
 

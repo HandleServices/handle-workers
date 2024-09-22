@@ -1,9 +1,10 @@
-import axios, { AxiosResponse } from 'axios'
+import axios, { AxiosError, AxiosResponse } from 'axios'
 
 import { authApi } from '@/lib/axios'
 import { LoginDto } from '@/types/dtos/auth/LoginDto'
 import { RegisterUserDto } from '@/types/dtos/auth/RegisterUserDto'
 import { ValidateRegisterDto } from '@/types/dtos/auth/ValidateRegisterDto'
+import { HandleError } from '@/utils/class/HandleError'
 
 import { SignInResponse, SignUpResponse, ValidateResponse } from './types'
 
@@ -15,7 +16,7 @@ const signup = async (userData: RegisterUserDto): Promise<SignUpResponse> => {
     if (axios.isAxiosError(error)) {
       throw error
     } else {
-      throw new Error('An unexpected error occurred')
+      throw new HandleError('Um error inesperado aconteceu', 700, '/register')
     }
   }
 }
@@ -32,15 +33,9 @@ const signin = async ({
     return response.data
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      if (error.response?.status === 401)
-        error.response.data.detail = 'Usuário ou Senha Incorretos'
-
-      if (error.response?.status === 404)
-        error.response.data.detail = 'Usuário não encontrado'
-
       throw error
     } else {
-      throw new Error('Um error inesperado aconteceu')
+      throw new HandleError('Um error inesperado aconteceu', 700, '/login')
     }
   }
 }
@@ -66,7 +61,11 @@ const validateRegister = async ({
     if (axios.isAxiosError(error)) {
       throw error
     } else {
-      throw new Error('An unexpected error occurred')
+      throw new HandleError(
+        'Um error inesperado aconteceu',
+        700,
+        '/register/validate',
+      )
     }
   }
 }

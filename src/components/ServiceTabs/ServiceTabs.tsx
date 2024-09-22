@@ -4,8 +4,8 @@ import React from 'react'
 import { ServiceStatusEnum } from '@/types/enums/ServiceStatusEnum'
 import { Service } from '@/types/models/Service.model'
 
-import ServiceTabsContent from '../ServiceTabsContent'
-import ServiceTabsTriggers from '../ServiceTabsTriggers'
+import ServiceTabsContent from './components/ServiceTabsContent'
+import ServiceTabsTriggers from './components/ServiceTabsTriggers'
 
 const ServiceTabs = ({ services }: { services: Service[] }) => {
   return (

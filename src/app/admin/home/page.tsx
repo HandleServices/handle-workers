@@ -1,7 +1,7 @@
 'use client'
 
 import Search from '@/components/Search'
-import ServiceTabsFetcher from '@/components/ServiceTabs'
+import ServiceTabsFetcher from '@/components/ServiceTabs/components/ServiceTabsFetcher'
 
 const Home = () => {
   const search = (value: string) => {
