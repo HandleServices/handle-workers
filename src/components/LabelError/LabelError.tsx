@@ -4,17 +4,20 @@ const generalErrorSchemaKey = 'GENERAL_ERROR_SCHEMA'
 
 interface LabelErrorProps<T extends FieldValues> {
   errors: FieldErrors<T>
-  name: keyof T | 'GENERAL_ERROR_SCHEMA'
+  name: keyof T | typeof generalErrorSchemaKey
 }
 
 const LabelError = <T extends FieldValues>({
   errors,
   name,
 }: LabelErrorProps<T>) => {
-  if (!errors[name]) return undefined
+  const errorMessage = errors[name]?.message
+
+  if (!errorMessage) return null
+
   return (
     <p className="text-handle-red-600 text-sm">
-      {errors[name]?.message?.toString()}
+      {typeof errorMessage === 'string' ? errorMessage : String(errorMessage)}
     </p>
   )
 }

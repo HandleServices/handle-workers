@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import DialogButton from '@/components/Dialog/components/DialogButton'
 import Search from '@/components/Search'
 import WorksList from '@/components/WorksList/WorksList'
-import { WorkService } from '@/types/models/Service.model'
+import { WorkOrder } from '@/types/models/Order.model'
 
 const Services = () => {
   const search = (value: string) => {
@@ -12,7 +12,7 @@ const Services = () => {
   }
   const [isSendingData, setIsSendingData] = useState(false)
   const [dialogIsOpen, setDialogIsOpen] = useState(false)
-  const [workList, setWorkList] = React.useState<WorkService[]>([
+  const [workList, setWorkList] = React.useState<WorkOrder[]>([
     {
       id: 1,
       customer: {

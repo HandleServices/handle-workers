@@ -2,10 +2,10 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as Separator from '@radix-ui/react-separator'
+import { AxiosError } from 'axios'
 import { useRouter } from 'next/navigation'
-import { useContext } from 'react'
+import { useContext, useMemo, useState } from 'react'
 import { Controller, SubmitHandler } from 'react-hook-form'
-import { toast } from 'react-hot-toast'
 import { z } from 'zod'
 
 import { Button } from '@/components/Button'
@@ -15,7 +15,9 @@ import { LabelError } from '@/components/LabelError'
 import { generalErrorSchemaKey } from '@/components/LabelError/LabelError'
 import { RegisterFormContext } from '@/contexts/RegisterFormContext'
 import { ValidateRegisterDto } from '@/types/dtos/auth/ValidateRegisterDto'
-import { handleErrorMessage } from '@/utils/functions/errors-type-guards'
+import { ErrorType } from '@/types/enums/ErrorType'
+import { HandleError } from '@/utils/class/HandleError'
+import errorHandler from '@/utils/err/errorHandler'
 import { hashPassword } from '@/utils/functions/hash-password'
 import { useBreakpoint } from '@/utils/hooks/useBreakpoints'
 import { useFormattedForm } from '@/utils/hooks/useFormattedForm'
@@ -88,6 +90,12 @@ export default function Register() {
 
   const { updateFormData } = useContext(RegisterFormContext)
   const { validateRegister } = useRegisterHook()
+  const [error, setError] = useState<HandleError | AxiosError>()
+  const [errorCode, setErrorCode] = useState<ErrorType>()
+
+  const ErrorComponent = useMemo(() => {
+    return errorCode ? errorHandler[errorCode] : null
+  }, [errorCode])
 
   const onSubmit: SubmitHandler<RegisterType> = async (data) => {
     try {
@@ -112,8 +120,12 @@ export default function Register() {
       updateFormData(passData)
       router.push('complete_register')
     } catch (error) {
-      const errorMessage = handleErrorMessage(error)
-      toast.error(errorMessage)
+      let code = error?.response?.status as ErrorType
+      if (!code) {
+        code = ErrorType.NETWORK_ERROR
+      }
+      setError(error)
+      setErrorCode(code)
     }
   }
 
@@ -122,166 +134,172 @@ export default function Register() {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="w-full min-[586px]:min-h-screen max-[585px]:h-full max-[1000px]:px-2 max-[1000px]:py-8 px-20 py-10 flex items-center justify-center"
-    >
-      <div className="w-2/3 max-[1000px]:w-11/12 max-[1400px]:w-10/12 gap-10 flex flex-col items-center min-[585px]:justify-center bg-handle-background">
-        <div className="w-full flex flex-col gap-6 bg-handle-background">
-          <div className="w-full flex flex-col gap-1">
-            <Input
-              {...register('name')}
-              error={!!errors.name}
-              className="w-full"
-              placeholder="Nome"
-              customBgColor="bg-handle-background"
-            />
-
-            <LabelError errors={errors} name="name" />
-          </div>
-
-          <div className="w-full flex flex-col gap-1">
-            <Input
-              {...register('email')}
-              error={!!errors.email}
-              className="w-full"
-              placeholder="E-mail"
-              customBgColor="bg-handle-background"
-            />
-
-            <LabelError errors={errors} name="email" />
-          </div>
-
-          <div className="flex flex-row gap-6 max-[650px]:gap-2">
+    <>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="w-full min-[586px]:min-h-screen max-[585px]:h-full max-[1000px]:px-2 max-[1000px]:py-8 px-20 py-10 flex items-center justify-center"
+      >
+        <div className="w-2/3 max-[1000px]:w-11/12 max-[1400px]:w-10/12 gap-10 flex flex-col items-center min-[585px]:justify-center bg-handle-background">
+          <div className="w-full flex flex-col gap-6 bg-handle-background">
             <div className="w-full flex flex-col gap-1">
               <Input
-                {...registerFormatted('phoneNumber')}
-                error={!!errors.phoneNumber}
+                {...register('name')}
+                error={!!errors.name}
                 className="w-full"
-                placeholder="Telefone"
+                placeholder="Nome"
                 customBgColor="bg-handle-background"
               />
 
-              <LabelError errors={errors} name="phoneNumber" />
+              <LabelError errors={errors} name="name" />
             </div>
 
             <div className="w-full flex flex-col gap-1">
               <Input
-                {...registerFormatted('identificationNumber')}
-                error={!!errors.identificationNumber}
+                {...register('email')}
+                error={!!errors.email}
                 className="w-full"
-                placeholder="CPF/CNPJ"
+                placeholder="E-mail"
                 customBgColor="bg-handle-background"
               />
 
-              <LabelError errors={errors} name="identificationNumber" />
-            </div>
-          </div>
-
-          <div className="flex flex-row gap-6 max-[650px]:gap-2">
-            <div className="w-full flex flex-col gap-1">
-              <Input
-                {...register('password')}
-                error={!!errors.password}
-                className="w-full"
-                placeholder="Senha"
-                type="password"
-                customBgColor="bg-handle-background"
-                inputClassName="pr-14"
-              />
-
-              <LabelError errors={errors} name="password" />
+              <LabelError errors={errors} name="email" />
             </div>
 
-            <div className="w-full flex flex-col gap-1">
-              <Input
-                {...register('repeatPassword')}
-                error={!!errors.repeatPassword}
-                className="w-full"
-                placeholder="Repita a senha"
-                type="password"
-                customBgColor="bg-handle-background"
-                inputClassName="pr-14"
-              />
-
-              <LabelError errors={errors} name="repeatPassword" />
-            </div>
-          </div>
-
-          <LabelError errors={errors} name={generalErrorSchemaKey} />
-        </div>
-
-        <div className="flex flex-col gap-5 items-center justify-center">
-          <div className="flex flex-col gap-1 items-center justify-center">
-            <Controller
-              name="agree"
-              defaultValue={false}
-              control={control}
-              render={({ field: { name, onChange, ref, disabled, value } }) => (
-                <CustomCheckbox
-                  ref={ref}
-                  name={name}
-                  disabled={disabled}
-                  checked={value === true}
-                  onCheckedChange={(checked) => {
-                    const isChecked =
-                      checked === 'indeterminate' ? true : checked
-                    onChange(isChecked)
-                  }}
-                  checkboxId="checkbox-login"
-                  label="Concordo e aceito os termos de consentimento."
+            <div className="flex flex-row gap-6 max-[650px]:gap-2">
+              <div className="w-full flex flex-col gap-1">
+                <Input
+                  {...registerFormatted('phoneNumber')}
+                  error={!!errors.phoneNumber}
+                  className="w-full"
+                  placeholder="Telefone"
+                  customBgColor="bg-handle-background"
                 />
-              )}
-            />
 
-            <LabelError errors={errors} name="agree" />
-            <div className="flex flex-col justify-center items-center mt-5">
-              <p className="">
-                Já possui uma conta?{' '}
-                <a onClick={openLogin} className="font-bold cursor-pointer">
-                  Entrar
-                </a>
-              </p>
-              <Button
-                size={isBelowSm ? 'mediumlg' : 'extra'}
-                variant="primary"
-                className="mt-2"
-              >
-                <span className="text-handle-background max-[770px]:text-[0.9rem] text-lg">
-                  {'Cadastrar'}
-                </span>
-              </Button>
+                <LabelError errors={errors} name="phoneNumber" />
+              </div>
+
+              <div className="w-full flex flex-col gap-1">
+                <Input
+                  {...registerFormatted('identificationNumber')}
+                  error={!!errors.identificationNumber}
+                  className="w-full"
+                  placeholder="CPF/CNPJ"
+                  customBgColor="bg-handle-background"
+                />
+
+                <LabelError errors={errors} name="identificationNumber" />
+              </div>
             </div>
+
+            <div className="flex flex-row gap-6 max-[650px]:gap-2">
+              <div className="w-full flex flex-col gap-1">
+                <Input
+                  {...register('password')}
+                  error={!!errors.password}
+                  className="w-full"
+                  placeholder="Senha"
+                  type="password"
+                  customBgColor="bg-handle-background"
+                  inputClassName="pr-14"
+                />
+
+                <LabelError errors={errors} name="password" />
+              </div>
+
+              <div className="w-full flex flex-col gap-1">
+                <Input
+                  {...register('repeatPassword')}
+                  error={!!errors.repeatPassword}
+                  className="w-full"
+                  placeholder="Repita a senha"
+                  type="password"
+                  customBgColor="bg-handle-background"
+                  inputClassName="pr-14"
+                />
+
+                <LabelError errors={errors} name="repeatPassword" />
+              </div>
+            </div>
+
+            <LabelError errors={errors} name={generalErrorSchemaKey} />
           </div>
 
-          <div className="w-full gap-4 flex flex-row items-center">
-            <Separator.Root
-              className="bg-handle-gray h-[1px] w-full"
-              decorative
-              orientation="horizontal"
-            ></Separator.Root>
+          <div className="flex flex-col gap-5 items-center justify-center">
+            <div className="flex flex-col gap-1 items-center justify-center">
+              <Controller
+                name="agree"
+                defaultValue={false}
+                control={control}
+                render={({
+                  field: { name, onChange, ref, disabled, value },
+                }) => (
+                  <CustomCheckbox
+                    ref={ref}
+                    name={name}
+                    disabled={disabled}
+                    checked={value === true}
+                    onCheckedChange={(checked) => {
+                      const isChecked =
+                        checked === 'indeterminate' ? true : checked
+                      onChange(isChecked)
+                    }}
+                    checkboxId="checkbox-login"
+                    label="Concordo e aceito os termos de consentimento."
+                  />
+                )}
+              />
 
-            <span className="text-handle-gray">ou</span>
+              <LabelError errors={errors} name="agree" />
+              <div className="flex flex-col justify-center items-center mt-5">
+                <p className="">
+                  Já possui uma conta?{' '}
+                  <a onClick={openLogin} className="font-bold cursor-pointer">
+                    Entrar
+                  </a>
+                </p>
+                <Button
+                  size={isBelowSm ? 'mediumlg' : 'extra'}
+                  variant="primary"
+                  className="mt-2"
+                >
+                  <span className="text-handle-background max-[770px]:text-[0.9rem] text-lg">
+                    {'Cadastrar'}
+                  </span>
+                </Button>
+              </div>
+            </div>
 
-            <Separator.Root
-              className="bg-handle-gray h-[1px] w-full"
-              decorative
-              orientation="horizontal"
-            ></Separator.Root>
+            <div className="w-full gap-4 flex flex-row items-center">
+              <Separator.Root
+                className="bg-handle-gray h-[1px] w-full"
+                decorative
+                orientation="horizontal"
+              ></Separator.Root>
+
+              <span className="text-handle-gray">ou</span>
+
+              <Separator.Root
+                className="bg-handle-gray h-[1px] w-full"
+                decorative
+                orientation="horizontal"
+              ></Separator.Root>
+            </div>
+
+            <Button
+              type="button"
+              size={isBelowSm ? 'mediumlg' : 'extra'}
+              icon={<SvgComponent />}
+              variant="secondary"
+            >
+              <span className="w-full text-handle-gray-300 max-[645px]:text-[0.85rem] min-[646px]:text-lg">
+                Cadastrar-se com Google
+              </span>
+            </Button>
           </div>
-
-          <Button
-            type="button"
-            size={isBelowSm ? 'mediumlg' : 'extra'}
-            icon={<SvgComponent />}
-            variant="secondary"
-          >
-            <span className="w-full text-handle-gray-300 max-[645px]:text-[0.85rem] min-[646px]:text-lg">
-              Cadastrar-se com Google
-            </span>
-          </Button>
         </div>
-      </div>
-    </form>
+      </form>
+
+      {ErrorComponent && error && <ErrorComponent error={error} />}
+    </>
   )
 }
