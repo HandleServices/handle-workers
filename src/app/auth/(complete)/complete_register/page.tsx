@@ -11,6 +11,7 @@ import { z } from 'zod'
 
 import { Button } from '@/components/Button'
 import { DaysOfWeekPicker } from '@/components/DaysOfWeekPicker'
+import InOutTimePicker from '@/components/InOutTimePicker'
 import Input from '@/components/Input'
 import { InputImage } from '@/components/InputImage'
 import { LabelError } from '@/components/LabelError'
@@ -21,7 +22,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/Select/Select'
-import TimePicker from '@/components/TimePicker'
 import { RegisterFormContext } from '@/contexts/RegisterFormContext'
 import authService from '@/services/auth/auth.service'
 import { ErrorType } from '@/types/enums/ErrorType'
@@ -179,76 +179,74 @@ export default function CompleteRegister() {
                 )}
               />
 
-              <LabelError errors={errors} name="selectedRole" />
-            </div>
+            <LabelError errors={errors} name="selectedRole" />
           </div>
         </div>
-        <div className="relative border-1.5 border-handle-gray-300 w-11/12 sm:w-full h-full rounded-lg justify-self-center">
-          <label className="absolute text-sm tracking-widest -mt-[15px] bg-handle-background ml-2 p-1">
-            Meu expediente
-          </label>
-          <div className="flex flex-col items-center w-full h-full justify-center min-[200px]:py-4 min-[200px]:px-0">
-            <div className="flex flex-col gap-2">
-              <label
-                htmlFor=""
-                className="self-start text-sm tracking-widest font-thin"
+      </div>
+      <div className="relative border-1.5 border-handle-gray-300 w-11/12 sm:w-full h-full rounded-lg justify-self-center">
+        <label className="absolute text-sm tracking-widest -mt-[15px] bg-handle-background ml-2 p-1">
+          Meu expediente
+        </label>
+        <div className="flex flex-col items-center w-full h-full justify-center min-[200px]:py-4 min-[200px]:px-0">
+          <div className="flex flex-col gap-2">
+            <label
+              htmlFor=""
+              className="self-start text-sm tracking-widest font-thin"
+            >
+              Selecione os dias que você trabalha :)
+            </label>
+            <div className="flex flex-col">
+              <Controller
+                control={control}
+                name="workingDays"
+                defaultValue={[]}
+                render={({ field }) => (
+                  <DaysOfWeekPicker
+                    {...field}
+                    className={clsx(
+                      'h-full gap-1 min-[415px]:gap-2 sm:gap-[21.59px]  w-full',
+                      {
+                        'mb-3': errors.workingDays,
+                        'mb-6': !errors.workingDays,
+                      },
+                    )}
+                  />
+                )}
+              />
+              <div
+                className={clsx('flex justify-center', {
+                  'mb-5': errors.workingDays,
+                  'mb-0': !errors.workingDays,
+                })}
               >
-                Selecione os dias que você trabalha :)
-              </label>
-              <div className="flex flex-col">
-                <Controller
-                  control={control}
-                  name="workingDays"
-                  defaultValue={[]}
-                  render={({ field }) => (
-                    <DaysOfWeekPicker
-                      {...field}
-                      className={clsx(
-                        'h-full gap-1 min-[415px]:gap-2 sm:gap-[21.59px]  w-full',
-                        {
-                          'mb-3': errors.workingDays,
-                          'mb-6': !errors.workingDays,
-                        },
-                      )}
-                    />
-                  )}
-                />
-                <div
-                  className={clsx('flex justify-center', {
-                    'mb-5': errors.workingDays,
-                    'mb-0': !errors.workingDays,
-                  })}
-                >
-                  <LabelError errors={errors} name="workingDays" />
-                </div>
+                <LabelError errors={errors} name="workingDays" />
               </div>
             </div>
-            <Controller
-              name="workingHour"
-              control={control}
-              render={({ field }) => (
-                <TimePicker
-                  className=""
-                  value={field.value}
-                  onChange={field.onChange}
-                />
-              )}
-            />
           </div>
+          <Controller
+            name="workingHour"
+            control={control}
+            defaultValue={['00:00', '00:00']}
+            render={({ field }) => (
+              <InOutTimePicker
+                className=""
+                value={field.value}
+                onChange={field.onChange}
+              />
+            )}
+          />
         </div>
-        <div className="flex flex-col justify-center items-center pb-5">
-          <Button
-            type="submit"
-            size="large"
-            variant={'primary'}
-            className="text-lg"
-          >
-            {'Finalizar'}
-          </Button>
-        </div>
-      </form>
-
-      {ErrorComponent && error && <ErrorComponent error={error} />}
-    </>
+      </div>
+      <div className="flex flex-col justify-center items-center pb-5">
+        <Button
+          type="submit"
+          size="large"
+          variant={'primary'}
+          className="text-lg"
+        >
+          {'Finalizar'}
+        </Button>
+      </div>
+    </form>
   )
 }

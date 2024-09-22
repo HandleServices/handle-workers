@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
+import { twMerge } from 'tailwind-merge'
 
 import { AboutIcon } from './assets/about-icon'
 import { ArrowIcon } from './assets/arrow-icon'
@@ -12,7 +13,7 @@ import { WalletIcon } from './assets/wallet-icon'
 import SidebarItem from './components/SidebarItem'
 
 export interface SidebarProps {
-  children: React.ReactNode
+  className?: string
 }
 
 export interface ISidebarItem {
@@ -63,11 +64,11 @@ export const BottomMenus: ISidebarItem[] = [
     path: 'about',
   },
 ]
-const Sidebar = () => {
+const Sidebar = ({ className }: SidebarProps) => {
   const [open, setOpen] = useState(true)
 
   return (
-    <aside className="flex z-50">
+    <aside className={twMerge('flex z-50', className)}>
       <div
         className={`${open ? 'w-72 open' : 'w-20 close'} rounded-r-lg h-screen relative bg-white border-r shadow-xl p-0 duration-300`}
       >

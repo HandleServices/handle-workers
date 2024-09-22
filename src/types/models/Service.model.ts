@@ -13,3 +13,13 @@ export interface Service {
   name: string
   status: ServiceStatusEnum
 }
+
+export interface WorkService {
+  id?: number
+  customer?: Customer
+  value: number
+  name: string
+  description: string
+  estimatedTime: string
+  enable: boolean
+}
