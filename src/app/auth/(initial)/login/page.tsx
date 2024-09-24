@@ -1,8 +1,9 @@
 'use client'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as Separator from '@radix-ui/react-separator'
+import { AxiosError } from 'axios'
 import { useRouter } from 'next/navigation'
-import { useContext } from 'react'
+import { useContext, useMemo, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { z } from 'zod'
@@ -13,7 +14,9 @@ import { LabelError } from '@/components/LabelError'
 import { AuthContext } from '@/contexts/AuthContext'
 import authService from '@/services/auth/auth.service'
 import { LoginDto } from '@/types/dtos/auth/LoginDto'
-import { handleErrorMessage } from '@/utils/functions/errors-type-guards'
+import { ErrorType } from '@/types/enums/ErrorType'
+import { HandleError } from '@/utils/class/HandleError'
+import errorHandler from '@/utils/err/errorHandler'
 import { hashPassword } from '@/utils/functions/hash-password'
 import { useBreakpoint } from '@/utils/hooks/useBreakpoints'
 
@@ -28,6 +31,8 @@ type LoginType = z.infer<typeof loginSchema>
 
 export default function Login() {
   const { isBelowMd } = useBreakpoint('md')
+  const [error, setError] = useState<HandleError | AxiosError>()
+  const [errorCode, setErrorCode] = useState<ErrorType>()
   const {
     register,
     handleSubmit,
@@ -39,16 +44,24 @@ export default function Login() {
   const router = useRouter()
   const { signIn } = useContext(AuthContext)
 
-  const onSubmit: SubmitHandler<LoginType> = async (data: LoginDto) => {
+  const ErrorComponent = useMemo(() => {
+    return errorCode ? errorHandler[errorCode] : null
+  }, [errorCode])
+
+  const onSubmit: SubmitHandler<LoginDto> = async (data) => {
     try {
       data.password = await hashPassword(data.password)
       const response = await authService.signin(data)
       signIn(response)
       toast.success('Login realizado com sucesso ;)')
       router.push('/admin/home')
-    } catch (error) {
-      const errorMessage = handleErrorMessage(error)
-      toast.error(errorMessage)
+    } catch (error: any) {
+      let code = error?.response?.status as ErrorType
+      if (!code) {
+        code = ErrorType.NETWORK_ERROR
+      }
+      setError(error)
+      setErrorCode(code)
     }
   }
 
@@ -57,91 +70,95 @@ export default function Login() {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="w-full min-[586px]:min-h-screen max-[585px]:h-full max-[1000px]:px-4 max-[1000px]:py-8 px-20 py-10 flex items-center justify-evenly"
-    >
-      <div className="w-2/3 max-[1000px]:w-11/12 max-[1400px]:w-10/12 h-full gap-10 max-[585px]:gap-14 flex flex-col items-center justify-start max-[585px]:mt-20 bg-handle-background">
-        <div className="w-full flex flex-col gap-6 bg-handle-background">
-          <div className="w-full flex flex-col gap-1">
-            <Input
-              {...register('email')}
-              error={!!errors.email}
-              className="w-full"
-              placeholder="E-mail"
-              customBgColor="bg-handle-background"
-              height="3rem"
-            />
+    <>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="w-full min-[586px]:min-h-screen max-[585px]:h-full max-[1000px]:px-4 max-[1000px]:py-8 px-20 py-10 flex items-center justify-evenly"
+      >
+        <div className="w-2/3 max-[1000px]:w-11/12 max-[1400px]:w-10/12 h-full gap-10 max-[585px]:gap-14 flex flex-col items-center justify-start max-[585px]:mt-20 bg-handle-background">
+          <div className="w-full flex flex-col gap-6 bg-handle-background">
+            <div className="w-full flex flex-col gap-1">
+              <Input
+                {...register('email')}
+                error={!!errors.email}
+                className="w-full"
+                placeholder="E-mail"
+                customBgColor="bg-handle-background"
+                height="3rem"
+              />
 
-            <LabelError errors={errors} name="email" />
+              <LabelError errors={errors} name="email" />
+            </div>
+
+            <div className="w-full flex flex-col gap-1">
+              <Input
+                {...register('password')}
+                error={!!errors.password}
+                className="w-full"
+                placeholder="Senha"
+                type="password"
+                customBgColor="bg-handle-background"
+                height="3rem"
+                inputClassName="pr-14"
+              />
+
+              <LabelError errors={errors} name="password" />
+            </div>
           </div>
 
-          <div className="w-full flex flex-col gap-1">
-            <Input
-              {...register('password')}
-              error={!!errors.password}
-              className="w-full"
-              placeholder="Senha"
-              type="password"
-              customBgColor="bg-handle-background"
-              height="3rem"
-              inputClassName="pr-14"
-            />
+          <div className="flex flex-col gap-2 justify-center items-center">
+            <div className="flex flex-col gap-4">
+              <p className="">
+                Ainda não possui uma conta?{' '}
+                <a onClick={openRegister} className="font-bold cursor-pointer">
+                  Cadastre-se
+                </a>
+              </p>
+              <Button
+                type="submit"
+                size={isBelowMd ? 'mediumlg' : 'extra'}
+                action={() => ({})}
+                variant="primary"
+                className="self-center"
+              >
+                <span className="text-handle-background text-lg">Entrar</span>
+              </Button>
+            </div>
 
-            <LabelError errors={errors} name="password" />
+            <div className="w-full gap-4 flex flex-row items-center">
+              <Separator.Root
+                className="bg-handle-gray h-[1px] w-full"
+                decorative
+                orientation="horizontal"
+              />
+
+              <span className="text-handle-gray">ou</span>
+
+              <Separator.Root
+                className="bg-handle-gray h-[1px] w-full"
+                decorative
+                orientation="horizontal"
+              />
+            </div>
+
+            <div>
+              <Button
+                type="button"
+                size={isBelowMd ? 'mediumlg' : 'extra'}
+                icon={<SvgComponent />}
+                action={() => ({})}
+                variant="secondary"
+              >
+                <span className="text-handle-gray-300 text-lg">
+                  Entrar com Google
+                </span>
+              </Button>
+            </div>
           </div>
         </div>
+      </form>
 
-        <div className="flex flex-col gap-2 justify-center items-center">
-          <div className="flex flex-col gap-4">
-            <p className="">
-              Ainda não possui uma conta?{' '}
-              <a onClick={openRegister} className="font-bold cursor-pointer">
-                Cadastre-se
-              </a>
-            </p>
-            <Button
-              type="submit"
-              size={isBelowMd ? 'mediumlg' : 'extra'}
-              action={() => ({})}
-              variant="primary"
-              className="self-center"
-            >
-              <span className="text-handle-background text-lg">Entrar</span>
-            </Button>
-          </div>
-
-          <div className="w-full gap-4 flex flex-row items-center">
-            <Separator.Root
-              className="bg-handle-gray h-[1px] w-full"
-              decorative
-              orientation="horizontal"
-            />
-
-            <span className="text-handle-gray">ou</span>
-
-            <Separator.Root
-              className="bg-handle-gray h-[1px] w-full"
-              decorative
-              orientation="horizontal"
-            />
-          </div>
-
-          <div>
-            <Button
-              type="button"
-              size={isBelowMd ? 'mediumlg' : 'extra'}
-              icon={<SvgComponent />}
-              action={() => ({})}
-              variant="secondary"
-            >
-              <span className="text-handle-gray-300 text-lg">
-                Entrar com Google
-              </span>
-            </Button>
-          </div>
-        </div>
-      </div>
-    </form>
+      {ErrorComponent && error && <ErrorComponent error={error} />}
+    </>
   )
 }

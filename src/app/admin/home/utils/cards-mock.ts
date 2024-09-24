@@ -1,8 +1,12 @@
-import { ServiceStatusEnum } from '@/types/enums/ServiceStatusEnum'
-import { Service } from '@/types/models/Service.model'
+import { OrderStatusEnum } from '@/types/enums/OrderStatusEnum'
+import { Order } from '@/types/models/Order.model'
 
-export const CardsMock: { [key in ServiceStatusEnum]: Service[] } = {
-  pending: [
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+
+export const fetchOrders = async (): Promise<Order[]> => {
+  await delay(1000)
+
+  return [
     {
       id: 1,
       name: 'Manutenção de Ar Condicionado',
@@ -12,7 +16,7 @@ export const CardsMock: { [key in ServiceStatusEnum]: Service[] } = {
       },
       dateTime: new Date(),
       value: 100.0,
-      status: ServiceStatusEnum.PENDING,
+      status: OrderStatusEnum.PENDING,
     },
     {
       id: 2,
@@ -23,10 +27,8 @@ export const CardsMock: { [key in ServiceStatusEnum]: Service[] } = {
       },
       dateTime: new Date(),
       value: 100.0,
-      status: ServiceStatusEnum.PENDING,
+      status: OrderStatusEnum.PENDING,
     },
-  ],
-  open: [
     {
       id: 3,
       name: 'Manutenção de Ar Condicionado',
@@ -36,7 +38,7 @@ export const CardsMock: { [key in ServiceStatusEnum]: Service[] } = {
       },
       dateTime: new Date(),
       value: 100.0,
-      status: ServiceStatusEnum.OPEN,
+      status: OrderStatusEnum.OPEN,
     },
     {
       id: 4,
@@ -47,10 +49,8 @@ export const CardsMock: { [key in ServiceStatusEnum]: Service[] } = {
       },
       dateTime: new Date(),
       value: 100.0,
-      status: ServiceStatusEnum.OPEN,
+      status: OrderStatusEnum.OPEN,
     },
-  ],
-  finished: [
     {
       id: 5,
       name: 'Manutenção de Ar Condicionado',
@@ -60,10 +60,8 @@ export const CardsMock: { [key in ServiceStatusEnum]: Service[] } = {
       },
       dateTime: new Date(),
       value: 100.0,
-      status: ServiceStatusEnum.FINISHED,
+      status: OrderStatusEnum.FINISHED,
     },
-  ],
-  canceled: [
     {
       id: 6,
       name: 'Manutenção de Ar Condicionado',
@@ -73,7 +71,7 @@ export const CardsMock: { [key in ServiceStatusEnum]: Service[] } = {
       },
       dateTime: new Date(),
       value: 100.0,
-      status: ServiceStatusEnum.CANCELED,
+      status: OrderStatusEnum.CANCELED,
     },
-  ],
+  ]
 }

@@ -1,20 +1,20 @@
-import { ServiceStatusEnum } from '../enums/ServiceStatusEnum'
+import { OrderStatusEnum } from '../enums/OrderStatusEnum'
 
 interface Customer {
   name?: string
   address?: string
 }
 
-export interface Service {
+export interface Order {
   id?: number
   customer?: Customer
   dateTime: Date
   value: number
   name: string
-  status: ServiceStatusEnum
+  status: OrderStatusEnum
 }
 
-export interface WorkService {
+export interface WorkOrder {
   id?: number
   customer?: Customer
   value: number
